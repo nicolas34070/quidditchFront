@@ -1,0 +1,22 @@
+p{
+    color: white;
+}
+.nav{
+    height: 62px;
+    background-color: #0d172c;
+    line-height: 50px;
+    font-family: open-sans,sans-serif;
+    font-size: 16px;
+    
+}
+a{
+    color: white;
+}
+a:hover{
+    text-decoration:underline;
+}
+a.nav-link.active{
+    display: flex;
+    align-content: center;
+    text-align: center;
+}

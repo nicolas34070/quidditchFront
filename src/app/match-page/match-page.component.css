@@ -1,0 +1,33 @@
+img{
+    width: 30px;
+}
+p{
+    background-color:#4A90E2;
+    width: 100%;
+    font-size: 15px;
+    color: white;
+}
+.container {
+    background-color: whitesmoke;
+    width: 70%;
+    border: solid #4A90E2 1px;
+    margin-bottom: 1%;
+}
+.row{
+    font-size: 15px;
+    font-style: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#nombre1{
+    text-align: center;
+    font-weight: 500;
+}
+h3{
+    text-align: right;
+}
+#blason{
+    padding-top: 2%;
+    width: 20%;
+}
