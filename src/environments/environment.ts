@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  urls: {
+    baseApiUrl: 'http://http://quidditchback.test/api/' //put the name of the back here.
+  }
 };
 
 /*
