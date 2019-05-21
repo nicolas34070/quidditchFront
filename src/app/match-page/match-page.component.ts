@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {UserDataService} from "../services/user-data.service";
+import {User} from "../models/User";
+import {MatchDataService} from "../services/match-data.service";
+import {Match} from "../models/Match";
 
 @Component({
   selector: 'app-match-page',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchPageComponent implements OnInit {
 
-  constructor() { }
+  public matchesList: Match[] = [];
 
-  ngOnInit() {
+  constructor(public matchDataService: MatchDataService) { }
+
+  async ngOnInit() {
+    this.matchDataService.getMatchs().subscribe((matches: Match[]) => {
+      console.log(matches);
+      this.matchesList = matches;
+     });
   }
-
 }

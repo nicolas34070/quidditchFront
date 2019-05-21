@@ -1,0 +1,7 @@
+{
+    "/utilisateurs": {
+        "target": "http://quidditchback.test/index.php/api/",
+        "secure": false,
+        "changeOrigin": true
+    }
+}

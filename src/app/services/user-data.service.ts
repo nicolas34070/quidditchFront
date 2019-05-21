@@ -5,7 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {User} from "../models/User";
 
-const urlUsers = 'users';
+const urlUsers = 'utilisateurs';
 
 @Injectable()
 export class UserDataService {

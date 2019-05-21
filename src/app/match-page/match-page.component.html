@@ -1,26 +1,28 @@
 <img id="blason" src="https://vignette.wikia.nocookie.net/harrypotter/images/f/fd/QWC.png/revision/latest?cb=20161023220629" alt="">
       <h1>Coupe du monde de quiditch  </h1>
-<div class="container">
-  <div class="row"><p> 13 Janvier 2019 - 20H29 - 60 min </p></div>
+
+
+<div *ngFor="let match of matchesList;"  class="container">
+  <div class="row"><p> {{ match.date.locale('fr').format('LLLL')}}  -  {{ match.date.fromNow()}}  </p></div>
   <div class="row">
      <div class="col-sm">
-        <h6>Griffindor</h6> 
+        <h6>{{ match.premiereEquipe.nom}}</h6>
        </div>
        <div class="col-sm">
           <img src="http://idata.over-blog.com/3/99/33/72/grif.gif" alt=""> 
          </div>
     
      <div class="col-sm" id="nombre1">
-    300 - 210
+       {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
     </div>
     <div class="col-sm">
         <img src="https://www.logolynx.com/images/logolynx/53/5390e974544de6279c4d9cb6253e3a2c.jpeg" alt="">
         </div>
     <div class="col-sm">
-       <h6>Slytheryn</h6> 
+       <h6>{{ match.deuxiemeEquipe.nom}}</h6>
         </div>
     
       
 
+    </div>
   </div>
-</div>
