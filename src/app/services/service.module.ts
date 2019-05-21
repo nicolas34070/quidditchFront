@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import {UserDataService} from "./user-data.service";
 
 
 
@@ -6,6 +7,7 @@ import { NgModule } from '@angular/core';
   imports: [
   ],
   providers: [
+    UserDataService
   ]
 })
 
