@@ -1,35 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppComponent } from './app.component';
-import { MatchPageComponent } from './match-page/match-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RouterModule, Routes} from '@angular/router';
+import {AppRoutingModule} from "./app-routing.module";
+
 import { FormsModule } from '@angular/forms';
-import { NavbarreComponent } from './navbarre/navbarre.component';
-import { ArbitrageComponent } from './arbitrage/arbitrage.component';
+import {NavbarreModule} from "./navbarre/navbarre.module";
+import {MatchPageModule} from "./match-page/match-page.module";
+import {LoginModule} from "./login-page/login.module";
+import {ArbitrageModule} from "./arbitrage/arbitrage.module";
+import {HttpClientModule} from "@angular/common/http";
 
-
-const appRoutes: Routes = [
-  {path: 'login', component: LoginPageComponent},
-  {path:'', component: MatchPageComponent},
-  {path:'arbitrage', component: ArbitrageComponent}
-
- 
-
- ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    MatchPageComponent,
-    LoginPageComponent,
-    NavbarreComponent,
-    ArbitrageComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule 
+    HttpClientModule,
+
+    FormsModule,
+    NavbarreModule,
+    MatchPageModule,
+    LoginModule,
+    ArbitrageModule,
+
+    AppRoutingModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
