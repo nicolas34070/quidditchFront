@@ -4,6 +4,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import {ArbitrageComponent} from "./arbitrage.component";
 import {CommonModule} from "@angular/common";
 import {MatchDataService} from "../services/match-data.service";
+import {CoreModule} from "../core/core.module";
+import {ModalModule} from "../ui-component/modal/modal.module";
 
 
 
@@ -13,7 +15,9 @@ import {MatchDataService} from "../services/match-data.service";
   ],
   imports: [
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    CoreModule,
+    ModalModule
   ],
   exports: [
   ],

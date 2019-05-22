@@ -133,7 +133,31 @@ export class MatchDataService {
         deuxiemeEquipe: match.deuxiemeEquipe
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlMatchs + '/' + match.idMatch, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/' + match.idMatch, body).pipe(
+        map(
+          (data: any) => {
+            return Match.mapToMatch(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating match ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+  /**
+   * Update a match score in DB
+   * @param {Match} match - The match to update
+   * @returns {Observable<Match>}
+   */
+  updateMatchScore(match: Match): Observable<Match> {
+    try {
+      const body = {
+        scorePremiereEquipe: match.scorePremiereEquipe,
+        scoreDeuxiemeEquipe: match.scoreDeuxiemeEquipe,
+      };
+
+      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/score/' + match.idMatch, body).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);

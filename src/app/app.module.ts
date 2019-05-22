@@ -11,11 +11,13 @@ import {LoginModule} from "./login-page/login.module";
 import {ArbitrageModule} from "./arbitrage/arbitrage.module";
 import {HttpClientModule} from "@angular/common/http";
 import {CoreModule} from "./core/core.module";
+import { ModalScoreComponent } from './ui-component/modal/modal-score/modal-score.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    ModalScoreComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,7 @@ import {CoreModule} from "./core/core.module";
     LoginModule,
     ArbitrageModule,
     CoreModule,
+
 
     CommonModule,
     

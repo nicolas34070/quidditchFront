@@ -31,13 +31,7 @@ h3{
     padding-top: 2%;
     width: 20%;
 }
-button{
-margin: 2%;
-margin-top: 0%;
-border-radius: 20px;
-background-color: #f3f4f7;
-color: #0062cc;
-}
+
 hr { 
     display: block;
     overflow: hidden;

@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Saisir le score</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group">
+      <label for="newScorePremiereEquipe"> {{ match.premiereEquipe.nom }} : </label>
+      <input  [(ngModel)]=" match.scorePremiereEquipe" name="newScorePremiereEquipe" type="text" class="form-control" id="newScorePremiereEquipe" placeholder="{{ match.scorePremiereEquipe }}">
+    </div>
+    <div class="form-group">
+      <label for="newScoreDeuxiemeEquipe">{{ match.deuxiemeEquipe.nom }} : </label>
+      <input type="text" [(ngModel)]=" match.scoreDeuxiemeEquipe" name="newScoreDeuxiemeEquipe" class="form-control" id="newScoreDeuxiemeEquipe" placeholder="{{ match.scoreDeuxiemeEquipe }}">
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('cancel click')">Fermer</button>
+  <button type="button" class="btn btn-danger" (click)="saveScore()">Sauvegarder</button>
+</div>
