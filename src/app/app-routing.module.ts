@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {MatchPageComponent} from "./match-page/match-page.component";
 import {ArbitrageComponent} from "./arbitrage/arbitrage.component";
+import {TournoiPageComponent} from "./tournoi-page/tournoi-page.component";
 
 
 const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
-  {path:'', component: MatchPageComponent},
-  {path:'arbitrage', component: ArbitrageComponent}
+  {path:'', component: TournoiPageComponent},
+  {path:'arbitrage', component: ArbitrageComponent},
+  {path:'match/:id', component: MatchPageComponent}
 ];
 
 @NgModule({

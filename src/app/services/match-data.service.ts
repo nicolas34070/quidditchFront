@@ -82,6 +82,27 @@ export class MatchDataService {
     );
   }
 
+  /**
+   * Return matchs from DB with
+   * @param {String} id - The match's id
+   * @returns {Observable<Match>}
+   */
+  getMatchsByTournoi(idTournoi: string): Observable<Match[]>{
+    // @ts-ignore
+    return this.http.get(environment.urls.baseApiUrl + urlMatchs + '/tournoi/' + idTournoi).pipe(
+      map(
+        (data: any[]) => {
+          const matchs = [];
+          data.forEach((match) => {
+            matchs.push(Match.mapToMatch(match));
+          });
+          return matchs;
+        }
+      )
+    );
+  }
+
+
 
 
   /**

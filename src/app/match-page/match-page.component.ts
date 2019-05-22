@@ -3,6 +3,7 @@ import {UserDataService} from "../services/user-data.service";
 import {User} from "../models/User";
 import {MatchDataService} from "../services/match-data.service";
 import {Match} from "../models/Match";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-match-page',
@@ -12,11 +13,20 @@ import {Match} from "../models/Match";
 export class MatchPageComponent implements OnInit {
 
   public matchesList: Match[] = [];
+  public id: string = "0";
 
-  constructor(public matchDataService: MatchDataService) { }
+  constructor(private route: ActivatedRoute, public matchDataService: MatchDataService) { }
 
   async ngOnInit() {
-    this.matchDataService.getMatchs().subscribe((matches: Match[]) => {
+    this.route.params.subscribe(params => {
+      this.id = params['id']
+      this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
+        console.log(matches);
+        this.matchesList = matches;
+      });
+    });
+
+    this.matchDataService.getMatchsByTournoi().subscribe((matches: Match[]) => {
       console.log(matches);
       this.matchesList = matches;
      });
