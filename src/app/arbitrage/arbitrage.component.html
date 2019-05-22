@@ -1,6 +1,6 @@
       <h1>Mes matches assignés  </h1>
       <div *ngFor="let match of matchesList;"  class="container">
-        <div class="row"><p> {{ match.date.locale('fr').format('LLLL')}}  -  {{ match.date.fromNow()}}  </p></div>
+        <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}  </p></div>
         <div class="row">
           <div class="col-sm">
             <h6>{{ match.premiereEquipe.nom}}</h6>

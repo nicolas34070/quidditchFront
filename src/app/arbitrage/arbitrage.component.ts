@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Match} from "../models/Match";
 import {MatchDataService} from "../services/match-data.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-arbitrage',
@@ -17,8 +18,14 @@ export class ArbitrageComponent implements OnInit {
 
   async ngOnInit() {
     this.matchDataService.getMatchsByArbitre(this.provisoireIdArbitre).subscribe((matches: Match[]) => {
-      console.log(matches);
-      this.matchesList = matches;
+
+      matches.map(match => {
+        if (match.dateFin == null ) {
+          if (match.dateDebut.format("DD/MM/YYY") <= (moment().format("DD/MM/YYY"))) {
+            this.matchesList.push(match)
+          }
+        }
+      } );
     });
   }
 

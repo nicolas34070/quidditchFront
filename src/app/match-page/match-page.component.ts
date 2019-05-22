@@ -28,7 +28,6 @@ export class MatchPageComponent implements OnInit {
       this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
           if (match.dateFin == null ) {
-            console.log(moment().format("DD/MM/YYY"))
             if (match.dateDebut.format("DD/MM/YYY") > (moment().format("DD/MM/YYY"))) {
               this.MatchsListAVenir.push(match)
             } else {

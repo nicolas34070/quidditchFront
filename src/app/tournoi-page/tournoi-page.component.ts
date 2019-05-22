@@ -21,7 +21,6 @@ export class TournoiPageComponent implements OnInit {
     this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) =>
     {
       tournois.map(tournoi => {
-        console.log(tournoi);
         if (tournoi.dateFin == null) {
           this.tournoisListEnCours.push(tournoi);
         } else {

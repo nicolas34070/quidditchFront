@@ -3,7 +3,8 @@
 
 
 <div *ngFor="let match of MatchsListEnCours;"  class="container">
-  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}  </p></div>
+  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}
+    au {{ match.terrain.nom }} </p></div>
   <div class="row">
      <div class="col-sm">
         <h6>{{ match.premiereEquipe.nom}}</h6>
@@ -27,7 +28,8 @@
 <h1> Matchs à venir</h1>
 
 <div *ngFor="let match of MatchsListAVenir;"  class="container">
-  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}  </p></div>
+  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}
+    au {{ match.terrain.nom }}  </p></div>
   <div class="row">
     <div class="col-sm">
       <h6>{{ match.premiereEquipe.nom}}</h6>
