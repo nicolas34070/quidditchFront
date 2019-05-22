@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Match} from "../models/Match";
+import {MatchDataService} from "../services/match-data.service";
 
 @Component({
   selector: 'app-arbitrage',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArbitrageComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
+  public matchesList: Match[] = [];
+  public provisoireIdArbitre : string = "4";
+
+  constructor(public matchDataService: MatchDataService) { }
+
+  async ngOnInit() {
+    this.matchDataService.getMatchsByArbitre(this.provisoireIdArbitre).subscribe((matches: Match[]) => {
+      console.log(matches);
+      this.matchesList = matches;
+    });
   }
 
 }

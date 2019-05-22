@@ -62,6 +62,27 @@ export class MatchDataService {
     );
   }
 
+  /**
+   * Return matchs from DB with
+   * @param {String} id - The match's id
+   * @returns {Observable<Match>}
+   */
+  getMatchsByArbitre(idArbitre: string): Observable<Match[]>{
+    // @ts-ignore
+    return this.http.get(environment.urls.baseApiUrl + urlMatchs + '/arbitre/' + idArbitre).pipe(
+      map(
+        (data: any[]) => {
+          const matchs = [];
+          data.forEach((match) => {
+            matchs.push(Match.mapToMatch(match));
+          });
+          return matchs;
+        }
+      )
+    );
+  }
+
+
 
   /**
    * Add a match into DB
