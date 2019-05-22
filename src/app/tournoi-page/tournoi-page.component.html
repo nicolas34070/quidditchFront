@@ -1,8 +1,29 @@
 <img id="blason" src="https://vignette.wikia.nocookie.net/harrypotter/images/f/fd/QWC.png/revision/latest?cb=20161023220629" alt="">
-<h1>Tous les tournois </h1>
 
-<ul class="list-group">
-  <li *ngFor="let tournoi of tournoisList;"   class="list-group-item" class="nav-item">
-    <a class="nav-link" routerLinkActive="active"  [routerLink]="['match', tournoi.idTournoi]" >  {{ tournoi.nom }} - {{ tournoi.pays }}</a>
-  </li>
-</ul>
+
+<div class="container">
+
+  <div>
+    <h1>Tous les tournois en cours </h1>
+  <ul class="list-group">
+    <li clq *ngFor="let tournoi of tournoisListEnCours;"   class="list-group-item" class="nav-item">
+      <a class="nav-link" routerLinkActive="active"  [routerLink]="['match', tournoi.idTournoi]" >
+        {{ tournoi.nom }} - {{ tournoi.pays }}
+        <br/>  <span> Depuis le {{ tournoi.dateDebut.locale('fr').format('LLLL')}} </span>
+      </a>
+    </li>
+  </ul>
+  </div>
+  <div>
+
+  <h1>Tous les tournois finis </h1>
+  <ul class="list-group">
+    <li *ngFor="let tournoiFin of tournoisListFinis;"   class="list-group-item" class="nav-item">
+      <a class="nav-link" routerLinkActive="active"  [routerLink]="['match', tournoiFin.idTournoi]" >  {{ tournoiFin.nom }} - {{ tournoiFin.pays }}
+        <br/>  <span> Du {{ tournoiFin.dateDebut.locale('fr').format('LL')}} au {{ tournoiFin.dateFin.locale('fr').format('LL')}} </span>
+      </a>
+    </li>
+  </ul>
+  </div>
+
+</div>

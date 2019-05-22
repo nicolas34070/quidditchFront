@@ -11,7 +11,7 @@ export class ArbitrageComponent implements OnInit {
 
 
   public matchesList: Match[] = [];
-  public provisoireIdArbitre : string = "4";
+  public provisoireIdArbitre : string = "1";
 
   constructor(public matchDataService: MatchDataService) { }
 

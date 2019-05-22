@@ -12,14 +12,23 @@ import {Tournoi} from "../models/Tournoi";
 export class TournoiPageComponent implements OnInit {
 
 
-  public tournoisList: Tournoi[] = [];
+  public tournoisListEnCours: Tournoi[] = [];
+  public tournoisListFinis: Tournoi[] = [];
 
   constructor(public tournoiDataService: TournoiDataService) { }
 
   async ngOnInit() {
-    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) => {
-      console.log(tournois);
-      this.tournoisList = tournois;
+    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) =>
+    {
+      tournois.map(tournoi => {
+        console.log(tournoi);
+        if (tournoi.dateFin == null) {
+          this.tournoisListEnCours.push(tournoi);
+        } else {
+          console.log(tournoi)
+          this.tournoisListFinis.push(tournoi);
+        }
+      } );
     });
   }
 }

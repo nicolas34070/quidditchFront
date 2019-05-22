@@ -1,4 +1,6 @@
-
+img{
+    width: 30px;
+}
 p{
     background-color:#4A90E2;
     width: 100%;
@@ -9,7 +11,7 @@ p{
     background-color: whitesmoke;
     width: 70%;
     border: solid #4A90E2 1px;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
 }
 .row{
     font-size: 15px;
@@ -28,4 +30,8 @@ h3{
 #blason{
     padding-top: 2%;
     width: 20%;
+}
+
+h1 {
+  margin-bottom: 1%;
 }

@@ -11,3 +11,22 @@ p{
   padding-top: 2%;
   width: 20%;
 }
+
+
+.container {
+  flex-direction: row ;
+  justify-content: space-between;
+
+
+  display: flex; /* or inline-flex */
+}
+
+li {
+  list-style-type:none
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

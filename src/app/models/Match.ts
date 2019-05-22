@@ -25,7 +25,8 @@ export class Match {
     public scorePremiereEquipe?: number,
     public scoreDeuxiemeEquipe?: number,
     public temps?: number,
-    public date?: Moment,
+    public dateDebut?: Moment,
+    public dateFin?: Moment,
     public arbitre?: User,
     public terrain?: Terrain,
     public premiereEquipe?: Equipe,
@@ -54,8 +55,9 @@ export class Match {
     let terrain = Terrain.mapToTerrain(data.terrain);
     let premiereEquipe = Equipe.mapToEquipe(data.premiereEquipe);
     let secondEquipe = Equipe.mapToEquipe(data.deuxiemeEquipe);
-    let date = moment(data.date, 'YYYY-MM-DD HH:mm:ss');
-    return new Match(data.idMatch, data.scorePremiereEquipe, data.scoreDeuxiemeEquipe, data.temps, date, arbitre, terrain,
+    let date_debut = moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
+    let date_fin = data.dateFin == null ? null : moment(data.dateFin, 'YYYY-MM-DD HH:mm:ss');
+    return new Match(data.idMatch, data.scorePremiereEquipe, data.scoreDeuxiemeEquipe, data.temps, date_debut, date_fin, arbitre, terrain,
       premiereEquipe, secondEquipe);
   }
 

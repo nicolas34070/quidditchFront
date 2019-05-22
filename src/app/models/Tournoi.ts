@@ -6,15 +6,17 @@ export class Tournoi {
 
   /**
    *
-   * @param {number} [id] - The id of the tournoi
+   * @param {number} [idTournoi] - The id of the tournoi
    * @param {String} [nom] - The name of the tournoi
-   * @param {Moment} [date] - The role of the tournoi
+   * @param {DateTimeFormat} [date_debut] - The date debut of the tournoi
+   * @param {DateTimeFormat} [date_fin] - The date fin of the tournoi
    * @param {String} [pays] - The pays of the tournoi
    */
   constructor(
     public idTournoi: number,
     public nom?: string,
-    public date?: Moment,
+    public dateDebut?: Moment,
+    public dateFin?: Moment,
     public pays?: string
 
   ) { }
@@ -24,15 +26,18 @@ export class Tournoi {
 
   /**
    * Converts an object with any type into a User object.
-   * @param {number} [id] - The id of the tournoi
+   * @param {number} [idTournoi] - The id of the tournoi
    * @param {String} [nom] - The name of the tournoi
-   * @param {Moment} [date] - The role of the tournoi
+   * @param {DateTimeFormat} [date_debut] - The date debut of the tournoi
+   * @param {DateTimeFormat} [date_fin] - The date fin of the tournoi
    * @param {String} [pays] - The pays of the tournoi
    * @returns {Tournoi} - The tournoi object created from data values
    */
   static mapToTournoi(data: any): Tournoi {
-    let date = moment(data.date, 'YYYY-MM-DD HH:mm:ss');
-    return new Tournoi(data.idTournoi, data.nom, date, data.pays);
+    let date_debut = moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
+    let date_fin = data.dateFin == null ? null : moment(data.dateFin, 'YYYY-MM-DD HH:mm:ss');
+
+    return new Tournoi(data.idTournoi, data.nom, date_debut, date_fin, data.pays);
   }
 
 }

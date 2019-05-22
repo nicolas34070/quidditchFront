@@ -2,8 +2,8 @@
       <h1>Coupe du monde de quiditch  </h1>
 
 
-<div *ngFor="let match of matchesList;"  class="container">
-  <div class="row"><p> {{ match.date.locale('fr').format('LLLL')}}  -  {{ match.date.fromNow()}}  </p></div>
+<div *ngFor="let match of MatchsListEnCours;"  class="container">
+  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}  </p></div>
   <div class="row">
      <div class="col-sm">
         <h6>{{ match.premiereEquipe.nom}}</h6>
@@ -22,4 +22,53 @@
        <h6>{{ match.deuxiemeEquipe.nom}}</h6>
         </div>
     </div>
+</div>
+
+<h1> Matchs à venir</h1>
+
+<div *ngFor="let match of MatchsListAVenir;"  class="container">
+  <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}  </p></div>
+  <div class="row">
+    <div class="col-sm">
+      <h6>{{ match.premiereEquipe.nom}}</h6>
+    </div>
+    <div class="col-sm">
+      <img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">
+    </div>
+
+    <div class="col-sm" id="nombre1">
+      {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
+    </div>
+    <div class="col-sm">
+      <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
+    </div>
+    <div class="col-sm">
+      <h6>{{ match.deuxiemeEquipe.nom}}</h6>
+    </div>
+  </div>
+</div>
+
+
+<h1>Matchs finis </h1>
+
+<div *ngFor="let match of MatchsListFinis;"  class="container">
+  <div class="row"><p> Du {{ match.dateDebut.locale('fr').format('LLLL')}}  au {{ match.dateFin.locale('fr').format('LLLL')}}   </p></div>
+  <div class="row">
+    <div class="col-sm">
+      <h6>{{ match.premiereEquipe.nom}}</h6>
+    </div>
+    <div class="col-sm">
+      <img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">
+    </div>
+
+    <div class="col-sm" id="nombre1">
+      {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
+    </div>
+    <div class="col-sm">
+      <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
+    </div>
+    <div class="col-sm">
+      <h6>{{ match.deuxiemeEquipe.nom}}</h6>
+    </div>
+  </div>
 </div>
