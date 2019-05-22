@@ -13,12 +13,13 @@ import {HttpClientModule} from "@angular/common/http";
 import {CoreModule} from "./core/core.module";
 import {TournoiPageModule} from "./tournoi-page/tournoi-page.module";
 import {ModalScoreComponent} from "./ui-component/modal/modal-score/modal-score.component";
+import {AdminPageModule} from "./admin-page/admin-page.module";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ModalScoreComponent
+    ModalScoreComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +31,7 @@ import {ModalScoreComponent} from "./ui-component/modal/modal-score/modal-score.
     ArbitrageModule,
     CoreModule,
     TournoiPageModule,
+    AdminPageModule,
 
     CommonModule,
     

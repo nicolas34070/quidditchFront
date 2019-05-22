@@ -72,8 +72,8 @@ export class TournoiDataService {
       const body = {
         client: tournoi.nom,
         type: tournoi.pays,
-        date_fin: tournoi.date_fin,
-        date_debut: tournoi.date_debut
+        date_fin: tournoi.dateFin,
+        date_debut: tournoi.dateDebut
       };
       return this.http.post(environment.urls.baseApiUrl + urlTournois, body).pipe(
         map(
@@ -99,8 +99,8 @@ export class TournoiDataService {
       const body = {
         client: tournoi.nom,
         type: tournoi.pays,
-        date_fin: tournoi.date_fin,
-        date_debut: tournoi.date_debut
+        date_fin: tournoi.dateFin,
+        date_debut: tournoi.dateDebut
       };
 
       return this.http.patch(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi, body).pipe(

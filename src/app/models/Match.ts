@@ -14,7 +14,8 @@ export class Match {
    * @param {number} [scorePremiereEquipe] - The score of the match
    * @param {number} [scoreDeuxiemeEquipe] - The score of the match
    * @param {number} [temps] - The time of the match
-   * @param {DateTimeFormat} [date] - The date of the match
+   * @param {DateTimeFormat} [dateDebut] - The date of the match
+   * @param {DateTimeFormat} [dateFin] - The date of the match
    * @param {Object} [arbitre] - The arbitre of the match
    * @param {Object} [terrain] - The terrain of the match
    * @param {Object} [premiereEquipe] - The first team
