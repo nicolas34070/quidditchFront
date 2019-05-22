@@ -1,23 +1,28 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from '../app-routing.module';
-import {NavbarreComponent} from "./navbarre.component";
+import {CommonModule} from "@angular/common";
+import {ModalComponent} from "./modal/modal.component";
+import {NavbarreComponent} from "./navbarre/navbarre.component";
 
 
 
 @NgModule({
   declarations: [
+    ModalComponent,
     NavbarreComponent
   ],
   imports: [
     AppRoutingModule,
+    CommonModule
   ],
   exports: [
-    NavbarreComponent,
+    ModalComponent,
+    NavbarreComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 
-export class NavbarreModule { }
+export class CoreModule { }

@@ -6,11 +6,11 @@ import {AppRoutingModule} from "./app-routing.module";
 import { CommonModule } from "@angular/common";
 
 import { FormsModule } from '@angular/forms';
-import {NavbarreModule} from "./navbarre/navbarre.module";
 import {MatchPageModule} from "./match-page/match-page.module";
 import {LoginModule} from "./login-page/login.module";
 import {ArbitrageModule} from "./arbitrage/arbitrage.module";
 import {HttpClientModule} from "@angular/common/http";
+import {CoreModule} from "./core/core.module";
 
 
 @NgModule({
@@ -22,10 +22,10 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
 
     FormsModule,
-    NavbarreModule,
     MatchPageModule,
     LoginModule,
     ArbitrageModule,
+    CoreModule,
 
     CommonModule,
     
