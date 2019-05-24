@@ -5,20 +5,23 @@
 </mat-form-field>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-  <!-- ID Column -->
-  <ng-container matColumnDef="idUtilisateur">
+  <ng-container matColumnDef="idTerrain">
     <mat-header-cell *matHeaderCellDef mat-sort-header> id
     </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idUtilisateur}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.idTerrain}} </mat-cell>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container matColumnDef="nom">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom de l'arbitre
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom du terrain
     </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="lieu">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Pays
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.lieu.nom}} </mat-cell>
+  </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row.id)"

@@ -150,10 +150,10 @@ export class MatchDataService {
         temps: match.temps,
         dateDebut:  moment(match.dateDebut).format('DD MMMM HH:mm'),
         dateFin:  moment(match.dateFin).format('DD MMMM HH:mm'),
-        arbitre: match.arbitre,
-        terrain: match.terrain,
-        premiereEquipe: match.premiereEquipe,
-        deuxiemeEquipe: match.deuxiemeEquipe
+        arbitre: match.arbitre.idUtilisateur,
+        terrain: match.terrain.idTerrain,
+        premiereEquipe: match.premiereEquipe.idEquipe,
+        deuxiemeEquipe: match.deuxiemeEquipe.idEquipe
       };
 
       return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/' + match.idMatch, body).pipe(

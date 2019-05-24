@@ -9,7 +9,7 @@ export class AdminPageComponent implements OnInit {
 
   active: string = "tournois";
 
-  onActive(event: string) {
+  onActive(event) {
     this.active = event;
   }
 

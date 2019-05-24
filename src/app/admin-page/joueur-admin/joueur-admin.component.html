@@ -1,3 +1,47 @@
-<p>
-  joueur-admin works!
-</p>
+<br/>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+</mat-form-field>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+  <ng-container matColumnDef="idJoueur">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> id
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.idJoueur}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nom">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nationalite">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Nationalite
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.nationalite.nom }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="poste">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Poste
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.poste.nom }} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="equipe">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Equipe
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.equipe.nom}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row.id)"
+           [tabIndex]="0">
+  </mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="20" showFirstLastButtons></mat-paginator>
+

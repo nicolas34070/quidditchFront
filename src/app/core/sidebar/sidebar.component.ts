@@ -11,14 +11,14 @@ export class SidebarComponent implements OnInit {
   active: string = "tournois";
 
   @Output()
-  activeTitle: EventEmitter = new EventEmitter<string>();
+  activeTitle: EventEmitter = new EventEmitter<any>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onComponent(name: string) {
+  onComponent(name) {
     this.active = name;
     this.activeTitle.emit(this.active);
 

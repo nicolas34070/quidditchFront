@@ -6,15 +6,15 @@
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
   <!-- ID Column -->
-  <ng-container matColumnDef="idUtilisateur">
+  <ng-container matColumnDef="idPays">
     <mat-header-cell *matHeaderCellDef mat-sort-header> id
     </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idUtilisateur}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.idPays}} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="nom">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom de l'arbitre
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Nom du pays
     </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
   </ng-container>

@@ -94,7 +94,7 @@ export class EquipeDataService {
   updateEquipe(equipe: Equipe): Observable<Equipe> {
     try {
       const body = {
-        client: equipe.nom,
+        nom: equipe.nom,
       };
 
       return this.http.patch(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe, body).pipe(

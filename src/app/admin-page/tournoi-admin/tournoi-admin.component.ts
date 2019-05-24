@@ -27,6 +27,13 @@ export class TournoiAdminComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.tournoisList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      this.dataSource.filterPredicate = (data, filter) => {
+        let dataFinfilter = data.dateFin == null ? "Tournoi en cours" : data.dateFin.locale("FR").format("L");
+        const dataStr = data.nom +  data.dateDebut.locale("FR").format("L") + dataFinfilter + data.pays;
+
+        return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
+      }
     });
 
 

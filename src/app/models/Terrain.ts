@@ -1,15 +1,17 @@
+import {Pays} from "./Pays";
+
 export class Terrain {
 
   /**
    *
    * @param {number} [idTerrain] - The id of the terrain
    * @param {String} [nom] - The name of the terrain
-   * @param {String} [lieu] - The id of the lieu..
+   * @param {Pays} [lieu] - The id of the lieu..
    */
   constructor(
     public idTerrain: number,
     public nom?: string,
-    public lieu?: number
+    public lieu?: Pays
   ) { }
 
 
@@ -20,9 +22,11 @@ export class Terrain {
    * @param {number} [idTerrain] - The id of the terrain
    * @param {String} [nom] - The name of the terrain
    * @param {String} [lieu] - The id of the lieu..
+   * @returns {Terrain} - The user object created from data values
    */
   static mapToTerrain(data: any): Terrain {
-    return new Terrain(data.idTerrain, data.nom, data.lieu);
+    let lieu = Pays.mapToPays(data.lieu);
+    return new Terrain(data.idTerrain, data.nom, lieu);
   }
 
 }

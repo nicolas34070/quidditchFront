@@ -43,6 +43,24 @@ export class UserDataService {
     );
   }
 
+  /**
+   * Return all users from DB
+   * @returns {Observable<User[]>}
+   */
+  getArbitres(): Observable<User[]> {
+    return this.http.get(environment.urls.baseApiUrl + "arbitres").pipe(
+      map(
+        (data: any[]) => {
+          const users = [];
+          data.forEach((user) => {
+            users.push(User.mapToUser(user));
+          });
+          return users;
+        }
+      )
+    );
+  }
+
 
 
   /**
@@ -71,7 +89,7 @@ export class UserDataService {
     try {
       const body = {
         nom: user.nom || '',
-        type: user.role || 'type 1'
+        role: user.role.idRole || '1'
       };
       return this.http.post(environment.urls.baseApiUrl + urlUsers, body).pipe(
         map(
@@ -95,11 +113,11 @@ export class UserDataService {
   updateUser(user: User): Observable<User> {
     try {
       const body = {
-        client: user.nom,
-        type: user.role,
+        nom: user.nom,
+        role: user.role.idRole,
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlUsers + '/' + user.id, body).pipe(
+      return this.http.patch(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur, body).pipe(
         map(
           (data: any) => {
             return User.mapToUser(data);

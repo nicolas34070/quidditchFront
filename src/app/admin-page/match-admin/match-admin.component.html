@@ -1,3 +1,59 @@
-<p>
-  match-admin works!
-</p>
+<br/>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+</mat-form-field>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+  <ng-container matColumnDef="idMatch">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> id
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.idMatch}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tournoi">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Tournoi
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.tournoi.nom }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="premiereEquipe">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> 1ere Equipe
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.premiereEquipe.nom}} : {{ element.scorePremiereEquipe}} pts </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="deuxiemeEquipe">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> 2e Equipe
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.deuxiemeEquipe.nom}} : {{ element.scoreDeuxiemeEquipe}} pts </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="terrain">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Terrain
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.terrain.nom }} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="dateDebut">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Date de début
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.dateDebut.locale("FR").format("L")}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateFin">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Date de fin
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.dateFin != null ? element.dateFin.locale("FR").format("L") : "Tournoi en cours"}} </mat-cell>
+  </ng-container>
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row.id)"
+           [tabIndex]="0">
+  </mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="20" showFirstLastButtons></mat-paginator>

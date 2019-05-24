@@ -1,3 +1,4 @@
+import {Role} from "./Role";
 
 
 export class User {
@@ -6,12 +7,12 @@ export class User {
    *
    * @param {number} [id] - The id of the user
    * @param {String} [nom] - The name of the user
-   * @param {String} [role] - The role of the user
+   * @param {Role} [role] - The role of the user
    */
   constructor(
-    public id: number,
+    public idUtilisateur: number,
     public nom?: string,
-    public role?: string
+    public role?: Role
   ) { }
 
 
@@ -25,7 +26,8 @@ export class User {
    * @returns {User} - The user object created from data values
    */
   static mapToUser(data: any): User {
-    return new User(data.id, data.nom, data.role);
+    let role = Role.mapToRole(data.role);
+    return new User(data.idUtilisateur, data.nom, role);
   }
 
 }

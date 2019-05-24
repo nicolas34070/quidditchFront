@@ -1,30 +1,31 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {EquipeDataService} from "../../services/equipe-data.service";
-import {Equipe} from "../../models/Equipe";
+import {Pays} from "../../models/Pays";
+import {PaysDataService} from "../../services/pays-data.service";
 
 @Component({
-  selector: 'app-equipe-admin',
-  templateUrl: './equipe-admin.component.html',
-  styleUrls: ['./equipe-admin.component.css']
+  selector: 'app-pays-admin',
+  templateUrl: './pays-admin.component.html',
+  styleUrls: ['./pays-admin.component.css']
 })
-export class EquipeAdminComponent implements OnInit {
+export class PaysAdminComponent implements OnInit {
+
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  equipesList: Equipe[];
+  paysList: Pays[];
 
-  constructor(public equipeDataService: EquipeDataService) { }
+  constructor(public paysDataService: PaysDataService) { }
 
-  displayedColumns: string[] = ['idEquipe', 'nom'];
-  dataSource: MatTableDataSource<Equipe>  = null;
+  displayedColumns: string[] = ['idPays', 'nom'];
+  dataSource: MatTableDataSource<Pays>  = null;
 
   async ngOnInit() {
-    this.equipeDataService.getEquipes().subscribe((equipes: Equipe[]) =>
+    this.paysDataService.getAllPays().subscribe((pays: Pays[]) =>
     {
-      this.equipesList = equipes;
-      this.dataSource = new MatTableDataSource(this.equipesList);
+      this.paysList = pays;
+      this.dataSource = new MatTableDataSource(this.paysList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
