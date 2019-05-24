@@ -1,1 +1,6 @@
-<app-sidebar></app-sidebar>
+<app-sidebar (activeTitle)="onActive($event)"></app-sidebar>
+<app-tournoi-admin *ngIf="this.active == 'tournois'"></app-tournoi-admin>
+<app-match-admin *ngIf="this.active == 'matchs'"></app-match-admin>
+<app-equipe-admin *ngIf="this.active == 'equipe'"></app-equipe-admin>
+<app-arbitre-admin *ngIf="this.active == 'arbitre'"></app-arbitre-admin>
+<app-joueur-admin *ngIf="this.active == 'joueur'"></app-joueur-admin>

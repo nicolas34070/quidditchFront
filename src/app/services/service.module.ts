@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {UserDataService} from "./user-data.service";
 import {MatchDataService} from "./match-data.service";
 import {TournoiDataService} from "./tournoi-date.service";
+import {EquipeDataService} from "./equipe-date.service";
 
 
 
@@ -11,7 +12,8 @@ import {TournoiDataService} from "./tournoi-date.service";
   providers: [
     UserDataService,
     MatchDataService,
-    TournoiDataService
+    TournoiDataService,
+    EquipeDataService
   ]
 })
 

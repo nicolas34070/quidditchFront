@@ -1,5 +1,3 @@
-<app-sidebar></app-sidebar>
-
 <br/>
 
   <mat-form-field>
@@ -7,28 +5,28 @@
   </mat-form-field>
 
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-    <!-- Name Column -->
+    <!-- ID Column -->
     <ng-container matColumnDef="idTournoi">
       <mat-header-cell *matHeaderCellDef mat-sort-header> id
       </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.idTournoi}} </mat-cell>
     </ng-container>
 
-    <!-- Client Column -->
+    <!-- Name Column -->
     <ng-container matColumnDef="nom">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nom
       </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.nom}} </mat-cell>
     </ng-container>
 
-    <!-- Type Column -->
+    <!-- Date debut Column -->
     <ng-container matColumnDef="dateDebut">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Date de début
       </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.dateDebut.locale("FR").format("L")}} </mat-cell>
     </ng-container>
 
-    <!-- Status Column -->
+    <!-- Date fin Column -->
     <ng-container matColumnDef="dateFin">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Date de fin
       </mat-header-cell>
@@ -36,7 +34,7 @@
     </ng-container>
 
 
-    <!-- Type Column -->
+    <!-- Pays Column -->
     <ng-container matColumnDef="pays">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Pays
       </mat-header-cell>

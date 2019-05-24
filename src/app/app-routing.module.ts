@@ -4,7 +4,7 @@ import {LoginPageComponent} from "./login-page/login-page.component";
 import {MatchPageComponent} from "./match-page/match-page.component";
 import {ArbitrageComponent} from "./arbitrage/arbitrage.component";
 import {TournoiPageComponent} from "./tournoi-page/tournoi-page.component";
-import {TournoiAdminComponent} from "./admin-page/tournoi-admin/tournoi-admin.component";
+import {AdminPageComponent} from "./admin-page/admin-page.component";
 
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
   {path:'', component: TournoiPageComponent},
   {path:'arbitrage', component: ArbitrageComponent},
   {path:'match/:id', component: MatchPageComponent},
-  {path:'admin', component: TournoiAdminComponent}
+  {path:'admin', component: AdminPageComponent}
 ];
 
 @NgModule({

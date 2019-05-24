@@ -16,7 +16,6 @@ import {ModalScoreComponent} from "./ui-component/modal/modal-score/modal-score.
 import {AdminPageModule} from "./admin-page/admin-page.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatNativeDateModule} from "@angular/material";
-import {MaterialModule} from "./material-app.module";
 
 
 @NgModule({

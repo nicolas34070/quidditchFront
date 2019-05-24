@@ -1,14 +1,23 @@
 <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" href="/admin">Tournoi</a>
+    <a class="{{ this.active == 'tournois' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('tournois')">Tournoi</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/admin">Joueur</a>
+    <a class="{{ this.active == 'equipe' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('equipe')">Equipe</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/admin">Arbitre</a>
+    <a class="{{ this.active == 'joueur' ? 'nav-link active' : 'nav-link'}} "   (click)="onComponent('joueur')">Joueur</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="/admin">Match</a>
+    <a class="{{ this.active == 'arbitre' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('arbitre')">Arbitre</a>
+  </li>
+  <li class="nav-item">
+    <a class="{{ this.active == 'matchs' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('matchs')">Match</a>
+  </li>
+  <li class="nav-item">
+    <a class="{{ this.active == 'terrain' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('terrain')">Terrain</a>
+  </li>
+  <li class="nav-item">
+    <a class="{{ this.active == 'pays' ? 'nav-link active' : 'nav-link'}} "  (click)="onComponent('pays')">Pays</a>
   </li>
 </ul>
