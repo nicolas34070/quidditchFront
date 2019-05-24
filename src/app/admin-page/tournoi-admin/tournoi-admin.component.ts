@@ -1,0 +1,56 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Tournoi} from "../../models/Tournoi";
+import {TournoiDataService} from "../../services/tournoi-date.service";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+
+@Component({
+  selector: 'app-tournoi-admin',
+  templateUrl: './tournoi-admin.component.html',
+  styleUrls: ['./tournoi-admin.component.css']
+})
+export class TournoiAdminComponent implements OnInit {
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  tournoisList: Tournoi[];
+
+  constructor(public tournoiDataService: TournoiDataService) { }
+
+  displayedColumns: string[] = ['idTournoi', 'nom', 'dateDebut', 'dateFin', 'pays'];
+  dataSource: MatTableDataSource<Tournoi>  = null;
+
+  async ngOnInit() {
+    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) =>
+    {
+      this.tournoisList = tournois;
+      this.dataSource = new MatTableDataSource(this.tournoisList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+
+
+
+  }
+
+
+  /**
+   * Apply a filter
+   * @param {String} filterValue - The text tapped by the user in the search bar
+   */
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+
+
+  /**
+   * Open editing project sidebar
+   * @param {String} id - The project id.
+   */
+  handleBtnKeyUp(id: string): void {
+
+  }
+
+}

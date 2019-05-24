@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { CommonModule } from "@angular/common";
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatchPageModule} from "./match-page/match-page.module";
 import {LoginModule} from "./login-page/login.module";
 import {ArbitrageModule} from "./arbitrage/arbitrage.module";
@@ -14,6 +14,9 @@ import {CoreModule} from "./core/core.module";
 import {TournoiPageModule} from "./tournoi-page/tournoi-page.module";
 import {ModalScoreComponent} from "./ui-component/modal/modal-score/modal-score.component";
 import {AdminPageModule} from "./admin-page/admin-page.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatNativeDateModule} from "@angular/material";
+import {MaterialModule} from "./material-app.module";
 
 
 @NgModule({
@@ -24,6 +27,11 @@ import {AdminPageModule} from "./admin-page/admin-page.module";
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+
 
     FormsModule,
     MatchPageModule,
