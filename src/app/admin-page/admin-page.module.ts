@@ -17,6 +17,13 @@ import { ArbitreAdminComponent } from './arbitre-admin/arbitre-admin.component';
 import { TerrainAdminComponent } from './terrain-admin/terrain-admin.component';
 import { PaysAdminComponent } from './pays-admin/pays-admin.component';
 import {ServicesModule} from "../services/service.module";
+import { PaysAdminDetailsComponent } from './pays-admin/pays-admin-details/pays-admin-details.component';
+import { ArbitreAdminDetailsComponent } from './arbitre-admin/arbitre-admin-details/arbitre-admin-details.component';
+import { EquipeAdminDetailsComponent } from './equipe-admin/equipe-admin-details/equipe-admin-details.component';
+import { JoueurAdminDetailsComponent } from './joueur-admin/joueur-admin-details/joueur-admin-details.component';
+import { MatchAdminDetailsComponent } from './match-admin/match-admin-details/match-admin-details.component';
+import { TerrainAdminDetailsComponent } from './terrain-admin/terrain-admin-details/terrain-admin-details.component';
+import { TournoiAdminDetailsComponent } from './tournoi-admin/tournoi-admin-details/tournoi-admin-details.component';
 
 
 
@@ -29,7 +36,14 @@ import {ServicesModule} from "../services/service.module";
     EquipeAdminComponent,
     ArbitreAdminComponent,
     TerrainAdminComponent,
-    PaysAdminComponent
+    PaysAdminComponent,
+    PaysAdminDetailsComponent,
+    ArbitreAdminDetailsComponent,
+    EquipeAdminDetailsComponent,
+    JoueurAdminDetailsComponent,
+    MatchAdminDetailsComponent,
+    TerrainAdminDetailsComponent,
+    TournoiAdminDetailsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -45,6 +59,7 @@ import {ServicesModule} from "../services/service.module";
 
   ],
   exports: [
+    TournoiAdminDetailsComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

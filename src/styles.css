@@ -5,3 +5,36 @@
 body{
     background-color: #f3f4f7;
 }
+
+/* Structure */
+
+ mat-header-cell {
+  font-size: 16px;
+}
+
+ mat-cell {
+  font-weight: 500;
+}
+
+
+.mat-column-select {
+  overflow: initial;
+}
+
+mat-row {
+  border-width: 0;
+  border-bottom-width: 0px;
+}
+
+
+mat-form-field {
+  margin-left: 1em;
+  width: 20%;
+}
+
+.toolbarTable {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

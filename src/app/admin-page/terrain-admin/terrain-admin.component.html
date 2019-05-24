@@ -1,8 +1,12 @@
 <br/>
 
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
-</mat-form-field>
+
+<div class="toolbarTable">
+  <mat-form-field>
+    <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
+  </mat-form-field>
+  <button mat-flat-button color="primary" (click)="openProjectSideNav('creation')"> Ajouter un terrain </button>
+</div>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
   <ng-container matColumnDef="idTerrain">

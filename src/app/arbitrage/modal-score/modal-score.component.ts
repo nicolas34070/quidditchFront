@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import {Match} from "../../../models/Match";
-import {MatchDataService} from "../../../services/match-data.service";
+import {Match} from "../../models/Match";
+import {MatchDataService} from "../../services/match-data.service";
 
 @Component({
   selector: 'app-modal-score',

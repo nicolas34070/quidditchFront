@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Match} from "../../models/Match";
-import {ModalScoreComponent} from "./modal-score/modal-score.component";
+import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
 
 
 

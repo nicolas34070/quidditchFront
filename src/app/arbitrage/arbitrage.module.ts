@@ -6,20 +6,26 @@ import {CommonModule} from "@angular/common";
 import {MatchDataService} from "../services/match-data.service";
 import {CoreModule} from "../core/core.module";
 import {ModalModule} from "../ui-component/modal/modal.module";
+import {ModalScoreComponent} from "./modal-score/modal-score.component";
+import {FormsModule} from "@angular/forms";
 
 
 
 @NgModule({
   declarations: [
-    ArbitrageComponent
+    ArbitrageComponent,
+    ModalScoreComponent
   ],
   imports: [
     AppRoutingModule,
     CommonModule,
     CoreModule,
-    ModalModule
+    ModalModule,
+    FormsModule,
+
   ],
   exports: [
+    ModalScoreComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

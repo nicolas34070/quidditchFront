@@ -5,8 +5,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   NgbdModalFocus
 } from './modal.component';
-import {ModalScoreComponent} from "./modal-score/modal-score.component";
 import {MatchDataService} from "../../services/match-data.service";
+import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
 
 @NgModule({
   imports: [BrowserModule, NgbModule],
