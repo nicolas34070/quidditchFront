@@ -14,18 +14,20 @@ import {DateAdapter} from "@angular/material";
 })
 export class TournoiAdminAddComponent implements OnInit {
 
-  @Input() tournoi: Tournoi;
+  @Input() oldTournoi?: Tournoi;
+
   @Output()
   onChange: EventEmitter = new EventEmitter<any>();
 
   paysList: Pays[] = [];
   default = Pays;
+  defaultOldDateDebut = " ";
+  defaultOldDateFin;
 
 
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
-
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }
@@ -34,28 +36,46 @@ export class TournoiAdminAddComponent implements OnInit {
     this.angForm = this.fb.group({
       nom: ['', Validators.required ],
       dateDebut: ['', Validators.required ],
-      dateFin: ['' ],
+      dateFin: ['' , Validators.nullValidator(null)],
       pays: ['', Validators.required ]
     });
   }
 
 
   async ngOnInit() {
+
+    if (this.oldTournoi != null) {
+      if (this.oldTournoi.dateDebut) {
+        this.defaultOldDateDebut = this.oldTournoi.dateDebut.toISOString();
+      }
+      if (this.oldTournoi.dateFin) {
+        this.defaultOldDateFin = this.oldTournoi.dateFin.toISOString();
+      }
+    }
+
     this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
       this.paysList = pays;
-      this.default = this.paysList[0];
+      this.default =  this.oldTournoi != null ? this.oldTournoi.pays : this.paysList[0];
     });
   }
 
 
   save() {
-     this.tournoi = Tournoi.mapToTournoi(this.angForm.value);
-     this.tournoi.dateDebut = this.angForm.value.dateDebut.toISOString();
+    console.log(this.angForm.value);
+     let tournoi = Tournoi.mapToTournoi(this.angForm.value);
 
-    this.tournoiDataService.addTournoi(this.tournoi).subscribe((tournoi: Tournoi) => {
-      this.onCreated(true);
-      this.activeModal.dismiss();
-    });
+      if (this.oldTournoi != null) {
+        tournoi.idTournoi = this.oldTournoi.idTournoi;
+
+          this.tournoiDataService.updateTournoi(tournoi).subscribe((tournoi: Tournoi) => {
+            this.activeModal.dismiss();
+          });
+      } else {
+        this.tournoiDataService.addTournoi(tournoi).subscribe((tournoi: Tournoi) => {
+          this.activeModal.dismiss();
+        });
+      }
+
   }
 
   onCreated(value: boolean) {

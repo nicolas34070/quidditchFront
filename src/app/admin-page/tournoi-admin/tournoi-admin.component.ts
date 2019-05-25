@@ -2,6 +2,10 @@ import {Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/c
 import {Tournoi} from "../../models/Tournoi";
 import {TournoiDataService} from "../../services/tournoi-date.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
+import {TournoiAdminUpdateComponent} from "./tournoi-admin-update/tournoi-admin-update.component";
+import {TournoiAdminAddComponent} from "./tournoi-admin-add/tournoi-admin-add.component";
 
 @Component({
   selector: 'app-tournoi-admin',
@@ -15,7 +19,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
 
   tournoisList: Tournoi[];
 
-  constructor(public tournoiDataService: TournoiDataService) { }
+  constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal) { }
 
   displayedColumns: string[] = ['idTournoi', 'nom', 'dateDebut', 'dateFin', 'pays'];
   dataSource: MatTableDataSource<Tournoi>  = null;
@@ -60,10 +64,13 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
 
   /**
    * Open editing project sidebar
-   * @param {String} id - The project id.
+   * @param {Tournoi} element - The project id.
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(tournoi): void {
+    console.log(tournoi);
 
+    var modalRef =  this._modalService.open(TournoiAdminAddComponent);
+    modalRef.componentInstance.oldTournoi = tournoi ;
   }
 
 }

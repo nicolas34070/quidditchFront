@@ -24,6 +24,7 @@ import { JoueurAdminDetailsComponent } from './joueur-admin/joueur-admin-details
 import { MatchAdminDetailsComponent } from './match-admin/match-admin-details/match-admin-details.component';
 import { TerrainAdminDetailsComponent } from './terrain-admin/terrain-admin-details/terrain-admin-details.component';
 import { TournoiAdminAddComponent } from './tournoi-admin/tournoi-admin-add/tournoi-admin-add.component';
+import {TournoiAdminUpdateComponent} from "./tournoi-admin/tournoi-admin-update/tournoi-admin-update.component";
 
 
 
@@ -43,7 +44,7 @@ import { TournoiAdminAddComponent } from './tournoi-admin/tournoi-admin-add/tour
     JoueurAdminDetailsComponent,
     MatchAdminDetailsComponent,
     TerrainAdminDetailsComponent,
-    TournoiAdminAddComponent
+    TournoiAdminAddComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -56,12 +57,9 @@ import { TournoiAdminAddComponent } from './tournoi-admin/tournoi-admin-add/tour
     BrowserAnimationsModule,
     BrowserModule,
     ServicesModule,
-
-
-
   ],
   exports: [
-    TournoiAdminAddComponent
+    TournoiAdminAddComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

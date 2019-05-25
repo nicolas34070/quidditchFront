@@ -72,7 +72,7 @@ export class TournoiDataService {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateDebut: tournoi.dateDebut
+        dateDebut: tournoi.dateDebut.toISOString()
       };
 
       return this.http.post(environment.urls.baseApiUrl + urlTournois, body).pipe(
@@ -97,13 +97,13 @@ export class TournoiDataService {
   updateTournoi(tournoi: Tournoi): Observable<Tournoi> {
     try {
       const body = {
-        client: tournoi.nom,
-        type: tournoi.pays,
-        date_fin: tournoi.dateFin,
-        date_debut: tournoi.dateDebut
+        nom: tournoi.nom,
+        pays: tournoi.pays.idPays,
+        dateFin: tournoi.dateFin.toISOString(),
+        dateDebut: tournoi.dateDebut.toISOString()
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi, body).pipe(
         map(
           (data: any) => {
             return Tournoi.mapToTournoi(data);

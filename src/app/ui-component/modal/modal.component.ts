@@ -24,12 +24,8 @@ export class NgbdModalFocus {
   @Input() active = "score";
 
   constructor(private _modalService: NgbModal) {
-    console.log(this.active);
   }
 
-
-  onChange(event) {
-  }
 
   open(name: string) {
     switch (name) {
@@ -39,7 +35,7 @@ export class NgbdModalFocus {
         break;
       case 'tournois':
         var modalRef =  this._modalService.open(TournoiAdminAddComponent);
-        modalRef.componentInstance.match = this.content ;
+        modalRef.componentInstance.oldTournoi = this.content ;
         break;
 
       default:

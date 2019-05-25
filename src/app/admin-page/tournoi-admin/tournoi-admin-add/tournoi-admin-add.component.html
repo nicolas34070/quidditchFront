@@ -19,7 +19,7 @@
     <form [formGroup]="angForm" novalidate>
       <div class="form-group">
         <label>Name:</label>
-        <input class="form-control" formControlName="nom" type="text">
+        <input class="form-control" formControlName="nom" type="text"  ngModel="{{oldTournoi?.nom}}">
       </div>
       <div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">
         <div *ngIf="angForm.controls['nom'].errors.required">
@@ -29,11 +29,14 @@
 
       <div class="form-group">
         <label>Date de début:</label>
+        <p>
         <mat-form-field>
-        <input name="dateDebut" formControlName="dateDebut" matInput [matDatepicker]="myDatepicker2">
+        <input name="dateDebut" [(ngModel)]="this.defaultOldDateDebut" formControlName="dateDebut" matInput [matDatepicker]="myDatepicker2">
         <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
         <mat-datepicker #myDatepicker2></mat-datepicker>
         </mat-form-field>
+        </p>
+
       </div>
       <div *ngIf="angForm.controls['dateDebut'].invalid && (angForm.controls['dateDebut'].dirty || angForm.controls['dateDebut'].touched)" class="alert alert-danger">
         <div *ngIf="angForm.controls['dateDebut'].errors.required">
@@ -41,13 +44,34 @@
         </div>
       </div>
 
+      <div *ngIf="oldTournoi != null " class="form-group">
+        <label>Date de fin:</label>
+        <p>
+        <mat-form-field>
+          <input name="dateFin"  [(ngModel)]="this.defaultOldDateFin" formControlName="dateFin" matInput [matDatepicker]="myDatepicker">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+        </p>
+
+      </div>
+
+
       <div class="form-group">
         <label>Pays:</label>
-        <select   [(ngModel)]='this.default' formControlName="pays" >
-        <option *ngFor="let pays of paysList" [ngValue]="pays">
-        {{pays.nom}}
-        </option>
-        </select>
+        <p>
+        <mat-form-field>
+          <mat-label>Pays</mat-label>
+          <select matNativeControl formControlName="pays" [(ngModel)]="this.default" name="pays">
+            <option value="" selected></option>
+            <option *ngFor="let pays of paysList" [value]="pays">
+              {{pays.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+        </p>
+
+
         <div *ngIf="angForm.controls['pays'].invalid && (angForm.controls['pays'].dirty || angForm.controls['pays'].touched)" class="alert alert-danger">
           <div *ngIf="angForm.controls['pays'].errors.required">
             La pays est requis.
@@ -58,5 +82,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
-  <button type="button" class="btn btn-danger" [disabled]="angForm.pristine || angForm.invalid"   (click)="save()">Sauvegarder</button>
+  <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
 </div>
