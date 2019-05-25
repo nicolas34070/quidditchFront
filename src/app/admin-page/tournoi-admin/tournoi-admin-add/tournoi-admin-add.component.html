@@ -81,6 +81,7 @@
     </form>
 </div>
 <div class="modal-footer">
+  <button *ngIf="oldTournoi != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
   <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
   <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
 </div>

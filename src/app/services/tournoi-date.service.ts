@@ -114,4 +114,26 @@ export class TournoiDataService {
       console.log('%c Error updating tournoi ', 'font-weight: bold; color: red', err);
     }
   }
+
+  /**
+   * Delete a tournoi in DB
+   * @param {Tournoi} tournoi -
+   * @returns {Observable<Tournoi>}
+   */
+  deleteTournoi(tournoi: Tournoi): Observable<Tournoi> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi).pipe(
+        map(
+          (data: any) => {
+            return Tournoi.mapToTournoi(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating tournoi ', 'font-weight: bold; color: red', err);
+    }
+  }
+
 }
+
+

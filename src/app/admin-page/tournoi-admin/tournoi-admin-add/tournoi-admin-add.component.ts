@@ -75,7 +75,12 @@ export class TournoiAdminAddComponent implements OnInit {
           this.activeModal.dismiss();
         });
       }
+  }
 
+  delete() {
+    this.tournoiDataService.deleteTournoi(this.oldTournoi).subscribe((tournoi: Tournoi) => {
+      this.activeModal.dismiss();
+    });
   }
 
   onCreated(value: boolean) {
