@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Terrain} from "../../models/Terrain";
 import {TerrainDataService} from "../../services/terrain-data.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {TerrainAdminDetailsComponent} from "./terrain-admin-details/terrain-admin-details.component";
 
 @Component({
   selector: 'app-terrain-admin',
@@ -15,12 +17,16 @@ export class TerrainAdminComponent implements OnInit {
 
   terrainsList: Terrain[];
 
-  constructor(public terrainDataService: TerrainDataService) { }
+  constructor(public terrainDataService: TerrainDataService, public _modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom', 'lieu'];
   dataSource: MatTableDataSource<Terrain>  = null;
 
   async ngOnInit() {
+    this.onChange();
+  }
+
+  onChange() {
     this.terrainDataService.getTerrains().subscribe((terrains: Terrain[]) =>
     {
       this.terrainsList = terrains;
@@ -34,11 +40,7 @@ export class TerrainAdminComponent implements OnInit {
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
     });
-
-
-
   }
-
 
   /**
    * Apply a filter
@@ -50,12 +52,27 @@ export class TerrainAdminComponent implements OnInit {
 
 
 
-
   /**
-   * Open editing project sidebar
-   * @param {String} id - The project id.
+   * editing
+   * @param {Terrain}
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(terrain): void {
+    var modalRef =  this._modalService.open(TerrainAdminDetailsComponent);
+    modalRef.componentInstance.oldTerrain = terrain;
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
 
+      })
+  }
+
+
+  newTerrain() {
+    var modalRef =  this._modalService.open(TerrainAdminDetailsComponent);
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
+
+      })
   }
 }

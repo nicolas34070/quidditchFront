@@ -10,13 +10,14 @@ import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.compo
 import {TournoiAdminAddComponent} from "../../admin-page/tournoi-admin/tournoi-admin-add/tournoi-admin-add.component";
 import {PaysAdminDetailsComponent} from "../../admin-page/pays-admin/pays-admin-details/pays-admin-details.component";
 import {ArbitreAdminDetailsComponent} from "../../admin-page/arbitre-admin/arbitre-admin-details/arbitre-admin-details.component";
+import {TerrainAdminDetailsComponent} from "../../admin-page/terrain-admin/terrain-admin-details/terrain-admin-details.component";
 
 @NgModule({
   imports: [BrowserModule, NgbModule],
   declarations: [NgbdModalFocus],
   exports: [NgbdModalFocus],
   bootstrap: [NgbdModalFocus],
-  entryComponents: [ModalScoreComponent, TournoiAdminAddComponent, PaysAdminDetailsComponent, ArbitreAdminDetailsComponent],
+  entryComponents: [ModalScoreComponent, TournoiAdminAddComponent, PaysAdminDetailsComponent, ArbitreAdminDetailsComponent, TerrainAdminDetailsComponent],
   providers: [
   MatchDataService,
 ]

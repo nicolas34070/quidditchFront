@@ -1,3 +1,44 @@
-<p>
-  terrain-admin-details works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Créer un terrain</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="angForm" novalidate>
+    <div class="form-group">
+      <label>Nom:</label>
+      <input class="form-control" formControlName="nom" type="text"  ngModel="{{oldTerrain?.nom}}">
+    </div>
+    <div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['nom'].errors.required">
+        Le nom est requis.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Lieu:</label>
+      <p>
+        <mat-form-field>
+          <mat-label>Pays</mat-label>
+          <select matNativeControl formControlName="lieu" [(ngModel)]="this.default" name="lieu">
+            <option value="" selected></option>
+            <option *ngFor="let lieu of lieuList" [value]="lieu">
+              {{lieu.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['nom'].errors.required">
+        Le lieu est requis.
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button *ngIf="oldPays != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
+  <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
+  <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
+</div>

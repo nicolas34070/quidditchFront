@@ -70,7 +70,7 @@ export class TerrainDataService {
     try {
       const body = {
         nom: terrain.nom || '',
-        role: terrain.lieu.idPays || '1'
+        lieu: terrain.lieu.idPays || '1'
       };
       return this.http.post(environment.urls.baseApiUrl + urlTerrains, body).pipe(
         map(
@@ -98,7 +98,27 @@ export class TerrainDataService {
         lieu: terrain.lieu.idPays,
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlTerrains + '/' + terrain.idTerrain, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlTerrains + '/' + terrain.idTerrain, body).pipe(
+        map(
+          (data: any) => {
+            return Terrain.mapToTerrain(data)
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating Terrain ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+
+  /**
+   * Delete a Terrain in DB
+   * @param {Terrain} Terrain - The Terrain to update
+   * @returns {Observable<Terrain>}
+   */
+  deleteTerrain(terrain: Terrain): Observable<Terrain> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlTerrains + '/' + terrain.idTerrain).pipe(
         map(
           (data: any) => {
             return Terrain.mapToTerrain(data)

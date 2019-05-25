@@ -51,9 +51,6 @@ export class PaysAdminComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-
-
   /**
    * editing
    * @param {Pays}

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Terrain} from "../../../models/Terrain";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {TerrainDataService} from "../../../services/terrain-data.service";
+import {Pays} from "../../../models/Pays";
+import {PaysDataService} from "../../../services/pays-data.service";
 
 @Component({
   selector: 'app-terrain-admin-details',
@@ -7,9 +13,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TerrainAdminDetailsComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit() {
+  @Input() oldTerrain?: Terrain;
+  lieuList: Pays[] = [];
+  default = Pays;
+  angForm: FormGroup;
+
+  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public terrainDataService: TerrainDataService, public paysDataService: PaysDataService) {
+    this.createForm();
   }
 
+  createForm() {
+    this.angForm = this.fb.group({
+      nom: ['', Validators.required],
+      lieu: ['', Validators.required]
+    });
+  }
+
+
+  async ngOnInit() {
+    this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
+      this.lieuList = pays;
+      this.default =  this.oldTerrain != null ? this.oldTerrain.lieu : this.lieuList[0];
+    });
+  }
+
+
+  save() {
+    let terrain = Terrain.mapToTerrain(this.angForm.value);
+
+
+    if (this.oldTerrain != null) {
+      terrain.idTerrain = this.oldTerrain.idTerrain;
+      this.terrainDataService.updateTerrain(terrain).subscribe((terrain: Terrain) => {
+        this.activeModal.close();
+      });
+    } else {
+      this.terrainDataService.addTerrain(terrain).subscribe((terrain: Terrain) => {
+        this.activeModal.close();
+      });
+    }
+  }
+
+  delete() {
+    this.terrainDataService.deleteTerrain(this.oldTerrain).subscribe((terrain: Terrain) => {
+      this.activeModal.close()
+    });
+  }
 }
