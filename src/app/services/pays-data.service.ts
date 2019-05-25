@@ -69,7 +69,7 @@ export class PaysDataService {
   addPays(pays: Pays): Observable<Pays>{
     try {
       const body = {
-        nom: pays.nom || '',
+        nom: pays.nom,
       };
       return this.http.post(environment.urls.baseApiUrl + urlPays, body).pipe(
         map(
@@ -96,7 +96,31 @@ export class PaysDataService {
         nom: pays.nom,
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlPays + '/' + pays.idPays, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlPays + '/' + pays.idPays, body).pipe(
+        map(
+          (data: any) => {
+            return Pays.mapToPays(data)
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating Pays ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+
+  /**
+   * Update a Pays in DB
+   * @param {Pays} Pays - The Pays to update
+   * @returns {Observable<Pays>}
+   */
+  deletePays(pays: Pays): Observable<Pays> {
+    try {
+      const body = {
+        nom: pays.nom,
+      };
+
+      return this.http.delete(environment.urls.baseApiUrl + urlPays + '/' + pays.idPays).pipe(
         map(
           (data: any) => {
             return Pays.mapToPays(data)

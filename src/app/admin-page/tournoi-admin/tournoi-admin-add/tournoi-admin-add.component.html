@@ -18,7 +18,7 @@
 
     <form [formGroup]="angForm" novalidate>
       <div class="form-group">
-        <label>Name:</label>
+        <label>Nom:</label>
         <input class="form-control" formControlName="nom" type="text"  ngModel="{{oldTournoi?.nom}}">
       </div>
       <div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">

@@ -2,6 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Pays} from "../../models/Pays";
 import {PaysDataService} from "../../services/pays-data.service";
+import {TournoiAdminAddComponent} from "../tournoi-admin/tournoi-admin-add/tournoi-admin-add.component";
+import {TournoiDataService} from "../../services/tournoi-date.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PaysAdminDetailsComponent} from "./pays-admin-details/pays-admin-details.component";
 
 @Component({
   selector: 'app-pays-admin',
@@ -16,12 +20,16 @@ export class PaysAdminComponent implements OnInit {
 
   paysList: Pays[];
 
-  constructor(public paysDataService: PaysDataService) { }
+  constructor(public paysDataService: PaysDataService, private _modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Pays>  = null;
 
   async ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
     this.paysDataService.getAllPays().subscribe((pays: Pays[]) =>
     {
       this.paysList = pays;
@@ -29,11 +37,11 @@ export class PaysAdminComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
-
-
   }
 
+  onChange() {
+    this.loadData();
+  }
 
   /**
    * Apply a filter
@@ -48,10 +56,26 @@ export class PaysAdminComponent implements OnInit {
 
   /**
    * Open editing project sidebar
-   * @param {String} id - The project id.
+   * @param {Pays}
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(pays): void {
+    var modalRef =  this._modalService.open(PaysAdminDetailsComponent);
+    modalRef.componentInstance.oldPays = pays;
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
 
+      })
+  }
+
+
+  newPays() {
+    var modalRef =  this._modalService.open(PaysAdminDetailsComponent);
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
+
+      })
   }
 
 
