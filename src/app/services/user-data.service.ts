@@ -86,10 +86,13 @@ export class UserDataService {
    * @returns {Observable<User>}
    */
   addUser(user: User): Observable<User> {
+    var randomstring = Math.random().toString(20).slice(-8);
     try {
       const body = {
         nom: user.nom || '',
-        role: user.role.idRole || '1'
+        roles:  1,
+        motDepasse: randomstring,
+        email: user.email
       };
       return this.http.post(environment.urls.baseApiUrl + urlUsers, body).pipe(
         map(
@@ -114,10 +117,30 @@ export class UserDataService {
     try {
       const body = {
         nom: user.nom,
-        role: user.role.idRole,
+        roles: 1,
+        email: user.email
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur, body).pipe(
+        map(
+          (data: any) => {
+            return User.mapToUser(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating user ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+  /**
+   * delete a user in DB
+   * @param {User} user - The user to delete
+   * @returns {Observable<User>}
+   */
+  deleteUser(user: User): Observable<User> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur).pipe(
         map(
           (data: any) => {
             return User.mapToUser(data);

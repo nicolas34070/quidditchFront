@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {User} from "../../models/User";
 import {UserDataService} from "../../services/user-data.service";
+import {PaysAdminDetailsComponent} from "../pays-admin/pays-admin-details/pays-admin-details.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ArbitreAdminDetailsComponent} from "./arbitre-admin-details/arbitre-admin-details.component";
 
 @Component({
   selector: 'app-arbitre-admin',
@@ -15,24 +18,24 @@ export class ArbitreAdminComponent implements OnInit {
 
   usersList: User[];
 
-  constructor(public userDataService: UserDataService) { }
+  constructor(public userDataService: UserDataService, public _modalService: NgbModal) {
+  }
 
-  displayedColumns: string[] = [ 'nom'];
-  dataSource: MatTableDataSource<User>  = null;
+  displayedColumns: string[] = ['nom', 'email'];
+  dataSource: MatTableDataSource<User> = null;
 
   async ngOnInit() {
-    this.userDataService.getArbitres().subscribe((users: User[]) =>
-    {
+    this.onChange();
+  }
+
+  onChange() {
+    this.userDataService.getArbitres().subscribe((users: User[]) => {
       this.usersList = users;
       this.dataSource = new MatTableDataSource(this.usersList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
-
-
   }
-
 
   /**
    * Apply a filter
@@ -43,14 +46,29 @@ export class ArbitreAdminComponent implements OnInit {
   }
 
 
-
-
   /**
-   * Open editing project sidebar
-   * @param {String} id - The project id.
+   * editing
+   * @param {Utilisateur}
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(arbitre): void {
+    var modalRef = this._modalService.open(ArbitreAdminDetailsComponent);
+    modalRef.componentInstance.oldArbitre = arbitre;
+    modalRef.result.then(() => {
+        this.onChange()
+      },
+      () => {
 
+      })
   }
 
+
+  newArbitre() {
+    var modalRef = this._modalService.open(ArbitreAdminDetailsComponent);
+    modalRef.result.then(() => {
+        this.onChange()
+      },
+      () => {
+
+      })
+  }
 }

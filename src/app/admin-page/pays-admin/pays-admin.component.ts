@@ -55,7 +55,7 @@ export class PaysAdminComponent implements OnInit {
 
 
   /**
-   * Open editing project sidebar
+   * editing
    * @param {Pays}
    */
   handleBtnKeyUp(pays): void {

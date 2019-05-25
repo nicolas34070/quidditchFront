@@ -7,7 +7,7 @@ export class Role {
    */
   constructor(
     public idRole: number,
-    public nom?: string,
+    public name?: string,
   ) { }
 
 
@@ -20,7 +20,7 @@ export class Role {
    * @returns {Role} - The user object created from data values
    */
   static mapToRole(data: any): Role {
-    return new Role(data.idRole, data.nom);
+    return new Role(data.idRole, data.name);
   }
 
 }
