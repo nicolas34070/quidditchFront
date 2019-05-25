@@ -5,7 +5,7 @@
   <mat-form-field>
     <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
   </mat-form-field>
-  <ngbd-modal-focus [placeholder]="'Créer un nouveau tournoi'" [content]="" [active]="'tournois'"> </ngbd-modal-focus>
+  <button class="btn btn-primary" (click)="addNewProject()" > Créer un nouveau tournoi</button>
 </div>
 
 

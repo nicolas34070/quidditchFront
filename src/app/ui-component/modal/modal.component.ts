@@ -32,10 +32,14 @@ export class NgbdModalFocus {
       case 'score':
         var modalRef =  this._modalService.open(ModalScoreComponent);
         modalRef.componentInstance.match = this.content ;
+        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click')})
+
         break;
       case 'tournois':
         var modalRef =  this._modalService.open(TournoiAdminAddComponent);
         modalRef.componentInstance.oldTournoi = this.content ;
+        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click')})
+
         break;
 
       default:

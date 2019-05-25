@@ -1,23 +1,24 @@
-import {Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Tournoi} from "../../models/Tournoi";
 import {TournoiDataService} from "../../services/tournoi-date.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
-import {TournoiAdminUpdateComponent} from "./tournoi-admin-update/tournoi-admin-update.component";
 import {TournoiAdminAddComponent} from "./tournoi-admin-add/tournoi-admin-add.component";
 
 @Component({
   selector: 'app-tournoi-admin',
   templateUrl: './tournoi-admin.component.html',
-  styleUrls: ['./tournoi-admin.component.css']
+  styleUrls: ['./tournoi-admin.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TournoiAdminComponent implements OnInit, OnChanges {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  tournoisList: Tournoi[];
+
+   tournoisList: Tournoi[];
 
   constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal) { }
 
@@ -29,9 +30,12 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("hello");
+    this.loadData();
   }
 
+  onChange() {
+    this.loadData();
+  }
 
   /**
    * Apply a filter
@@ -67,10 +71,24 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
    * @param {Tournoi} element - The project id.
    */
   handleBtnKeyUp(tournoi): void {
-    console.log(tournoi);
-
     var modalRef =  this._modalService.open(TournoiAdminAddComponent);
     modalRef.componentInstance.oldTournoi = tournoi ;
+    modalRef. result.then(() => {
+       this.onChange() },
+      () => {
+
+      })
+
+  }
+
+  addNewProject() {
+    var modalRef =  this._modalService.open(TournoiAdminAddComponent);
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
+
+      })
+
   }
 
 }

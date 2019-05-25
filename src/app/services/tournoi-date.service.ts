@@ -95,11 +95,12 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   updateTournoi(tournoi: Tournoi): Observable<Tournoi> {
+    let dateFin = tournoi.dateFin != null ? tournoi.dateFin.toISOString() : " ";
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateFin: tournoi.dateFin.toISOString(),
+        dateFin: dateFin,
         dateDebut: tournoi.dateDebut.toISOString()
       };
 

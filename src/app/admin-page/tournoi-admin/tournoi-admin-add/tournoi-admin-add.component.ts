@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Pays} from "../../../models/Pays";
 import {PaysDataService} from "../../../services/pays-data.service";
 import {DateAdapter} from "@angular/material";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tournoi-admin-details',
@@ -16,9 +17,6 @@ export class TournoiAdminAddComponent implements OnInit {
 
   @Input() oldTournoi?: Tournoi;
 
-  @Output()
-  onChange: EventEmitter = new EventEmitter<any>();
-
   paysList: Pays[] = [];
   default = Pays;
   defaultOldDateDebut = " ";
@@ -27,7 +25,7 @@ export class TournoiAdminAddComponent implements OnInit {
 
   angForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
+  constructor(private router: Router, private fb: FormBuilder, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }
@@ -68,23 +66,18 @@ export class TournoiAdminAddComponent implements OnInit {
         tournoi.idTournoi = this.oldTournoi.idTournoi;
 
           this.tournoiDataService.updateTournoi(tournoi).subscribe((tournoi: Tournoi) => {
-            this.activeModal.dismiss();
+            this.activeModal.close();
           });
       } else {
         this.tournoiDataService.addTournoi(tournoi).subscribe((tournoi: Tournoi) => {
-          this.activeModal.dismiss();
+          this.activeModal.close();
         });
       }
   }
 
   delete() {
     this.tournoiDataService.deleteTournoi(this.oldTournoi).subscribe((tournoi: Tournoi) => {
-      this.activeModal.dismiss();
+      this.activeModal.close()
     });
   }
-
-  onCreated(value: boolean) {
-     this.onChange.emit(value);
-  }
-
 }
