@@ -70,11 +70,11 @@ export class TournoiDataService {
   addTournoi(tournoi: Tournoi): Observable<Tournoi> {
     try {
       const body = {
-        client: tournoi.nom,
-        type: tournoi.pays,
-        date_fin: tournoi.dateFin,
-        date_debut: tournoi.dateDebut
+        nom: tournoi.nom,
+        pays: tournoi.pays.idPays,
+        dateDebut: tournoi.dateDebut
       };
+
       return this.http.post(environment.urls.baseApiUrl + urlTournois, body).pipe(
         map(
           (data: any) => {

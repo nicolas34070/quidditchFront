@@ -14,7 +14,7 @@ export class Tournoi {
    * @param {Pays} [pays] - The pays of the tournoi
    */
   constructor(
-    public idTournoi: number,
+    public idTournoi?: number,
     public nom?: string,
     public dateDebut?: Moment,
     public dateFin?: Moment,

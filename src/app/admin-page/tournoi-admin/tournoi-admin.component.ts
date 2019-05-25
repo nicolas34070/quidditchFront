@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {Tournoi} from "../../models/Tournoi";
 import {TournoiDataService} from "../../services/tournoi-date.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
@@ -8,7 +8,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   templateUrl: './tournoi-admin.component.html',
   styleUrls: ['./tournoi-admin.component.css']
 })
-export class TournoiAdminComponent implements OnInit {
+export class TournoiAdminComponent implements OnInit, OnChanges {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,6 +21,25 @@ export class TournoiAdminComponent implements OnInit {
   dataSource: MatTableDataSource<Tournoi>  = null;
 
   async ngOnInit() {
+    this.loadData();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("hello");
+  }
+
+
+  /**
+   * Apply a filter
+   * @param {String} filterValue - The text tapped by the user in the search bar
+   */
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+
+
+  loadData(){
     this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) =>
     {
       this.tournoisList = tournois;
@@ -35,20 +54,7 @@ export class TournoiAdminComponent implements OnInit {
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
     });
-
-
-
   }
-
-
-  /**
-   * Apply a filter
-   * @param {String} filterValue - The text tapped by the user in the search bar
-   */
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
 
 
 
