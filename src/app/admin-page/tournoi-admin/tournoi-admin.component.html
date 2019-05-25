@@ -11,12 +11,7 @@
 
 
   <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-    <!-- ID Column -->
-    <ng-container matColumnDef="idTournoi">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> id
-      </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.idTournoi}} </mat-cell>
-    </ng-container>
+
 
     <!-- Name Column -->
     <ng-container matColumnDef="nom">

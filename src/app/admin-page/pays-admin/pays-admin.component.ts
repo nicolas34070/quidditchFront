@@ -18,7 +18,7 @@ export class PaysAdminComponent implements OnInit {
 
   constructor(public paysDataService: PaysDataService) { }
 
-  displayedColumns: string[] = ['idPays', 'nom'];
+  displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Pays>  = null;
 
   async ngOnInit() {

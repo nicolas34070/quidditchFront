@@ -9,11 +9,6 @@
 </div>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-  <ng-container matColumnDef="idJoueur">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> id
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idJoueur}} </mat-cell>
-  </ng-container>
 
   <ng-container matColumnDef="nom">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Nom

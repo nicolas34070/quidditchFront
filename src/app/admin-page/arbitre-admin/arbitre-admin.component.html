@@ -8,12 +8,6 @@
 </div>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-  <!-- ID Column -->
-  <ng-container matColumnDef="idUtilisateur">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> id
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idUtilisateur}} </mat-cell>
-  </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="nom">

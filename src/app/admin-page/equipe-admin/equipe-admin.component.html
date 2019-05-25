@@ -8,13 +8,6 @@
   <button mat-flat-button color="primary" (click)="openProjectSideNav('creation')"> Créer une équipe </button>
 </div>
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-  <!-- ID Column -->
-  <ng-container matColumnDef="idEquipe">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> id
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idEquipe}} </mat-cell>
-  </ng-container>
-
   <!-- Name Column -->
   <ng-container matColumnDef="nom">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Nom de l'équipe

@@ -22,7 +22,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
 
   constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal) { }
 
-  displayedColumns: string[] = ['idTournoi', 'nom', 'dateDebut', 'dateFin', 'pays'];
+  displayedColumns: string[] = ['nom', 'dateDebut', 'dateFin', 'pays'];
   dataSource: MatTableDataSource<Tournoi>  = null;
 
   async ngOnInit() {

@@ -17,7 +17,7 @@ export class JoueurAdminComponent implements OnInit {
 
   constructor(public joueurDataService: JoueurDataService) { }
 
-  displayedColumns: string[] = ['idJoueur', 'nom', 'nationalite', 'poste', 'equipe'];
+  displayedColumns: string[] = ['nom', 'nationalite', 'poste', 'equipe'];
   dataSource: MatTableDataSource<Joueur>  = null;
 
   async ngOnInit() {

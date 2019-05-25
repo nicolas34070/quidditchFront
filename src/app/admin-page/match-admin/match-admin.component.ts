@@ -16,7 +16,7 @@ export class MatchAdminComponent implements OnInit {
 
   constructor(public matchDataService: MatchDataService) { }
 
-  displayedColumns: string[] = ['idMatch', 'tournoi', 'premiereEquipe', 'deuxiemeEquipe', 'terrain', 'dateDebut', 'dateFin'];
+  displayedColumns: string[] = [ 'tournoi', 'premiereEquipe', 'deuxiemeEquipe', 'terrain', 'dateDebut', 'dateFin'];
   dataSource: MatTableDataSource<Match>  = null;
 
   async ngOnInit() {

@@ -8,13 +8,8 @@
   <button mat-flat-button color="primary" (click)="openProjectSideNav('creation')"> Ajouter un terrain </button>
 </div>
 
-<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
-  <ng-container matColumnDef="idTerrain">
-    <mat-header-cell *matHeaderCellDef mat-sort-header> id
-    </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.idTerrain}} </mat-cell>
-  </ng-container>
 
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="nom">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Nom du terrain
     </mat-header-cell>

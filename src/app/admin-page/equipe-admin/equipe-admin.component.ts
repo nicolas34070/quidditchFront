@@ -17,7 +17,7 @@ export class EquipeAdminComponent implements OnInit {
 
   constructor(public equipeDataService: EquipeDataService) { }
 
-  displayedColumns: string[] = ['idEquipe', 'nom'];
+  displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Equipe>  = null;
 
   async ngOnInit() {

@@ -19,6 +19,7 @@ export class SidebarComponent implements OnInit {
   }
 
   onComponent(name) {
+    console.log(this.active);
     this.active = name;
     this.activeTitle.emit(this.active);
 

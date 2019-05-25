@@ -17,7 +17,7 @@ export class TerrainAdminComponent implements OnInit {
 
   constructor(public terrainDataService: TerrainDataService) { }
 
-  displayedColumns: string[] = ['idTerrain', 'nom', 'lieu'];
+  displayedColumns: string[] = ['nom', 'lieu'];
   dataSource: MatTableDataSource<Terrain>  = null;
 
   async ngOnInit() {

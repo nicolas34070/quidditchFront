@@ -17,7 +17,7 @@ export class ArbitreAdminComponent implements OnInit {
 
   constructor(public userDataService: UserDataService) { }
 
-  displayedColumns: string[] = ['idUtilisateur', 'nom'];
+  displayedColumns: string[] = [ 'nom'];
   dataSource: MatTableDataSource<User>  = null;
 
   async ngOnInit() {
