@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {EquipeDataService} from "../../services/equipe-data.service";
 import {Equipe} from "../../models/Equipe";
+import {PaysAdminDetailsComponent} from "../pays-admin/pays-admin-details/pays-admin-details.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EquipeAdminDetailsComponent} from "./equipe-admin-details/equipe-admin-details.component";
 
 @Component({
   selector: 'app-equipe-admin',
@@ -15,12 +18,16 @@ export class EquipeAdminComponent implements OnInit {
 
   equipesList: Equipe[];
 
-  constructor(public equipeDataService: EquipeDataService) { }
+  constructor(public equipeDataService: EquipeDataService, public _modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Equipe>  = null;
 
   async ngOnInit() {
+    this.onChange();
+  }
+
+  onChange() {
     this.equipeDataService.getEquipes().subscribe((equipes: Equipe[]) =>
     {
       this.equipesList = equipes;
@@ -28,9 +35,6 @@ export class EquipeAdminComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
-
-
   }
 
 
@@ -44,13 +48,28 @@ export class EquipeAdminComponent implements OnInit {
 
 
 
-
   /**
-   * Open editing project sidebar
-   * @param {String} id - The project id.
+   * editing
+   * @param {Pays}
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(equipe): void {
+    var modalRef =  this._modalService.open(EquipeAdminDetailsComponent);
+    modalRef.componentInstance.oldEquipe = equipe;
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
 
+      })
+  }
+
+
+  newEquipe() {
+    var modalRef =  this._modalService.open(EquipeAdminDetailsComponent);
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
+
+      })
   }
 
 

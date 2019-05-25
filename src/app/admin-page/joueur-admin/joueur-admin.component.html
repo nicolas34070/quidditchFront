@@ -5,7 +5,7 @@
   <mat-form-field>
     <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
   </mat-form-field>
-  <button mat-flat-button color="primary" (click)="openProjectSideNav('creation')"> Ajouter un joueur </button>
+  <button mat-flat-button color="primary" (click)="newJoueur()"> Ajouter un joueur </button>
 </div>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
@@ -37,7 +37,7 @@
 
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row.id)"
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row)"
            [tabIndex]="0">
   </mat-row>
 </mat-table>

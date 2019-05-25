@@ -1,3 +1,84 @@
-<p>
-  joueur-admin-details works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Créer un tournoi</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="angForm" novalidate>
+    <div class="form-group">
+      <label>Nom:</label>
+      <input class="form-control" formControlName="nom" type="text"  ngModel="{{oldJoueur?.nom}}">
+    </div>
+    <div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['nom'].errors.required">
+        Le nom est requis.
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Nationnalite</mat-label>
+          <select matNativeControl formControlName="nationalite" [(ngModel)]="this.defaultnationalite" name="lieu">
+            <option value="" selected></option>
+            <option *ngFor="let lieu of nationaliteList" [value]="lieu">
+              {{lieu.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div *ngIf="angForm.controls['nationalite'].invalid && (angForm.controls['nationalite'].dirty || angForm.controls['nationalite'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['nationalite'].errors.required">
+        La nationnalité est requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Equipe</mat-label>
+          <select matNativeControl formControlName="equipe" [(ngModel)]="this.defaultequipe" name="lieu">
+            <option value="" selected></option>
+            <option *ngFor="let equipe of equipeList" [value]="equipe">
+              {{equipe.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div *ngIf="angForm.controls['equipe'].invalid && (angForm.controls['equipe'].dirty || angForm.controls['equipe'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['equipe'].errors.required">
+        L'équipe est requis.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Poste</mat-label>
+          <select matNativeControl formControlName="poste" [(ngModel)]="this.defaultposte" name="lieu">
+            <option value="" selected></option>
+            <option *ngFor="let poste of posteList" [value]="poste">
+              {{poste.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div *ngIf="angForm.controls['equipe'].invalid && (angForm.controls['equipe'].dirty || angForm.controls['equipe'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['equipe'].errors.required">
+        L'équipe est requis.
+      </div>
+    </div>
+
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button *ngIf="oldJoueur != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
+  <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
+  <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
+</div>

@@ -32,7 +32,6 @@ export class PaysAdminDetailsComponent implements OnInit {
 
 
   save() {
-    console.log(this.angForm.value);
     let pays = Pays.mapToPays(this.angForm.value);
 
     if (this.oldPays != null) {

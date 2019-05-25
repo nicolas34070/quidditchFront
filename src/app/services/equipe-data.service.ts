@@ -97,7 +97,27 @@ export class EquipeDataService {
         nom: equipe.nom,
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe, body).pipe(
+        map(
+          (data: any) => {
+            return Equipe.mapToEquipe(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating equipe ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+
+  /**
+   * Delete a equipe in DB
+   * @param {Equipe} equipe - The equipe to update
+   * @returns {Observable<Equipe>}
+   */
+  deleteEquipe(equipe: Equipe): Observable<Equipe> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe).pipe(
         map(
           (data: any) => {
             return Equipe.mapToEquipe(data);

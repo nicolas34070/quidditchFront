@@ -103,7 +103,27 @@ export class JoueurDataService {
         equipe: joueur.equipe.idEquipe
       };
 
-      return this.http.patch(environment.urls.baseApiUrl + urlJoueurs + '/' + joueur.idJoueur, body).pipe(
+      return this.http.put(environment.urls.baseApiUrl + urlJoueurs + '/' + joueur.idJoueur, body).pipe(
+        map(
+          (data: any) => {
+            return Joueur.mapToJoueur(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating joueur ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+
+  /**
+   * Delete a joueur in DB
+   * @param {Joueur} joueur - The joueur to update
+   * @returns {Observable<Joueur>}
+   */
+  deleteJoueur(joueur: Joueur): Observable<Joueur> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlJoueurs + '/' + joueur.idJoueur).pipe(
         map(
           (data: any) => {
             return Joueur.mapToJoueur(data);
