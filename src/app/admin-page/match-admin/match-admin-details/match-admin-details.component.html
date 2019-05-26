@@ -1,3 +1,147 @@
-<p>
-  match-admin-details works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Créer un Match</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="angForm" novalidate>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Tournoi</mat-label>
+          <select matNativeControl formControlName="tournoi" [(ngModel)]="this.defaultTournoi" name="tournoi">
+            <option *ngFor="let tournoi of tournoiList" [value]="tournoi.idTournoi">
+              {{tournoi.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+
+
+      <div *ngIf="angForm.controls['tournoi'].invalid && (angForm.controls['tournoi'].dirty || angForm.controls['tournoi'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['tournoi'].errors.required">
+          La tournoi est requis.
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>1ere Equipe</mat-label>
+          <select matNativeControl formControlName="premiereEquipe" [(ngModel)]="this.defaultPremiereEquipe" name="premiereEquipe">
+            <option *ngFor="let premiereEquipe of premiereEquipeList" [value]="premiereEquipe.idEquipe">
+              {{premiereEquipe.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+
+
+      <div *ngIf="angForm.controls['premiereEquipe'].invalid && (angForm.controls['premiereEquipe'].dirty || angForm.controls['premiereEquipe'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['premiereEquipe'].errors.required">
+          La premiere Equipe est requise.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>1ere Equipe</mat-label>
+          <select matNativeControl formControlName="deuxiemeEquipe" [(ngModel)]="this.defaultDeuxiemeEquipe" name="deuxiemeEquipe">
+            <option *ngFor="let deuxiemeEquipe of deuxiemeEquipeList" [value]="deuxiemeEquipe.idEquipe">
+              {{deuxiemeEquipe.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+
+
+      <div *ngIf="angForm.controls['deuxiemeEquipe'].invalid && (angForm.controls['deuxiemeEquipe'].dirty || angForm.controls['deuxiemeEquipe'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['deuxiemeEquipe'].errors.required">
+          La deuxieme Equipe est requise.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Arbitre</mat-label>
+          <select matNativeControl formControlName="arbitre" [(ngModel)]="this.defaultArbitre" name="arbitre">
+            <option *ngFor="let arbitre of this.arbitreList" [value]="arbitre.idUtilisateur">
+              {{arbitre.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+
+
+      <div *ngIf="angForm.controls['arbitre'].invalid && (angForm.controls['arbitre'].dirty || angForm.controls['arbitre'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['arbitre'].errors.required">
+          L' arbitre est requis.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>Terrain</mat-label>
+          <select matNativeControl formControlName="terrain" [(ngModel)]="this.defaultTerrain" name="terrain">
+            <option *ngFor="let terrain of terrainList" [value]="terrain.idTerrain">
+              {{terrain.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+
+
+      <div *ngIf="angForm.controls['terrain'].invalid && (angForm.controls['terrain'].dirty || angForm.controls['terrain'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['terrain'].errors.required">
+          La terrain est requis.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Date de début:</label>
+      <p>
+        <mat-form-field>
+          <input name="dateDebut" [(ngModel)]="this.defaultOldDateDebut" formControlName="dateDebut" matInput [matDatepicker]="dateDebutpicker">
+          <mat-datepicker-toggle matSuffix [for]="dateDebutpicker"></mat-datepicker-toggle>
+          <mat-datepicker #dateDebutpicker></mat-datepicker>
+        </mat-form-field>
+      </p>
+
+    </div>
+    <div *ngIf="angForm.controls['dateDebut'].invalid && (angForm.controls['dateDebut'].dirty || angForm.controls['dateDebut'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['dateDebut'].errors.required">
+        La date de début est requise.
+      </div>
+    </div>
+
+    <div *ngIf="oldMatch != null " class="form-group">
+      <label>Date de fin:</label>
+      <p>
+        <mat-form-field>
+          <input name="dateFin"  [(ngModel)]="this.defaultOldDateFin" formControlName="dateFin" matInput [matDatepicker]="dateFinPicker">
+          <mat-datepicker-toggle matSuffix [for]="dateFinPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dateFinPicker></mat-datepicker>
+        </mat-form-field>
+      </p>
+
+    </div>
+
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button *ngIf="oldMatch != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
+  <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
+  <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
+</div>

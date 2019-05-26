@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Créer un terrain</h4>
+  <h4 class="modal-title" id="modal-title">Ajouter un terrain</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -21,8 +21,7 @@
         <mat-form-field>
           <mat-label>Pays</mat-label>
           <select matNativeControl formControlName="lieu" [(ngModel)]="this.default" name="lieu">
-            <option value="" selected></option>
-            <option *ngFor="let lieu of lieuList" [value]="lieu">
+            <option *ngFor="let lieu of lieuList" [value]="lieu.idPays">
               {{lieu.nom}}
             </option>
           </select>
@@ -37,7 +36,7 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button *ngIf="oldPays != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
+  <button *ngIf="oldTerrain != null" type="button" class="btn btn-danger"  (click)="delete()">Supprimer !</button>
   <button type="button" class="btn btn-outline-secondary"  (click)="activeModal.dismiss('cancel click')">Fermer</button>
   <button type="button" class="btn btn-danger" [disabled]="angForm.invalid"   (click)="save()">Sauvegarder</button>
 </div>

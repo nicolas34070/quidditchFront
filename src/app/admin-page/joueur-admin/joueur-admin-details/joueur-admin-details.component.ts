@@ -22,12 +22,12 @@ export class JoueurAdminDetailsComponent implements OnInit {
   angForm: FormGroup;
 
   nationaliteList: Pays[] = [];
-  defaultnationalite : Pays;
+  defaultnationalite : number;
 
   equipeList: Equipe[] = [];
-  defaultequipe : Equipe;
+  defaultequipe : number;
 
-  defaultposte : Poste;
+  defaultposte : number;
   posteList: Poste[] = [];
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public joueurDataService: JoueurDataService,
@@ -48,24 +48,30 @@ export class JoueurAdminDetailsComponent implements OnInit {
   ngOnInit() {
     this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
       this.nationaliteList = pays;
-      this.defaultnationalite =  this.oldJoueur != null ? this.oldJoueur.nationalite : this.nationaliteList[0];
+      this.defaultnationalite =  this.oldJoueur != null ? this.oldJoueur.nationalite.idPays : this.nationaliteList[0].idPays;
     });
 
     this.equipeDataService.getEquipes().subscribe((equipes: Equipe[]) => {
       this.equipeList = equipes;
-      this.defaultequipe =  this.oldJoueur != null ? this.oldJoueur.equipe : this.equipeList[0];
+      this.defaultequipe =  this.oldJoueur != null ? this.oldJoueur.equipe.idEquipe : this.equipeList[0].idEquipe;
     });
 
     this.posteDataService.getPostes().subscribe((equipes: Poste[]) => {
       this.posteList = equipes;
-      this.defaultposte =  this.oldJoueur != null ? this.oldJoueur.poste : this.posteList[0];
+      this.defaultposte =  this.oldJoueur != null ? this.oldJoueur.poste.idPoste : this.posteList[0].idPoste;
     });
   }
 
 
   save() {
-    console.log(this.angForm.value);
+
     let joueur = Joueur.mapToJoueur(this.angForm.value);
+
+
+    //we can't get object from select, so we re-assign the ID to each object.
+    joueur.nationalite.idPays = this.angForm.value.nationalite;
+    joueur.poste.idPoste = this.angForm.value.poste;
+    joueur.equipe.idEquipe = this.angForm.value.equipe;
 
     if (this.oldJoueur != null) {
       joueur.idJoueur = this.oldJoueur.idJoueur;

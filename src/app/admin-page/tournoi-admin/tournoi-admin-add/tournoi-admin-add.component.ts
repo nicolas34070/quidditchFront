@@ -1,12 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Tournoi} from "../../../models/Tournoi";
 import {TournoiDataService} from "../../../services/tournoi-date.service";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Pays} from "../../../models/Pays";
 import {PaysDataService} from "../../../services/pays-data.service";
 import {DateAdapter} from "@angular/material";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tournoi-admin-details',
@@ -18,7 +17,7 @@ export class TournoiAdminAddComponent implements OnInit {
   @Input() oldTournoi?: Tournoi;
 
   paysList: Pays[] = [];
-  default : Pays;
+  default : number;
   defaultOldDateDebut = " ";
   defaultOldDateFin;
 
@@ -53,14 +52,15 @@ export class TournoiAdminAddComponent implements OnInit {
 
     this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
       this.paysList = pays;
-      this.default =  this.oldTournoi != null ? this.oldTournoi.pays : this.paysList[0];
+      this.default =  this.oldTournoi != null ? this.oldTournoi.pays.idPays : this.paysList[0].idPays;
     });
   }
 
 
   save() {
-    console.log(this.angForm.value);
+    console.log(this.angForm.value.dateFin);
      let tournoi = Tournoi.mapToTournoi(this.angForm.value);
+     tournoi.pays.idPays = this.angForm.value.pays;
 
       if (this.oldTournoi != null) {
         tournoi.idTournoi = this.oldTournoi.idTournoi;

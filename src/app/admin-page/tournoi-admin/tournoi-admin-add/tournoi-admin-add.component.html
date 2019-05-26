@@ -5,17 +5,6 @@
   </button>
 </div>
 <div class="modal-body">
-  <!--<form [formGroup]="angForm" novalidate>-->
-    <!--<div class="form-group">-->
-      <!--<label for="nom"> Nom du tournoi: </label>-->
-      <!--<input  #="ngControl" name="nom" [formControlName]="nom" type="text" class="form-control" id="nom" >-->
-    <!--</div>-->
-    <!--<div *ngIf="angForm.controls['nom'].invalid && (angForm.controls['nom'].dirty || angForm.controls['nom'].touched)" class="alert alert-danger">-->
-      <!--<div *ngIf="angForm.controls['nom'].errors.required">-->
-        <!--Le nom est requis.-->
-      <!--</div>-->
-    <!--</div>-->
-
     <form [formGroup]="angForm" novalidate>
       <div class="form-group">
         <label>Nom:</label>
@@ -62,8 +51,7 @@
         <mat-form-field>
           <mat-label>Pays</mat-label>
           <select matNativeControl formControlName="pays" [(ngModel)]="this.default" name="pays">
-            <option value="" selected></option>
-            <option *ngFor="let pays of paysList" [value]="pays">
+            <option *ngFor="let pays of paysList" [value]="pays.idPays">
               {{pays.nom}}
             </option>
           </select>

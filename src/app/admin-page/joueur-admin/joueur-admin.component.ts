@@ -56,7 +56,7 @@ export class JoueurAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Pays}
+   * @param {Joueur}
    */
   handleBtnKeyUp(joueur): void {
     var modalRef =  this._modalService.open(JoueurAdminDetailsComponent);

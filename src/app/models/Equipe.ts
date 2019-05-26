@@ -6,7 +6,7 @@ export class Equipe {
    * @param {String} [nom] - The name of the equipe
    */
   constructor(
-    public idEquipe: number,
+    public idEquipe?: number,
     public nom?: string,
   ) { }
 

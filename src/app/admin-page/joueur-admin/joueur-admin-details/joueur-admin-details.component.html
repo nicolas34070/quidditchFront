@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-title">Créer un tournoi</h4>
+  <h4 class="modal-title" id="modal-title">Ajouter un joueur</h4>
   <button type="button" class="close" aria-describedby="modal-title" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -21,10 +21,9 @@
       <p>
         <mat-form-field>
           <mat-label>Nationnalite</mat-label>
-          <select matNativeControl formControlName="nationalite" [(ngModel)]="this.defaultnationalite" name="lieu">
-            <option value="" selected></option>
-            <option *ngFor="let lieu of nationaliteList" [value]="lieu">
-              {{lieu.nom}}
+          <select matNativeControl formControlName="nationalite" [(ngModel)]="this.defaultnationalite" name="nationalite">
+            <option *ngFor="let nationalite of nationaliteList" [value]="nationalite.idPays">
+              {{nationalite.nom}}
             </option>
           </select>
         </mat-form-field>
@@ -40,9 +39,8 @@
       <p>
         <mat-form-field>
           <mat-label>Equipe</mat-label>
-          <select matNativeControl formControlName="equipe" [(ngModel)]="this.defaultequipe" name="lieu">
-            <option value="" selected></option>
-            <option *ngFor="let equipe of equipeList" [value]="equipe">
+          <select matNativeControl formControlName="equipe" [(ngModel)]="this.defaultequipe" name="equipe">
+            <option *ngFor="let equipe of equipeList" [value]="equipe.idEquipe">
               {{equipe.nom}}
             </option>
           </select>
@@ -60,16 +58,15 @@
         <mat-form-field>
           <mat-label>Poste</mat-label>
           <select matNativeControl formControlName="poste" [(ngModel)]="this.defaultposte" name="lieu">
-            <option value="" selected></option>
-            <option *ngFor="let poste of posteList" [value]="poste">
+            <option *ngFor="let poste of posteList" [value]="poste.idPoste">
               {{poste.nom}}
             </option>
           </select>
         </mat-form-field>
       </p>
     </div>
-    <div *ngIf="angForm.controls['equipe'].invalid && (angForm.controls['equipe'].dirty || angForm.controls['equipe'].touched)" class="alert alert-danger">
-      <div *ngIf="angForm.controls['equipe'].errors.required">
+    <div *ngIf="angForm.controls['poste'].invalid && (angForm.controls['poste'].dirty || angForm.controls['poste'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['poste'].errors.required">
         L'équipe est requis.
       </div>
     </div>

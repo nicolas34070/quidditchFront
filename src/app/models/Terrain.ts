@@ -9,7 +9,7 @@ export class Terrain {
    * @param {Pays} [lieu] - The id of the lieu..
    */
   constructor(
-    public idTerrain: number,
+    public idTerrain?: number,
     public nom?: string,
     public lieu?: Pays
   ) { }

@@ -35,7 +35,7 @@ export class Tournoi {
    * @returns {Tournoi} - The tournoi object created from data values
    */
   static mapToTournoi(data: any): Tournoi {
-    let date_debut = moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
+    let date_debut =  data.dateDebut == null ? null : moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
     let date_fin = data.dateFin == null ? null : moment(data.dateFin, 'YYYY-MM-DD HH:mm:ss');
     let pays = Pays.mapToPays(data.pays);
     return new Tournoi(data.idTournoi, data.nom, date_debut, date_fin, pays);

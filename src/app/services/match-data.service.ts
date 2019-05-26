@@ -116,13 +116,12 @@ export class MatchDataService {
         idMatch: match.idMatch,
         scorePremiereEquipe: match.scorePremiereEquipe,
         scoreDeuxiemeEquipe: match.scoreDeuxiemeEquipe,
-        temps: match.temps,
-        dateDebut:  moment(match.dateDebut).format('DD MMMM HH:mm'),
-        dateFin:  moment(match.dateFin).format('DD MMMM HH:mm'),
-        arbitre: match.arbitre,
-        terrain: match.terrain,
-        premiereEquipe: match.premiereEquipe,
-        deuxiemeEquipe: match.deuxiemeEquipe
+        dateDebut: match.dateDebut == null ? ' ' :  match.dateDebut.format(),
+        arbitre: match.arbitre.idUtilisateur,
+        terrain: match.terrain.idTerrain,
+        premiereEquipe: match.premiereEquipe.idEquipe,
+        deuxiemeEquipe: match.deuxiemeEquipe.idEquipe,
+        tournoi: match.tournoi.idTournoi
       };
       return this.http.post(environment.urls.baseApiUrl + urlMatchs, body).pipe(
         map(
@@ -147,13 +146,13 @@ export class MatchDataService {
         idMatch: match.idMatch,
         scorePremiereEquipe: match.scorePremiereEquipe,
         scoreDeuxiemeEquipe: match.scoreDeuxiemeEquipe,
-        temps: match.temps,
-        dateDebut:  moment(match.dateDebut).format('DD MMMM HH:mm'),
-        dateFin:  moment(match.dateFin).format('DD MMMM HH:mm'),
+        dateDebut: match.dateDebut == null ? ' ' : match.dateDebut.format(),
+        dateFin:  match.dateFin == null ? 'none' : match.dateFin.format() ,
         arbitre: match.arbitre.idUtilisateur,
         terrain: match.terrain.idTerrain,
         premiereEquipe: match.premiereEquipe.idEquipe,
-        deuxiemeEquipe: match.deuxiemeEquipe.idEquipe
+        deuxiemeEquipe: match.deuxiemeEquipe.idEquipe,
+        tournoi: match.tournoi.idTournoi
       };
 
       return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/' + match.idMatch, body).pipe(
@@ -181,6 +180,25 @@ export class MatchDataService {
       };
 
       return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/score/' + match.idMatch, body).pipe(
+        map(
+          (data: any) => {
+            return Match.mapToMatch(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating match ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+  /**
+   * Delete a match score in DB
+   * @param {Match} match - The match to update
+   * @returns {Observable<Match>}
+   */
+  deleteMatch(match: Match): Observable<Match> {
+    try {
+      return this.http.delete(environment.urls.baseApiUrl + urlMatchs + '/score/' + match.idMatch).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);

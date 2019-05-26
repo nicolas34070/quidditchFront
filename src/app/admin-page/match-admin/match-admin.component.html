@@ -5,7 +5,7 @@
   <mat-form-field>
     <input  matInput (keyup)="applyFilter($event.target.value)" placeholder="Rechercher">
   </mat-form-field>
-  <button mat-flat-button color="primary" (click)="openProjectSideNav('creation')"> Créer un nouveau match </button>
+  <button mat-flat-button color="primary" (click)="newMatch()"> Créer un nouveau match </button>
 </div>
 
 <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
@@ -29,6 +29,13 @@
     <mat-cell *matCellDef="let element"> {{element.deuxiemeEquipe.nom}} : {{ element.scoreDeuxiemeEquipe}} pts </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="arbitre">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Arbitre
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.arbitre.nom}} </mat-cell>
+  </ng-container>
+
+
   <ng-container matColumnDef="terrain">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Terrain
     </mat-header-cell>
@@ -50,7 +57,7 @@
 
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row.id)"
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleBtnKeyUp(row)"
            [tabIndex]="0">
   </mat-row>
 </mat-table>

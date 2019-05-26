@@ -16,7 +16,7 @@ export class TerrainAdminDetailsComponent implements OnInit {
 
   @Input() oldTerrain?: Terrain;
   lieuList: Pays[] = [];
-  default : Pays;
+  default : number;
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public terrainDataService: TerrainDataService, public paysDataService: PaysDataService) {
@@ -34,16 +34,17 @@ export class TerrainAdminDetailsComponent implements OnInit {
   async ngOnInit() {
     this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
       this.lieuList = pays;
-      this.default =  this.oldTerrain != null ? this.oldTerrain.lieu : this.lieuList[0];
+      this.default =  this.oldTerrain != null ? this.oldTerrain.lieu.idPays : this.lieuList[0].idPays;
     });
   }
 
 
   save() {
     let terrain = Terrain.mapToTerrain(this.angForm.value);
-
+    terrain.lieu.idPays = this.angForm.value.lieu;
 
     if (this.oldTerrain != null) {
+      console.log(terrain);
       terrain.idTerrain = this.oldTerrain.idTerrain;
       this.terrainDataService.updateTerrain(terrain).subscribe((terrain: Terrain) => {
         this.activeModal.close();

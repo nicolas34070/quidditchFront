@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {Match} from "../../models/Match";
 import {MatchDataService} from "../../services/match-data.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MatchAdminDetailsComponent} from "./match-admin-details/match-admin-details.component";
 
 @Component({
   selector: 'app-match-admin',
@@ -14,12 +16,16 @@ export class MatchAdminComponent implements OnInit {
 
   matchsList: Match[];
 
-  constructor(public matchDataService: MatchDataService) { }
+  constructor(public matchDataService: MatchDataService, public _modalService : NgbModal) { }
 
-  displayedColumns: string[] = [ 'tournoi', 'premiereEquipe', 'deuxiemeEquipe', 'terrain', 'dateDebut', 'dateFin'];
+  displayedColumns: string[] = [ 'tournoi', 'premiereEquipe', 'deuxiemeEquipe',  'arbitre', 'terrain', 'dateDebut', 'dateFin'];
   dataSource: MatTableDataSource<Match>  = null;
 
   async ngOnInit() {
+    this.onChange();
+  }
+
+  onChange() {
     this.matchDataService.getMatchs().subscribe((matchs: Match[]) =>
     {
       this.matchsList = matchs;
@@ -33,11 +39,7 @@ export class MatchAdminComponent implements OnInit {
 
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
-
     });
-
-
-
   }
 
 
@@ -51,12 +53,27 @@ export class MatchAdminComponent implements OnInit {
 
 
 
-
   /**
-   * Open editing project sidebar
-   * @param {String} id - The project id.
+   * editing
+   * @param {Match}
    */
-  handleBtnKeyUp(id: string): void {
+  handleBtnKeyUp(match): void {
+    var modalRef =  this._modalService.open(MatchAdminDetailsComponent);
+    modalRef.componentInstance.oldMatch = match;
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
 
+      })
+  }
+
+
+  newMatch() {
+    var modalRef =  this._modalService.open(MatchAdminDetailsComponent);
+    modalRef. result.then(() => {
+        this.onChange() },
+      () => {
+
+      })
   }
 }

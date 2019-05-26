@@ -68,11 +68,12 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   addTournoi(tournoi: Tournoi): Observable<Tournoi> {
+    let dateDebut = tournoi.dateDebut != null ? tournoi.dateFin.format() : " ";
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateDebut: tournoi.dateDebut.toISOString()
+        dateDebut: dateDebut
       };
 
       return this.http.post(environment.urls.baseApiUrl + urlTournois, body).pipe(
@@ -95,14 +96,17 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   updateTournoi(tournoi: Tournoi): Observable<Tournoi> {
-    let dateFin = tournoi.dateFin != null ? tournoi.dateFin.toISOString() : " ";
+    let dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : " ";
+    let dateFin = tournoi.dateFin != null ? tournoi.dateFin.format() : "none";
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateFin: dateFin,
-        dateDebut: tournoi.dateDebut.toISOString()
+        dateDebut: dateDebut,
+        dateFin:  dateFin,
       };
+
+      console.log(body);
 
       return this.http.put(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi, body).pipe(
         map(
