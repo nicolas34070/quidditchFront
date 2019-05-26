@@ -22,12 +22,12 @@ export class JoueurAdminDetailsComponent implements OnInit {
   angForm: FormGroup;
 
   nationaliteList: Pays[] = [];
-  defaultnationalite = Pays;
+  defaultnationalite : Pays;
 
   equipeList: Equipe[] = [];
-  defaultequipe = Equipe;
+  defaultequipe : Equipe;
 
-  defaultposte = Poste;
+  defaultposte : Poste;
   posteList: Poste[] = [];
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public joueurDataService: JoueurDataService,

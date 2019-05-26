@@ -11,7 +11,7 @@ export class SidebarComponent implements OnInit {
   active: string = "tournois";
 
   @Output()
-  activeTitle: EventEmitter = new EventEmitter<any>();
+  activeTitle = new EventEmitter();
 
   constructor() { }
 

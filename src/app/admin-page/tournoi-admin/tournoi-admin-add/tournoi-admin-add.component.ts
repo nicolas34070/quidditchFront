@@ -18,7 +18,7 @@ export class TournoiAdminAddComponent implements OnInit {
   @Input() oldTournoi?: Tournoi;
 
   paysList: Pays[] = [];
-  default = Pays;
+  default : Pays;
   defaultOldDateDebut = " ";
   defaultOldDateFin;
 

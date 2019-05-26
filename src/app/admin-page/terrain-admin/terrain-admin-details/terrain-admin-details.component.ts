@@ -16,7 +16,7 @@ export class TerrainAdminDetailsComponent implements OnInit {
 
   @Input() oldTerrain?: Terrain;
   lieuList: Pays[] = [];
-  default = Pays;
+  default : Pays;
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public terrainDataService: TerrainDataService, public paysDataService: PaysDataService) {
