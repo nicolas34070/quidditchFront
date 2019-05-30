@@ -31,7 +31,6 @@ export class EquipeAdminDetailsComponent implements OnInit {
 
 
   save() {
-    console.log(this.angForm.value);
     let equipe = Equipe.mapToEquipe(this.angForm.value);
 
     if (this.oldEquipe != null) {

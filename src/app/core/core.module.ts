@@ -4,24 +4,36 @@ import { AppRoutingModule } from '../app-routing.module';
 import {CommonModule} from "@angular/common";
 import {NavbarreComponent} from "./navbarre/navbarre.component";
 import {SidebarComponent} from "./sidebar/sidebar.component";
+import {CoreServicesModule} from "./services/core-services.module";
+import {AuthService} from "./services/auth.service";
+import {ToastComponent} from "./toast/toast.component";
+import {ErrorPageComponent} from "./error-page/error-page.component";
 
 
 
 @NgModule({
   declarations: [
     NavbarreComponent,
-    SidebarComponent
+    SidebarComponent,
+    ErrorPageComponent,
+    ToastComponent,
   ],
+  entryComponents: [ToastComponent],
   imports: [
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    CoreServicesModule
   ],
   exports: [
     NavbarreComponent,
-    SidebarComponent
+    SidebarComponent,
+    ToastComponent,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
+  ],
+  providers: [
+    AuthService
   ]
 })
 

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {User} from "../../models/User";
 
 @Component({
   selector: 'app-sidebar',
@@ -13,16 +14,19 @@ export class SidebarComponent implements OnInit {
   @Output()
   activeTitle = new EventEmitter();
 
-  constructor() { }
+  user: User;
 
-  ngOnInit() {
+  constructor() {
+
+  }
+
+  async ngOnInit() {
+    this.user  = JSON.parse(localStorage.getItem('user')) || null;
   }
 
   onComponent(name) {
-    console.log(this.active);
     this.active = name;
     this.activeTitle.emit(this.active);
-
   }
 
 }

@@ -107,7 +107,6 @@ export class UserDataService {
   }
 
 
-
   /**
    * Update a user in DB
    * @param {User} user - The user to update
