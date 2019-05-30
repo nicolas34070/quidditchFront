@@ -1,11 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Tournoi} from "../../../models/Tournoi";
 import {TournoiDataService} from "../../../services/tournoi-date.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Pays} from "../../../models/Pays";
 import {PaysDataService} from "../../../services/pays-data.service";
 import {DateAdapter} from "@angular/material";
+import {ToasterService} from "../../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../../enums/color-palette";
 
 @Component({
   selector: 'app-tournoi-admin-details',
@@ -20,11 +22,12 @@ export class TournoiAdminAddComponent implements OnInit {
   default : number;
   defaultOldDateDebut = " ";
   defaultOldDateFin;
+  errorMessage = "une erreur est survenue";
 
 
   angForm: FormGroup;
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
+  constructor(private fb: FormBuilder, private toasterService: ToasterService, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }
@@ -58,7 +61,6 @@ export class TournoiAdminAddComponent implements OnInit {
 
 
   save() {
-    console.log(this.angForm.value.dateFin);
      let tournoi = Tournoi.mapToTournoi(this.angForm.value);
      tournoi.pays.idPays = this.angForm.value.pays;
 
@@ -67,17 +69,29 @@ export class TournoiAdminAddComponent implements OnInit {
 
           this.tournoiDataService.updateTournoi(tournoi).subscribe((tournoi: Tournoi) => {
             this.activeModal.close();
-          });
+          },
+            error => {
+              this.errorMessage = error.error;
+              this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+            });
       } else {
         this.tournoiDataService.addTournoi(tournoi).subscribe((tournoi: Tournoi) => {
           this.activeModal.close();
-        });
+        },
+          error => {
+            this.errorMessage = error.error;
+            this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+          });
       }
   }
 
   delete() {
     this.tournoiDataService.deleteTournoi(this.oldTournoi).subscribe((tournoi: Tournoi) => {
       this.activeModal.close()
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 }

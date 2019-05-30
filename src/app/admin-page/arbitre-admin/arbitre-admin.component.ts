@@ -5,6 +5,8 @@ import {UserDataService} from "../../services/user-data.service";
 import {PaysAdminDetailsComponent} from "../pays-admin/pays-admin-details/pays-admin-details.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ArbitreAdminDetailsComponent} from "./arbitre-admin-details/arbitre-admin-details.component";
+import {ColorPaletteTypes} from "../../enums/color-palette";
+import {ToasterService} from "../../core/services/toaster.service";
 
 @Component({
   selector: 'app-arbitre-admin',
@@ -17,8 +19,9 @@ export class ArbitreAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   usersList: User[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public userDataService: UserDataService, public _modalService: NgbModal) {
+  constructor(public userDataService: UserDataService, public _modalService: NgbModal, private toasterService: ToasterService) {
   }
 
   displayedColumns: string[] = ['nom', 'email'];
@@ -29,12 +32,18 @@ export class ArbitreAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.userDataService.getArbitres().subscribe((users: User[]) => {
+    this.userDataService.getArbitres().subscribe(
+      (users: User[]) => {
       this.usersList = users;
       this.dataSource = new MatTableDataSource(this.usersList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+       },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      }
+    );
   }
 
   /**

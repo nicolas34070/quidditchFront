@@ -8,6 +8,8 @@ import {CoreServicesModule} from "./services/core-services.module";
 import {AuthService} from "./services/auth.service";
 import {ToastComponent} from "./toast/toast.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
+import {MaterialModule} from "../material-app.module";
+import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from "@angular/material";
 
 
 
@@ -22,7 +24,8 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
   imports: [
     AppRoutingModule,
     CommonModule,
-    CoreServicesModule
+    CoreServicesModule,
+    MaterialModule
   ],
   exports: [
     NavbarreComponent,
@@ -33,8 +36,13 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    AuthService
-  ]
+    AuthService,{
+    provide: MatSnackBarRef,
+    useValue: {}
+  }, {
+    provide: MAT_SNACK_BAR_DATA,
+    useValue: {}
+  }]
 })
 
 export class CoreModule { }

@@ -12,7 +12,6 @@ import {ArbitrageModule} from "./arbitrage/arbitrage.module";
 import {HttpClientModule} from "@angular/common/http";
 import {CoreModule} from "./core/core.module";
 import {TournoiPageModule} from "./tournoi-page/tournoi-page.module";
-import {ModalScoreComponent} from "./arbitrage/modal-score/modal-score.component";
 import {AdminPageModule} from "./admin-page/admin-page.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatNativeDateModule} from "@angular/material";

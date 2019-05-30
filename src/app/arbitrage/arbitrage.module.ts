@@ -8,6 +8,8 @@ import {CoreModule} from "../core/core.module";
 import {ModalModule} from "../ui-component/modal/modal.module";
 import {ModalScoreComponent} from "./modal-score/modal-score.component";
 import {FormsModule} from "@angular/forms";
+import {ServicesModule} from "../services/service.module";
+import {MaterialModule} from "../material-app.module";
 
 
 
@@ -22,6 +24,7 @@ import {FormsModule} from "@angular/forms";
     CoreModule,
     ModalModule,
     FormsModule,
+    MaterialModule
 
   ],
   exports: [
@@ -32,6 +35,7 @@ import {FormsModule} from "@angular/forms";
   ],
   providers: [
     MatchDataService,
+    ServicesModule
   ]
 })
 

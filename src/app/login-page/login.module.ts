@@ -5,6 +5,7 @@ import {LoginPageComponent} from "./login-page.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "../core/core.module";
+import {MaterialModule} from "../material-app.module";
 
 
 
@@ -18,6 +19,7 @@ import {CoreModule} from "../core/core.module";
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
+    MaterialModule
 
   ],
   exports: [

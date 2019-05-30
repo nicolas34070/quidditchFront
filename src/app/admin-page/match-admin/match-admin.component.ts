@@ -4,6 +4,7 @@ import {Match} from "../../models/Match";
 import {MatchDataService} from "../../services/match-data.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatchAdminDetailsComponent} from "./match-admin-details/match-admin-details.component";
+import {ToasterService} from "../../core/services/toaster.service";
 
 @Component({
   selector: 'app-match-admin',
@@ -15,8 +16,9 @@ export class MatchAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   matchsList: Match[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public matchDataService: MatchDataService, public _modalService : NgbModal) { }
+  constructor(public matchDataService: MatchDataService, public _modalService : NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = [ 'tournoi', 'premiereEquipe', 'deuxiemeEquipe',  'arbitre', 'terrain', 'dateDebut', 'dateFin'];
   dataSource: MatTableDataSource<Match>  = null;

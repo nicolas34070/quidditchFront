@@ -192,6 +192,30 @@ export class MatchDataService {
   }
 
   /**
+   * Update a match score in DB
+   * @param {Match} match - The match to update
+   * @returns {Observable<Match>}
+   */
+  endMatch(match: Match): Observable<Match> {
+    try {
+      const body = {
+
+      };
+
+      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/end/' + match.idMatch, body).pipe(
+        map(
+          (data: any) => {
+            return Match.mapToMatch(data);
+          }
+        )
+      );
+    } catch (err) {
+      console.log('%c Error updating match ', 'font-weight: bold; color: red', err);
+    }
+  }
+
+
+  /**
    * Delete a match score in DB
    * @param {Match} match - The match to update
    * @returns {Observable<Match>}

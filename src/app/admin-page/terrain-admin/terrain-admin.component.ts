@@ -4,6 +4,8 @@ import {Terrain} from "../../models/Terrain";
 import {TerrainDataService} from "../../services/terrain-data.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {TerrainAdminDetailsComponent} from "./terrain-admin-details/terrain-admin-details.component";
+import {ToasterService} from "../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../enums/color-palette";
 
 @Component({
   selector: 'app-terrain-admin',
@@ -16,8 +18,9 @@ export class TerrainAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   terrainsList: Terrain[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public terrainDataService: TerrainDataService, public _modalService: NgbModal) { }
+  constructor(public terrainDataService: TerrainDataService, public _modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom', 'lieu'];
   dataSource: MatTableDataSource<Terrain>  = null;
@@ -39,7 +42,11 @@ export class TerrainAdminComponent implements OnInit {
 
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 
   /**

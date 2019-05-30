@@ -3,8 +3,10 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { AppRoutingModule } from '../app-routing.module';
 import {MatchPageComponent} from "./match-page.component";
 import {MatchDataService} from "../services/match-data.service";
-import {UserDataService} from "../services/user-data.service";
 import {CommonModule} from "@angular/common";
+import {CoreModule} from "../core/core.module";
+import {ServicesModule} from "../services/service.module";
+import {MaterialModule} from "../material-app.module";
 
 
 
@@ -14,7 +16,9 @@ import {CommonModule} from "@angular/common";
   ],
   imports: [
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    CoreModule,
+    MaterialModule
   ],
   exports: [
   ],
@@ -23,6 +27,7 @@ import {CommonModule} from "@angular/common";
   ],
   providers: [
     MatchDataService,
+    ServicesModule
   ]
 })
 

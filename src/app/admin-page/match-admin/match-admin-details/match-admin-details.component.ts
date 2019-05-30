@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Match} from "../../../models/Match";
 import {Terrain} from "../../../models/Terrain";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {TerrainDataService} from "../../../services/terrain-data.service";
 import {DateAdapter} from "@angular/material";
 import {MatchDataService} from "../../../services/match-data.service";
@@ -13,6 +13,8 @@ import {TournoiDataService} from "../../../services/tournoi-date.service";
 import {UserDataService} from "../../../services/user-data.service";
 import {User} from "../../../models/User";
 import * as moment from "../../../models/Match";
+import {ToasterService} from "../../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../../enums/color-palette";
 
 @Component({
   selector: 'app-match-admin-details',
@@ -45,8 +47,9 @@ export class MatchAdminDetailsComponent implements OnInit {
 
 
   angForm: FormGroup;
+  errorMessage = "une erreur est survenue";
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public arbitreDataService: UserDataService,  public tournoiDataService: TournoiDataService, public equipeDataService: EquipeDataService, public terrainDataService: TerrainDataService, public matchDataService: MatchDataService, private dateAdapter: DateAdapter<Date>) {
+  constructor(private fb: FormBuilder, private toasterService: ToasterService , public activeModal: NgbActiveModal, public arbitreDataService: UserDataService,  public tournoiDataService: TournoiDataService, public equipeDataService: EquipeDataService, public terrainDataService: TerrainDataService, public matchDataService: MatchDataService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }
@@ -110,17 +113,29 @@ export class MatchAdminDetailsComponent implements OnInit {
 
       this.matchDataService.updateMatch(match).subscribe((match: Match) => {
         this.activeModal.close();
-      });
+      },
+        error => {
+          this.errorMessage = error.error;
+          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+        });
     } else {
       this.matchDataService.addMatch(match).subscribe((match: Match) => {
         this.activeModal.close();
-      });
+      },
+        error => {
+          this.errorMessage = error.error;
+          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+        });
     }
   }
 
   delete() {
     this.matchDataService.deleteMatch(this.oldMatch).subscribe((match: Match) => {
       this.activeModal.close()
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 }

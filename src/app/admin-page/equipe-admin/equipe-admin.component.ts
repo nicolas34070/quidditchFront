@@ -2,9 +2,10 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {EquipeDataService} from "../../services/equipe-data.service";
 import {Equipe} from "../../models/Equipe";
-import {PaysAdminDetailsComponent} from "../pays-admin/pays-admin-details/pays-admin-details.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EquipeAdminDetailsComponent} from "./equipe-admin-details/equipe-admin-details.component";
+import {ToasterService} from "../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../enums/color-palette";
 
 @Component({
   selector: 'app-equipe-admin',
@@ -17,8 +18,9 @@ export class EquipeAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   equipesList: Equipe[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public equipeDataService: EquipeDataService, public _modalService: NgbModal) { }
+  constructor(public equipeDataService: EquipeDataService, public _modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Equipe>  = null;
@@ -34,7 +36,12 @@ export class EquipeAdminComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.equipesList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      }
+      );
   }
 
 

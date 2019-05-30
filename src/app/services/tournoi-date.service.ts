@@ -68,7 +68,7 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   addTournoi(tournoi: Tournoi): Observable<Tournoi> {
-    let dateDebut = tournoi.dateDebut != null ? tournoi.dateFin.format() : " ";
+    let dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : " ";
     try {
       const body = {
         nom: tournoi.nom,

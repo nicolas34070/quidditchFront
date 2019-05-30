@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {User} from "../models/User";
+import {Role} from "../enums/Role";
 
 const urlUsers = 'utilisateurs';
 
@@ -90,7 +91,7 @@ export class UserDataService {
     try {
       const body = {
         nom: user.nom || '',
-        roles:  1,
+        roles:  Role.arbitre,
         motDepasse: randomstring,
         email: user.email
       };
@@ -116,7 +117,7 @@ export class UserDataService {
     try {
       const body = {
         nom: user.nom,
-        roles: 1,
+        roles:  Role.arbitre,
         email: user.email
       };
 

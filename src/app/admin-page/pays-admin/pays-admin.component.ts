@@ -6,6 +6,8 @@ import {TournoiAdminAddComponent} from "../tournoi-admin/tournoi-admin-add/tourn
 import {TournoiDataService} from "../../services/tournoi-date.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PaysAdminDetailsComponent} from "./pays-admin-details/pays-admin-details.component";
+import {ToasterService} from "../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../enums/color-palette";
 
 @Component({
   selector: 'app-pays-admin',
@@ -19,8 +21,9 @@ export class PaysAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   paysList: Pays[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public paysDataService: PaysDataService, private _modalService: NgbModal) { }
+  constructor(public paysDataService: PaysDataService, private _modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Pays>  = null;
@@ -36,7 +39,11 @@ export class PaysAdminComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.paysList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 
   onChange() {

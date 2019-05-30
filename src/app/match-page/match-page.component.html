@@ -2,7 +2,7 @@
       <h1>Coupe du monde de quiditch  </h1>
 
 
-<div *ngFor="let match of MatchsListEnCours;"  class="container">
+<div  *ngFor="let match of MatchsListEnCours;"  class="container">
   <div class="row"><p> {{ match.dateDebut.locale('fr').format('LLLL')}}  -  {{ match.dateDebut.fromNow()}}
     au {{ match.terrain.nom }} </p></div>
   <div class="row">
@@ -10,14 +10,14 @@
         <h6>{{ match.premiereEquipe.nom}}</h6>
        </div>
        <div class="col-sm">
-          <img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">
+         <img src="assets/img/Gryffondor.jpeg" alt="image/jpeg">
          </div>
     
      <div class="col-sm" id="nombre1">
        {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
     </div>
     <div class="col-sm">
-      <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
+      <img src="assets/img/Serpentard.jpeg" alt="image/jpeg">
         </div>
     <div class="col-sm">
        <h6>{{ match.deuxiemeEquipe.nom}}</h6>
@@ -42,7 +42,7 @@
       {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
     </div>
     <div class="col-sm">
-      <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
+      <img src="assets/img/Serpentard.jpeg" alt="image/jpeg">
     </div>
     <div class="col-sm">
       <h6>{{ match.deuxiemeEquipe.nom}}</h6>
@@ -60,14 +60,14 @@
       <h6>{{ match.premiereEquipe.nom}}</h6>
     </div>
     <div class="col-sm">
-      <img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">
+      <img src="assets/img/Gryffondor.jpeg" alt="image/jpeg">
     </div>
 
     <div class="col-sm" id="nombre1">
       {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
     </div>
     <div class="col-sm">
-      <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
+      <img src="assets/img/Serpentard.jpeg" alt="image/jpeg">
     </div>
     <div class="col-sm">
       <h6>{{ match.deuxiemeEquipe.nom}}</h6>

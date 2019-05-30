@@ -5,22 +5,25 @@
           <div class="col-sm">
             <h6>{{ match.premiereEquipe.nom}}</h6>
           </div>
-          <div class="col-sm">
-            <img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">
-          </div>
+          <!--<div class="col-sm">-->
+            <!--<img src="assets/img/{{ match.premiereEquipe.nom}}.jpeg" alt="image/jpeg">-->
+          <!--</div>-->
 
           <div class="col-sm" id="nombre1">
             {{ match.scorePremiereEquipe}} -   {{ match.scoreDeuxiemeEquipe}}
           </div>
-          <div class="col-sm">
-            <img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">
-          </div>
+          <!--<div class="col-sm">-->
+            <!--<img src="assets/img/{{ match.deuxiemeEquipe.nom}}.jpeg" alt="image/jpeg">-->
+          <!--</div>-->
           <div class="col-sm">
             <h6>{{ match.deuxiemeEquipe.nom}}</h6>
           </div>
         </div>
         <hr>
         <ngbd-modal-focus [placeholder]="'Saisir le score'" [content]="match">        </ngbd-modal-focus>
+        <button type="button"  class="btn btn-primary"   (click)="endMatch(match)"  [textContent]="'Cloturer le match'" >
+        </button>
+
       </div>
 
 

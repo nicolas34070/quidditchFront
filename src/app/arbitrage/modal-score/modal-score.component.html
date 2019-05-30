@@ -8,11 +8,11 @@
   <form>
     <div class="form-group">
       <label for="newScorePremiereEquipe"> {{ match.premiereEquipe.nom }} : </label>
-      <input  [(ngModel)]=" match.scorePremiereEquipe" name="newScorePremiereEquipe" type="text" class="form-control" id="newScorePremiereEquipe" placeholder="{{ match.scorePremiereEquipe }}">
+      <input  [(ngModel)]=" match.scorePremiereEquipe" name="newScorePremiereEquipe" type="number" class="form-control" id="newScorePremiereEquipe" placeholder="{{ match.scorePremiereEquipe }}">
     </div>
     <div class="form-group">
       <label for="newScoreDeuxiemeEquipe">{{ match.deuxiemeEquipe.nom }} : </label>
-      <input type="text" [(ngModel)]=" match.scoreDeuxiemeEquipe" name="newScoreDeuxiemeEquipe" class="form-control" id="newScoreDeuxiemeEquipe" placeholder="{{ match.scoreDeuxiemeEquipe }}">
+      <input type="number" [(ngModel)]=" match.scoreDeuxiemeEquipe" name="newScoreDeuxiemeEquipe" class="form-control" id="newScoreDeuxiemeEquipe" placeholder="{{ match.scoreDeuxiemeEquipe }}">
     </div>
   </form>
 </div>

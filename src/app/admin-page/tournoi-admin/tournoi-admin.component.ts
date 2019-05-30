@@ -5,6 +5,8 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
 import {TournoiAdminAddComponent} from "./tournoi-admin-add/tournoi-admin-add.component";
+import {ToasterService} from "../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../enums/color-palette";
 
 @Component({
   selector: 'app-tournoi-admin',
@@ -18,9 +20,10 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-   tournoisList: Tournoi[];
+  tournoisList: Tournoi[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal) { }
+  constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom', 'dateDebut', 'dateFin', 'pays'];
   dataSource: MatTableDataSource<Tournoi>  = null;
@@ -61,7 +64,11 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
 
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 
 

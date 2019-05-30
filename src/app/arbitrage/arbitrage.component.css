@@ -38,3 +38,10 @@ hr {
     border-style: inset;
     border-width: 1px;
 }
+button{
+  margin: 2%;
+  margin-top: 0%;
+  border-radius: 20px;
+  background-color: #f3f4f7;
+  color: #0062cc;
+}

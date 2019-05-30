@@ -4,6 +4,8 @@ import {Joueur} from "../../models/Joueur";
 import {JoueurDataService} from "../../services/joueur-data.service";
 import {JoueurAdminDetailsComponent} from "../joueur-admin/joueur-admin-details/joueur-admin-details.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ToasterService} from "../../core/services/toaster.service";
+import {ColorPaletteTypes} from "../../enums/color-palette";
 
 @Component({
   selector: 'app-joueur-admin',
@@ -16,8 +18,9 @@ export class JoueurAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   joueursList: Joueur[];
+  errorMessage = "une erreur est survenue";
 
-  constructor(public joueurDataService: JoueurDataService, public _modalService : NgbModal) { }
+  constructor(public joueurDataService: JoueurDataService, public _modalService : NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom', 'nationalite', 'poste', 'equipe'];
   dataSource: MatTableDataSource<Joueur>  = null;
@@ -39,7 +42,11 @@ export class JoueurAdminComponent implements OnInit {
 
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
       }
-    });
+    },
+      error => {
+        this.errorMessage = error.error;
+        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+      });
   }
 
   /**
