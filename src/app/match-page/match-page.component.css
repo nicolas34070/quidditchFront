@@ -20,14 +20,14 @@ p{
     align-items: center;
     justify-content: center;
 }
-#nombre1{
+.nombre1{
     text-align: center;
     font-weight: 500;
 }
 h3{
     text-align: right;
 }
-#blason{
+.blason{
     padding-top: 2%;
     width: 20%;
 }

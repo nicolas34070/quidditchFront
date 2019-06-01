@@ -4,17 +4,26 @@ import {MatchDataService} from "./match-data.service";
 import {Injectable} from "@angular/core";
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MatchStore {
 
-  private _matchs: BehaviorSubject<Match[]> = new BehaviorSubject([]);
+  private _matchs: BehaviorSubject<Match[]>;
 
   constructor(private matchBackendService: MatchDataService) {
+    this._matchs = new BehaviorSubject<Match[]>([]);
   }
 
-  get matchs() {
+  get matchs(): Observable<Match[]> {
+    console.log(this._matchs);
     return this._matchs.asObservable();
   }
+
+  public setObservable(newValue): void {
+    this._matchs.next(newValue);
+  }
+
 
   loadInitialData(id) {
     this.matchBackendService.getMatchsByTournoi(id)
@@ -27,46 +36,18 @@ export class MatchStore {
 
   }
 
-  addMatch(newMatch: Match): Observable {
 
-    let obs = this.matchBackendService.addMatch(newMatch);
+  toggleMatch(toggled:Match): Observable<Match>  {
+    let obs: Observable<Match>  = this.matchBackendService.updateMatchScore(toggled);
 
     obs.subscribe(
       res => {
+        let toggle = Match.mapToMatch(res);
         let matchs = this._matchs.getValue();
-        matchs.push(newMatch);
-        this._matchs.next(matchs);
-      });
-
-    return obs;
-  }
-
-  toggleMatch(toggled:Match): Observable {
-    let obs: Observable = this.matchBackendService.updateMatchScore(toggled);
-
-    obs.subscribe(
-      res => {
-        let matchs = this._matchs.getValue();
-        let index = matchs.findIndex((match: Match) => match.idMatch === toggled.idMatch);
-         matchs[index] = res;
-        this._matchs.next(matchs);
-      }
-    );
-
-    return obs;
-  }
-
-
-  deleteMatch(deleted:Match): Observable {
-    let obs: Observable = this.matchBackendService.deleteMatch(deleted);
-
-    obs.subscribe(
-      res => {
-        let matchs: Match[] = this._matchs.getValue();
-        let index = matchs.findIndex((match) => match.idMatch === deleted.idMatch);
-        matchs.slice(index, res)
-        this._matchs.next(matchs);
-
+        let index = matchs.indexOf(toggled );
+         matchs[index] = toggle;
+         console.log(matchs);
+         this.setObservable(matchs);
       }
     );
 

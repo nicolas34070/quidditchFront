@@ -25,12 +25,16 @@ export class ArbitrageComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params['id']
 
+      console.log(this.id);
       this.matchDataService.getMatchsByArbitre(this.id).subscribe((matches: Match[]) => {
 
+        console.log(matches);
         matches.map(match => {
+          console.log(match);
           if (match.dateFin == null ) {
-            if (match.dateDebut.format("DD/MM/YYY") <= (moment().format("DD/MM/YYY"))) {
-              this.matchesList.push(match)
+            if ( (moment() > match.dateDebut)) {
+              console.log("oh");
+              this.matchesList.push(match);
             }
           }
         } );
@@ -43,8 +47,7 @@ export class ArbitrageComponent implements OnInit {
   }
 
   endMatch(match) {
-    console.log(match);
-    this.matchDataService.endMatch(match).subscribe((matches: Match) => {
+   this.matchDataService.endMatch(match).subscribe((matches: Match) => {
       }
     );
   }

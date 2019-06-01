@@ -6,7 +6,7 @@ import {CommonModule} from "@angular/common";
 import {MatchDataService} from "../services/match-data.service";
 import {CoreModule} from "../core/core.module";
 import {ModalModule} from "../ui-component/modal/modal.module";
-import {ModalScoreComponent} from "./modal-score/modal-score.component";
+import {ModalScoreComponent} from "../match-page/modal-score/modal-score.component";
 import {FormsModule} from "@angular/forms";
 import {ServicesModule} from "../services/service.module";
 import {MaterialModule} from "../material-app.module";
@@ -15,8 +15,7 @@ import {MaterialModule} from "../material-app.module";
 
 @NgModule({
   declarations: [
-    ArbitrageComponent,
-    ModalScoreComponent
+    ArbitrageComponent
   ],
   imports: [
     AppRoutingModule,
@@ -24,18 +23,16 @@ import {MaterialModule} from "../material-app.module";
     CoreModule,
     ModalModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    ServicesModule
 
   ],
   exports: [
-    ModalScoreComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    MatchDataService,
-    ServicesModule
   ]
 })
 

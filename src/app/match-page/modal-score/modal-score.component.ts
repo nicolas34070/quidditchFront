@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {Match} from "../../models/Match";
-import {MatchDataService} from "../../services/match-data.service";
 import {ColorPaletteTypes} from "../../enums/color-palette";
 import {ToasterService} from "../../core/services/toaster.service";
+import {MatchStore} from "../../services/match-data-tournoi-observable";
 
 @Component({
   selector: 'app-modal-score',
@@ -12,17 +12,17 @@ import {ToasterService} from "../../core/services/toaster.service";
 })
 export class ModalScoreComponent implements OnInit {
 
-  @Input()match: Match;
+  @Input() match: Match;
 
   errorMessage = "une erreur est survenue";
 
-  constructor( public activeModal: NgbActiveModal, public matchDataService: MatchDataService, private toasterService: ToasterService) { }
+  constructor( public activeModal: NgbActiveModal, private matchDataService: MatchStore, private toasterService: ToasterService) { }
 
   ngOnInit() {
   }
 
   saveScore() {
-    this.matchDataService.updateMatchScore(this.match).subscribe((matches: Match) => {
+    this.matchDataService.toggleMatch(this.match).subscribe((matches: Match) => {
       this.activeModal.dismiss();
     },
       error => {

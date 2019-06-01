@@ -15,11 +15,13 @@ import {TournoiPageModule} from "./tournoi-page/tournoi-page.module";
 import {AdminPageModule} from "./admin-page/admin-page.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatNativeDateModule} from "@angular/material";
+import {ModalScoreComponent} from "./match-page/modal-score/modal-score.component";
+import {ServicesModule} from "./services/service.module";
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,6 @@ import {MatNativeDateModule} from "@angular/material";
     MatNativeDateModule,
     ReactiveFormsModule,
 
-
     FormsModule,
     MatchPageModule,
     LoginModule,
@@ -37,13 +38,12 @@ import {MatNativeDateModule} from "@angular/material";
     CoreModule,
     TournoiPageModule,
     AdminPageModule,
-
     CommonModule,
     
     AppRoutingModule
 
   ],
-  providers: [],
+  providers: [ServicesModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

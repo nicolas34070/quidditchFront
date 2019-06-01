@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {Match} from "../../models/Match";
-import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
+import {ModalScoreComponent} from "../../match-page/modal-score/modal-score.component";
 import {TournoiAdminAddComponent} from "../../admin-page/tournoi-admin/tournoi-admin-add/tournoi-admin-add.component";
 
 

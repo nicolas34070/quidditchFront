@@ -3,7 +3,7 @@ import {Tournoi} from "../../models/Tournoi";
 import {TournoiDataService} from "../../services/tournoi-date.service";
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
+import {ModalScoreComponent} from "../../match-page/modal-score/modal-score.component";
 import {TournoiAdminAddComponent} from "./tournoi-admin-add/tournoi-admin-add.component";
 import {ToasterService} from "../../core/services/toaster.service";
 import {ColorPaletteTypes} from "../../enums/color-palette";

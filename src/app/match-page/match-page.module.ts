@@ -5,29 +5,33 @@ import {MatchPageComponent} from "./match-page.component";
 import {MatchDataService} from "../services/match-data.service";
 import {CommonModule} from "@angular/common";
 import {CoreModule} from "../core/core.module";
-import {ServicesModule} from "../services/service.module";
 import {MaterialModule} from "../material-app.module";
+import {ModalScoreComponent} from "./modal-score/modal-score.component";
+import {FormsModule} from "@angular/forms";
+import {ServicesModule} from "../services/service.module";
 
 
 
 @NgModule({
   declarations: [
-    MatchPageComponent
+    MatchPageComponent,
+    ModalScoreComponent
   ],
   imports: [
     AppRoutingModule,
     CommonModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ServicesModule
   ],
   exports: [
+    ModalScoreComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    MatchDataService,
-    ServicesModule
   ]
 })
 
