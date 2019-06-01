@@ -18,7 +18,8 @@ import {MaterialModule} from "../material-app.module";
     AppRoutingModule,
     CommonModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    ServicesModule
   ],
   exports: [
   ],
@@ -26,8 +27,7 @@ import {MaterialModule} from "../material-app.module";
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    MatchDataService,
-    ServicesModule
+
   ]
 })
 

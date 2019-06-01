@@ -7,6 +7,7 @@ import {JoueurDataService} from "./joueur-data.service";
 import {TerrainDataService} from "./terrain-data.service";
 import {PaysDataService} from "./pays-data.service";
 import {PosteDataService} from "./poste-date.service";
+import {PusherService} from "./pusher.service";
 
 
 
@@ -21,7 +22,8 @@ import {PosteDataService} from "./poste-date.service";
     JoueurDataService,
     TerrainDataService,
     PaysDataService,
-    PosteDataService
+    PosteDataService,
+    PusherService
   ]
 })
 

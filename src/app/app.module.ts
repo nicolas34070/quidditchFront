@@ -15,6 +15,8 @@ import {TournoiPageModule} from "./tournoi-page/tournoi-page.module";
 import {AdminPageModule} from "./admin-page/admin-page.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatNativeDateModule} from "@angular/material";
+import {PusherService} from "./services/pusher.service";
+import {ServicesModule} from "./services/service.module";
 
 
 @NgModule({
@@ -43,7 +45,7 @@ import {MatNativeDateModule} from "@angular/material";
     AppRoutingModule
 
   ],
-  providers: [],
+  providers: [PusherService, ServicesModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

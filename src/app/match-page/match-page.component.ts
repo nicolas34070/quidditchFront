@@ -21,94 +21,45 @@ export class MatchPageComponent implements OnInit {
   }
 
   async ngOnInit() {
+
+    // subscribe to pusher's event
+    this.matchDataService.getChannel().bind('update', (data : any[]) => {
+      this.onChangeData();
+    });
+
     this.onChangeData();
   }
 
-  private subscribeToData(): void {
-    this.interval = setInterval(() => {
-      this.onChangeDataSubscription();
-    }, 5000);
-  }
-
-  private arraysEqual(arr1: Match[], arr2: Match[]): boolean {
-    if (arr1.length !== arr2.length) {
-      return false;
-    }
-    for (var i = arr1.length; i--;) {
-      if (arr1[i].scoreDeuxiemeEquipe !== arr2[i].scoreDeuxiemeEquipe){
-        return false;
-       }
-    if (arr1[i].idMatch !== arr2[i].idMatch) {
-      return false;
-    }
-    if (arr1[i].scorePremiereEquipe !== arr2[i].scorePremiereEquipe) {
-      return false;
-    }
-  }
-
-    return true;
-  }
-
-  onChangeDataSubscription() {
-    this.route.params.subscribe(params => {
-      this.id = params['id']
-
-      var MatchsListEnCoursBis = [];
-      var MatchsListFinisBis = [];
-      var MatchsListAVenirBis = [];
-
-      this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
-        matches.map(match => {
-          if (match.dateFin == null ) {
-            if (match.dateDebut > (moment())) {
-              MatchsListAVenirBis.push(match)
-            } else {
-              MatchsListEnCoursBis.push(match);
-
-            }
-          } else {
-            MatchsListFinisBis.push(match);
-          }
-        }
-        );
-
-        if(this.arraysEqual(this.MatchsListEnCours, MatchsListEnCoursBis) == false) {
-          console.log("one");
-          this.MatchsListEnCours = MatchsListEnCoursBis;
-        }
-
-        if(this.arraysEqual(this.MatchsListAVenir, MatchsListAVenirBis) == false) {
-          this.MatchsListAVenir = MatchsListAVenirBis;
-        }
-
-        if(this.arraysEqual(this.MatchsListFinis, MatchsListFinisBis) == false){
-          this.MatchsListFinis = MatchsListFinisBis;
-        }
-      });
-    });
-  }
 
   onChangeData() {
+
+    var MatchsListFinisBis = [];
+    var MatchsListEnCoursBis = [];
+    var MatchsListAVenirBis = [];
+
     this.route.params.subscribe(params => {
       this.id = params['id']
-
       this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
             if (match.dateFin == null ) {
               if (match.dateDebut > (moment())) {
-                this.MatchsListAVenir.push(match)
+                MatchsListAVenirBis.push(match)
               } else {
-                this.MatchsListEnCours.push(match);
+                MatchsListEnCoursBis.push(match);
 
               }
             } else {
-              this.MatchsListFinis.push(match);
+              MatchsListFinisBis.push(match);
             }
           }
+
         );
+
+        this.MatchsListEnCours = MatchsListEnCoursBis;
+        this.MatchsListAVenir = MatchsListAVenirBis;
+        this.MatchsListFinis = MatchsListFinisBis;
       });
 
-      this.subscribeToData();
 
     });
   }

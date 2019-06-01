@@ -6,6 +6,7 @@ import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "../core/core.module";
 import {MaterialModule} from "../material-app.module";
+import {ServicesModule} from "../services/service.module";
 
 
 
@@ -19,7 +20,8 @@ import {MaterialModule} from "../material-app.module";
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    MaterialModule
+    MaterialModule,
+    ServicesModule
 
   ],
   exports: [

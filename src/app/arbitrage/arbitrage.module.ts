@@ -24,8 +24,8 @@ import {MaterialModule} from "../material-app.module";
     CoreModule,
     ModalModule,
     FormsModule,
-    MaterialModule
-
+    MaterialModule,
+    ServicesModule
   ],
   exports: [
     ModalScoreComponent
@@ -34,8 +34,6 @@ import {MaterialModule} from "../material-app.module";
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    MatchDataService,
-    ServicesModule
   ]
 })
 

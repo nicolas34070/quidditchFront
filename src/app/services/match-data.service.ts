@@ -5,11 +5,14 @@ import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Match} from "../models/Match";
 import * as moment from 'moment';
+import {PusherService} from "./pusher.service";
 
 const urlMatchs = 'matchs';
 
 @Injectable()
 export class MatchDataService {
+
+  private _channel: any;
 
 
   // --------------------------------------------------
@@ -17,7 +20,8 @@ export class MatchDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _pusherService: PusherService) {
+    this._channel = this._pusherService.getPusher().subscribe('matchs');
   }
 
 
@@ -25,6 +29,13 @@ export class MatchDataService {
   //                     METHODS
   // --------------------------------------------------
 
+
+  /**
+   * @return employee's channel for the different event available under employee
+   */
+  getChannel () {
+    return this._channel;
+  }
 
   /**
    * Return all matchs from DB

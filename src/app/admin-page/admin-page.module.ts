@@ -64,7 +64,6 @@ import { TournoiAdminAddComponent } from './tournoi-admin/tournoi-admin-add/tour
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    ServicesModule
   ]
 })
 

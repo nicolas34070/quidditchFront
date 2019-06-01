@@ -6,8 +6,14 @@ export const environment = {
   production: false,
   urls: {
     baseApiUrl: 'http://quidditchback.test/index.php/api/' //put the name of the back here.
-  }
+  },
+    pusher: {
+      production: false,
+      key: 'f10c12b986ae3569359d',
+    }
+
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

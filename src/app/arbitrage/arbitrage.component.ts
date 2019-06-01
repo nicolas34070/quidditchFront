@@ -22,6 +22,7 @@ export class ArbitrageComponent implements OnInit {
 
   async ngOnInit() {
 
+
     this.route.params.subscribe(params => {
       this.id = params['id']
 
