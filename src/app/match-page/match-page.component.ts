@@ -30,13 +30,21 @@ export class MatchPageComponent implements OnInit {
     }, 5000);
   }
 
-   private arraysEqual(arr1 : Match[], arr2 : Match[])  : boolean{
-    if(arr1.length !== arr2.length)
+  private arraysEqual(arr1: Match[], arr2: Match[]): boolean {
+    if (arr1.length !== arr2.length) {
       return false;
-    for(var i = arr1.length; i--;) {
-      if(arr1[i].idMatch !== arr2[i].idMatch)
-        return false;
     }
+    for (var i = arr1.length; i--;) {
+      if (arr1[i].scoreDeuxiemeEquipe !== arr2[i].scoreDeuxiemeEquipe){
+        return false;
+       }
+    if (arr1[i].idMatch !== arr2[i].idMatch) {
+      return false;
+    }
+    if (arr1[i].scorePremiereEquipe !== arr2[i].scorePremiereEquipe) {
+      return false;
+    }
+  }
 
     return true;
   }
@@ -52,7 +60,7 @@ export class MatchPageComponent implements OnInit {
       this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
           if (match.dateFin == null ) {
-            if (match.dateDebut.format("DD/MM/YYY") > (moment().format("DD/MM/YYY"))) {
+            if (match.dateDebut > (moment())) {
               MatchsListAVenirBis.push(match)
             } else {
               MatchsListEnCoursBis.push(match);
@@ -87,10 +95,10 @@ export class MatchPageComponent implements OnInit {
       this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
             if (match.dateFin == null ) {
-              if (match.dateDebut.format("DD/MM/YYY") > (moment().format("DD/MM/YYY"))) {
-                this.MatchsListAVenir .push(match)
+              if (match.dateDebut > (moment())) {
+                this.MatchsListAVenir.push(match)
               } else {
-                this.MatchsListEnCours .push(match);
+                this.MatchsListEnCours.push(match);
 
               }
             } else {

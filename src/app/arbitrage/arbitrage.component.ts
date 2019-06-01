@@ -29,7 +29,7 @@ export class ArbitrageComponent implements OnInit {
 
         matches.map(match => {
           if (match.dateFin == null ) {
-            if (match.dateDebut.format("DD/MM/YYY") <= (moment().format("DD/MM/YYY"))) {
+            if (match.dateDebut<= (moment())) {
               this.matchesList.push(match)
             }
           }
