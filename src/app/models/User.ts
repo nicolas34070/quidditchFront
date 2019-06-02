@@ -13,8 +13,8 @@ export class User {
    */
   constructor(
     public idUtilisateur?: number,
-    public nom?: string,
-    public roles?: Role,
+    public username?: string,
+    public roles?: string[],
     public email?: string,
   ) { }
 
@@ -30,8 +30,8 @@ export class User {
    * @returns {User} - The user object created from data values
    */
   static mapToUser(data: any): User {
-    let role = Role.mapToRole(data.roles);
-    return new User(data.idUtilisateur, data.nom, role, data.email);
+    var id = data.idUtilisateur == undefined ? data.id : data.idUtilisateur;
+    return new User(id, data.username, data.roles, data.email);
   }
 
 }

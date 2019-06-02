@@ -4,7 +4,7 @@
   <form [formGroup]="angForm" novalidate>
 
     <div class="form-group col-xs-4">
-      <input class="form-control" formControlName="username"   type="email" name="username" placeholder="Email">
+      <input class="form-control" formControlName="username"   type="text" name="username" placeholder="Username">
     </div>
 
     <div *ngIf="angForm.controls['username'].invalid && (angForm.controls['username'].dirty || angForm.controls['username'].touched)" class="alert alert-danger">

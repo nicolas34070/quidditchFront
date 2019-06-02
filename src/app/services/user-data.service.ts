@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {User} from "../models/User";
 import {Role} from "../enums/Role";
+import {AuthService} from "../core/services/auth.service";
 
 const urlUsers = 'utilisateurs';
 
@@ -17,7 +18,9 @@ export class UserDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+
+
+  constructor(private http: HttpClient, private authService : AuthService) {
   }
 
 
@@ -31,7 +34,9 @@ export class UserDataService {
    * @returns {Observable<User[]>}
    */
   getUsers(): Observable<User[]> {
-    return this.http.get(environment.urls.baseApiUrl + urlUsers).pipe(
+    return this.http.get(environment.urls.secureApi + urlUsers, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+    }).pipe(
       map(
         (data: any[]) => {
           const users = [];
@@ -71,7 +76,9 @@ export class UserDataService {
    */
   getUser(id: string): Observable<User> {
     // @ts-ignore
-    return this.http.get(environment.urls.baseApiUrl + urlUsers + '/' + id).pipe(
+    return this.http.get(environment.urls.secureApi + urlUsers + '/' + id, {
+      headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+    }).pipe(
       map(
         (data: any) => {
           return User.mapToUser(data);
@@ -90,12 +97,14 @@ export class UserDataService {
     var randomstring = Math.random().toString(20).slice(-8);
     try {
       const body = {
-        nom: user.nom || '',
+        nom: user.username || '',
         roles:  Role.arbitre,
         motDepasse: randomstring,
         email: user.email
       };
-      return this.http.post(environment.urls.baseApiUrl + urlUsers, body).pipe(
+      return this.http.post(environment.urls.baseApiUrl + urlUsers, body, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+      }).pipe(
         map(
           (data: any) => {
             return User.mapToUser(data);
@@ -116,12 +125,14 @@ export class UserDataService {
   updateUser(user: User): Observable<User> {
     try {
       const body = {
-        nom: user.nom,
+        nom: user.username,
         roles:  Role.arbitre,
         email: user.email
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlUsers + '/' + user.idUtilisateur, body, {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+      }).pipe(
         map(
           (data: any) => {
             return User.mapToUser(data);
@@ -140,7 +151,10 @@ export class UserDataService {
    */
   deleteUser(user: User): Observable<User> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlUsers + '/' + user.idUtilisateur).pipe(
+      return this.http.delete(environment.urls.secureApi + urlUsers + '/' + user.idUtilisateur,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return User.mapToUser(data);

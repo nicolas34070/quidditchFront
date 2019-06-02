@@ -37,7 +37,7 @@ export class ArbitreAdminDetailsComponent implements OnInit {
 
   save() {
     let arbitre = new User();
-    arbitre.nom = this.angForm.value.nom;
+    arbitre.username = this.angForm.value.nom;
     arbitre.email = this.angForm.value.email;
 
 

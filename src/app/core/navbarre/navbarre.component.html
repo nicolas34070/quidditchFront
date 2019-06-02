@@ -6,10 +6,10 @@
       <li *ngIf="user == null " class="nav-item">
         <a class="nav-link" routerLinkActive="active" routerLink="/login">Login</a>
       </li>
-      <li *ngIf="user != null && user.roles.name == arbitre" class="nav-item">
+      <li *ngIf="user != null && user.roles[0] == arbitre" class="nav-item">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['arbitre', user.idUtilisateur]">Arbitrage</a>
       </li>
-     <li *ngIf="user != null && user.roles.name == admin" class="nav-item">
+     <li *ngIf="user != null && user.roles[0]  == admin" class="nav-item">
        <a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
      </li>
      <li *ngIf="user != null " class="nav-item">

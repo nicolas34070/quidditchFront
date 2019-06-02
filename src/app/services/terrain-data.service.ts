@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Terrain} from "../models/Terrain";
+import {AuthService} from "../core/services/auth.service";
 
 const urlTerrains = 'terrains';
 
@@ -16,7 +17,7 @@ export class TerrainDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -72,7 +73,10 @@ export class TerrainDataService {
         nom: terrain.nom || '',
         lieu: terrain.lieu.idPays || '1'
       };
-      return this.http.post(environment.urls.baseApiUrl + urlTerrains, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlTerrains, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Terrain.mapToTerrain(data);
@@ -98,7 +102,10 @@ export class TerrainDataService {
         lieu: terrain.lieu.idPays,
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlTerrains + '/' + terrain.idTerrain, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlTerrains + '/' + terrain.idTerrain, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Terrain.mapToTerrain(data)
@@ -118,7 +125,10 @@ export class TerrainDataService {
    */
   deleteTerrain(terrain: Terrain): Observable<Terrain> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlTerrains + '/' + terrain.idTerrain).pipe(
+      return this.http.delete(environment.urls.secureApi + urlTerrains + '/' + terrain.idTerrain,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Terrain.mapToTerrain(data)

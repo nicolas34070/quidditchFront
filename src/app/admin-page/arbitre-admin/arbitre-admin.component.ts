@@ -61,7 +61,7 @@ export class ArbitreAdminComponent implements OnInit {
    */
   handleBtnKeyUp(arbitre): void {
     var modalRef = this._modalService.open(ArbitreAdminDetailsComponent);
-    modalRef.componentInstance.oldArbitre = arbitre;
+    modalRef.componentInstance.user.username = arbitre;
     modalRef.result.then(() => {
         this.onChange()
       },

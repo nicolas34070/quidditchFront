@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Match} from "../models/Match";
 import * as moment from 'moment';
 import {PusherService} from "./pusher.service";
+import {AuthService} from "../core/services/auth.service";
 
 const urlMatchs = 'matchs';
 
@@ -20,7 +21,7 @@ export class MatchDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient, private _pusherService: PusherService) {
+  constructor(private http: HttpClient, private _pusherService: PusherService, private authService: AuthService) {
     this._channel = this._pusherService.getPusher().subscribe('matchs');
   }
 
@@ -80,7 +81,10 @@ export class MatchDataService {
    */
   getMatchsByArbitre(idArbitre: string): Observable<Match[]>{
     // @ts-ignore
-    return this.http.get(environment.urls.baseApiUrl + urlMatchs + '/arbitre/' + idArbitre).pipe(
+    return this.http.get(environment.urls.secureApi + urlMatchs + '/arbitre/' + idArbitre,
+      {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+      }).pipe(
       map(
         (data: any[]) => {
           const matchs = [];
@@ -134,7 +138,10 @@ export class MatchDataService {
         deuxiemeEquipe: match.deuxiemeEquipe.idEquipe,
         tournoi: match.tournoi.idTournoi
       };
-      return this.http.post(environment.urls.baseApiUrl + urlMatchs, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlMatchs, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);
@@ -166,7 +173,10 @@ export class MatchDataService {
         tournoi: match.tournoi.idTournoi
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/' + match.idMatch, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlMatchs + '/' + match.idMatch, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);
@@ -190,7 +200,10 @@ export class MatchDataService {
         scoreDeuxiemeEquipe: match.scoreDeuxiemeEquipe,
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/score/' + match.idMatch, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlMatchs + '/score/' + match.idMatch, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);
@@ -213,7 +226,10 @@ export class MatchDataService {
 
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlMatchs + '/end/' + match.idMatch, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlMatchs + '/end/' + match.idMatch, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);
@@ -233,7 +249,10 @@ export class MatchDataService {
    */
   deleteMatch(match: Match): Observable<Match> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlMatchs + '/score/' + match.idMatch).pipe(
+      return this.http.delete(environment.urls.secureApi + urlMatchs + '/score/' + match.idMatch,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Match.mapToMatch(data);

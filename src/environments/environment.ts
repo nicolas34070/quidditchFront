@@ -5,12 +5,16 @@
 export const environment = {
   production: false,
   urls: {
-    baseApiUrl: 'http://quidditchback.test/index.php/api/' //put the name of the back here.
+    baseApiUrl: 'http://quidditchback.test/index.php/api/', //put the name of the back here.
+    rootApi: "http://quidditchback.test/index.php/",
+    secureApi: 'http://quidditchback.test/index.php/api/secure/' ,
   },
     pusher: {
       production: false,
       key: 'f10c12b986ae3569359d',
-    }
+    },
+  client_id: '1_5w8zrdasdafr4tregd454cw0c0kswcgs0oks40s',
+  client_secret: 'sdgggskokererg4232404gc4csdgfdsgf8s8ck5s'
 
 };
 

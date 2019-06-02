@@ -1,10 +1,11 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {User} from "../../models/User";
 import {map} from "rxjs/operators";
+import {send} from "q";
 
 
 @Injectable()
@@ -61,13 +62,20 @@ export class AuthService {
    * @param {User} user - The user to login
    * @returns {Observable<User>}
    */
-  login(data: { username: string, password: string }): Observable<User> {
+  getUsername(data: { username: string, password: string }, token): Observable<User> {
     try {
       const body = {
         username:  data.username,
-        password: data.password,
       };
-      return this.http.post(environment.urls.baseApiUrl + "login", body).pipe(
+
+      var sendToken = 'Bearer ' + token;
+      console.log(sendToken);
+
+      return this.http.post(environment.urls.baseApiUrl + "secure/login", body,
+        {
+          headers: new HttpHeaders().set('Authorization', sendToken),
+        }
+      ).pipe(
         map(
           (data: any) => {
             var user = User.mapToUser(data);
@@ -85,44 +93,43 @@ export class AuthService {
     }
   }
 
+  /**
+   * Function to log in an user.
+   * Otherwise, returns an authentication error.
+   * @param {Object} data - The user's data.
+   * @param {string} data.email - The email.
+   * @param {string} data.password - The user's password.
+   * @returns {Observable}
+   */
+  login(data: { username: string, password: string }): Observable<any> {
+    try {
+      const body = {
+        username:  data.username,
+      };
+
+      const bodyToken = {
+        username:  data.username,
+        password: data.password,
+        grant_type: "password",
+        client_id : environment.client_id ,
+        client_secret: environment.client_secret,
+      };
+        return this.http.post(environment.urls.rootApi + "oauth/v2/token ", bodyToken).pipe(
+               map(
+                 (data: any) => {
+
+                   var token = JSON.stringify(data);
+                   localStorage.setItem('token', data["access_token"]);
+                   return data;
+                 }
+               )
+             );
+    } catch (err) {
+      console.log('%c Error adding user ', 'font-weight: bold; color: red', err);
+    }
+  }
 
 
-  // /**
-  //  * Function to log in an user.
-  //  * Otherwise, returns an authentication error.
-  //  * @param {Object} data - The user's data.
-  //  * @param {string} data.email - The email.
-  //  * @param {string} data.password - The user's password.
-  //  * @returns {Observable}
-  //  */
-  // login(data: { email: string, password: string }): Observable<any> {
-  //   return new Observable(
-  //     obserser => {
-  //       this.afAuth.auth.signInWithEmailAndPassword(data.email, data.password).then(
-  //         (response: any) => {
-  //           firebase.auth().currentUser.getIdToken().then(token => {
-  //             this.http.get(`${environment.urls.baseApiUrl}auth/login`,
-  //               { headers: { Authorization: `Bearer ${token}` } }).toPromise().then(
-  //               () => {
-  //                 localStorage.setItem('token', token);
-  //                 this.isLoggedIn = true;
-  //                 obserser.next(response);
-  //               },
-  //               error => obserser.error(this.translate.instant('CONNECTION.ERROR.NEST_API') + ' ' + error.message)
-  //             );
-  //           });
-  //         })
-  //         .catch(error => {
-  //           if (error.code === 'auth/user-not-found') {
-  //             obserser.error(this.translate.instant('CONNECTION.ERROR.USER_NOT_FOUND'));
-  //           } else if (error.code === 'auth/wrong-password') {
-  //             obserser.error(this.translate.instant('CONNECTION.ERROR.WRONG_PASSWORD'));
-  //           } else {
-  //             obserser.error(this.translate.instant('CONNECTION.ERROR.CONNECTION_FAILED'));
-  //           }
-  //         });
-  //     });
-  // }
 
 
 
@@ -131,15 +138,11 @@ export class AuthService {
    * Clear user token and redirect to login page.
    */
   logout() {
-    //this.afAuth.auth.signOut().then(() => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.getLoggedInName.emit(null);
     this.isLoggedIn = false;
     this.router.navigate(['/login']);
-
-    // }).catch(error => {
-    //   console.error(error);
-    // });
   }
 
 
@@ -147,7 +150,14 @@ export class AuthService {
   /**
    * Return user's token.
    */
-  getUserToken(): string {
+  getUser(): string {
     return localStorage.getItem('user');
+  }
+
+  /**
+   * Return user's token.
+   */
+  getUserToken(): string {
+    return localStorage.getItem('token');
   }
 }

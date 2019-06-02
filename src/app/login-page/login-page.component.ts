@@ -25,13 +25,12 @@ export class LoginPageComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      username: ['',[Validators.required, Validators.email] ],
+      username: ['',[Validators.required] ],
       password: ['', Validators.required ]
     });
   }
 
   ngOnInit() {
-
     if (this.authService.isLoggedIn) {
       var user  = JSON.parse(localStorage.getItem('user'));
       this.changeRoute(user)
@@ -39,9 +38,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   changeRoute(user: User) {
-    if ( user.roles.name == Role.admin) {
+    if ( user.roles[0] == Role.admin || user.roles[1] == Role.admin) {
       this.router.navigate(['admin'])
-    } else if (user.roles.name == Role.arbitre) {
+    } else if ( user.roles[0] == Role.arbitre || user.roles[1] == Role.arbitre) {
       let route = 'arbitre/' + user.idUtilisateur
       this.router.navigate([route])
     }
@@ -51,14 +50,23 @@ export class LoginPageComponent implements OnInit {
    * Session login
    * @returns valid login
    */
-  login() {
-    return this.authService.login(this.angForm.value)
-      .subscribe(
-        (user) => {
-          this.changeRoute(user);
+  async login() {
+     await this.authService.login(this.angForm.value).subscribe(
+        (token) => {
+          this.authService.getUsername(this.angForm.value, token['access_token']).subscribe(
+            (user) => {
+
+              this.changeRoute(user);
+            },
+            error => {
+              this.errorMessage = error.error["error_description"];
+              this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
+            }
+          );
+
         },
         error => {
-          this.errorMessage = error.error;
+          this.errorMessage = error.error["error_description"];
           this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
         }
       );

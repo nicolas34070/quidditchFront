@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Pays} from "../models/Pays";
+import {AuthService} from "../core/services/auth.service";
 
 const urlPays = 'pays';
 
@@ -16,7 +17,7 @@ export class PaysDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -71,7 +72,10 @@ export class PaysDataService {
       const body = {
         nom: pays.nom,
       };
-      return this.http.post(environment.urls.baseApiUrl + urlPays, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlPays, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Pays.mapToPays(data);
@@ -96,7 +100,10 @@ export class PaysDataService {
         nom: pays.nom,
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlPays + '/' + pays.idPays, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlPays + '/' + pays.idPays, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Pays.mapToPays(data)
@@ -120,7 +127,10 @@ export class PaysDataService {
         nom: pays.nom,
       };
 
-      return this.http.delete(environment.urls.baseApiUrl + urlPays + '/' + pays.idPays).pipe(
+      return this.http.delete(environment.urls.secureApi + urlPays + '/' + pays.idPays,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Pays.mapToPays(data)

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Joueur} from "../models/Joueur";
+import {AuthService} from "../core/services/auth.service";
 
 const urlJoueurs = 'joueurs';
 
@@ -16,7 +17,7 @@ export class JoueurDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -75,7 +76,10 @@ export class JoueurDataService {
         poste: joueur.poste.idPoste,
         equipe: joueur.equipe.idEquipe
       };
-      return this.http.post(environment.urls.baseApiUrl + urlJoueurs, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlJoueurs, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Joueur.mapToJoueur(data);
@@ -103,7 +107,10 @@ export class JoueurDataService {
         equipe: joueur.equipe.idEquipe
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlJoueurs + '/' + joueur.idJoueur, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlJoueurs + '/' + joueur.idJoueur, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Joueur.mapToJoueur(data);
@@ -123,7 +130,10 @@ export class JoueurDataService {
    */
   deleteJoueur(joueur: Joueur): Observable<Joueur> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlJoueurs + '/' + joueur.idJoueur).pipe(
+      return this.http.delete(environment.urls.secureApi + urlJoueurs + '/' + joueur.idJoueur,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Joueur.mapToJoueur(data);

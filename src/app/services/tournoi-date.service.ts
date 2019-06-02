@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Tournoi} from "../models/Tournoi";
+import {AuthService} from "../core/services/auth.service";
 
 const urlTournois = 'tournois';
 
@@ -16,7 +17,7 @@ export class TournoiDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -76,7 +77,10 @@ export class TournoiDataService {
         dateDebut: dateDebut
       };
 
-      return this.http.post(environment.urls.baseApiUrl + urlTournois, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlTournois, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Tournoi.mapToTournoi(data);
@@ -108,7 +112,10 @@ export class TournoiDataService {
 
       console.log(body);
 
-      return this.http.put(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlTournois + '/' + tournoi.idTournoi, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Tournoi.mapToTournoi(data);
@@ -127,7 +134,10 @@ export class TournoiDataService {
    */
   deleteTournoi(tournoi: Tournoi): Observable<Tournoi> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlTournois + '/' + tournoi.idTournoi).pipe(
+      return this.http.delete(environment.urls.secureApi + urlTournois + '/' + tournoi.idTournoi,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Tournoi.mapToTournoi(data);

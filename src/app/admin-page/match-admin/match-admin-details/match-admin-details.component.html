@@ -74,7 +74,7 @@
           <mat-label>Arbitre</mat-label>
           <select matNativeControl formControlName="arbitre" [(ngModel)]="this.defaultArbitre" name="arbitre">
             <option *ngFor="let arbitre of this.arbitreList" [value]="arbitre.idUtilisateur">
-              {{arbitre.nom}}
+              {{arbitre.username}}
             </option>
           </select>
         </mat-form-field>

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
 import {Equipe} from "../models/Equipe";
+import {AuthService} from "../core/services/auth.service";
 
 const urlEquipes = 'equipes';
 
@@ -16,7 +17,7 @@ export class EquipeDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -72,7 +73,10 @@ export class EquipeDataService {
       const body = {
         nom: equipe.nom || '',
       };
-      return this.http.post(environment.urls.baseApiUrl + urlEquipes, body).pipe(
+      return this.http.post(environment.urls.secureApi + urlEquipes, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Equipe.mapToEquipe(data);
@@ -97,7 +101,10 @@ export class EquipeDataService {
         nom: equipe.nom,
       };
 
-      return this.http.put(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe, body).pipe(
+      return this.http.put(environment.urls.secureApi + urlEquipes + '/' + equipe.idEquipe, body,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Equipe.mapToEquipe(data);
@@ -117,7 +124,10 @@ export class EquipeDataService {
    */
   deleteEquipe(equipe: Equipe): Observable<Equipe> {
     try {
-      return this.http.delete(environment.urls.baseApiUrl + urlEquipes + '/' + equipe.idEquipe).pipe(
+      return this.http.delete(environment.urls.secureApi + urlEquipes + '/' + equipe.idEquipe,
+        {
+          headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+        }).pipe(
         map(
           (data: any) => {
             return Equipe.mapToEquipe(data);
