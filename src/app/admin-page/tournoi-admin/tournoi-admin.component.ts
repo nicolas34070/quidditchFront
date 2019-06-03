@@ -49,7 +49,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
 
 
   loadData() {
-    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) => {
+    this.tournoiDataService.getTournoisAdmin().subscribe((tournois: Tournoi[]) => {
       this.tournoisList = tournois;
       this.dataSource = new MatTableDataSource(this.tournoisList);
       this.dataSource.paginator = this.paginator;

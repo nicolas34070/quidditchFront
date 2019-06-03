@@ -28,6 +28,12 @@
     <mat-cell *matCellDef="let element"> {{ element.poste.nom }} </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="age">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Age
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.age }} </mat-cell>
+  </ng-container>
+
 
   <ng-container matColumnDef="equipe">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Equipe

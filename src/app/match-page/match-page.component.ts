@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {MatchDataService} from "../services/match-data.service";
-import {Match} from "../models/Match";
-import {ActivatedRoute} from "@angular/router";
+import {MatchDataService} from '../services/match-data.service';
+import {Match} from '../models/Match';
+import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
-import {Poste} from "../models/Poste";
+import {Poste} from '../models/Poste';
 
 @Component({
   selector: 'app-match-page',
@@ -15,7 +15,7 @@ export class MatchPageComponent implements OnInit {
   public MatchsListEnCours: Match[] = [];
   public MatchsListFinis: Match[] = [];
   public MatchsListAVenir: Match[] = [];
-  public id: string = "0";
+  public id = '0';
   private interval: number;
 
   constructor(private route: ActivatedRoute, public matchDataService: MatchDataService) {
@@ -25,7 +25,7 @@ export class MatchPageComponent implements OnInit {
 
     // subscribe to pusher's event
     this.matchDataService.getChannel().bind('update', (data) => {
-      var matchs = JSON.parse(data);
+      let matchs = JSON.parse(data);
       this.onChangeData(matchs);
     });
 
@@ -35,7 +35,7 @@ export class MatchPageComponent implements OnInit {
 
   initialisationData() {
     this.route.params.subscribe(params => {
-      this.id = params['id']
+      this.id = params.id;
       this.matchDataService.getMatchsByTournoi(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
             if (match.dateFin == null ) {
@@ -57,15 +57,15 @@ export class MatchPageComponent implements OnInit {
 
 
   onChangeData($data) {
-    var MatchsListFinisBis = [];
-    var MatchsListEnCoursBis = [];
-    var MatchsListAVenirBis = [];
+    const MatchsListFinisBis = [];
+    const MatchsListEnCoursBis = [];
+    const MatchsListAVenirBis = [];
 
     $data.map(data => {
-            var match = Match.mapToMatch(data);
+            const match = Match.mapToMatch(data);
             if (match.dateFin == null ) {
               if (match.dateDebut > (moment())) {
-                MatchsListAVenirBis.push(match)
+                MatchsListAVenirBis.push(match);
               } else {
                 MatchsListEnCoursBis.push(match);
 

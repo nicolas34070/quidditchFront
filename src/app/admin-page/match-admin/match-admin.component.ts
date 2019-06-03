@@ -28,7 +28,7 @@ export class MatchAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.matchDataService.getMatchs().subscribe((matchs: Match[]) => {
+    this.matchDataService.getMatchsAdmin().subscribe((matchs: Match[]) => {
       this.matchsList = matchs;
       this.dataSource = new MatTableDataSource(this.matchsList);
       this.dataSource.paginator = this.paginator;

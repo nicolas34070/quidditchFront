@@ -47,21 +47,26 @@ export class TournoiDataService {
 
 
   /**
-   * Return a tournois from DB with its id
-   * @param {String} id - The tournoi's id
-   * @returns {Observable<Tournoi>}
+   * Return all tournois from DB
+   * @returns {Observable<Tournoi[]>}
    */
-  getTournoi(id: string): Observable<Tournoi> {
-    // @ts-ignore
-    return this.http.get(environment.urls.baseApiUrl + urlTournois + '/' + id).pipe(
+  getTournoisAdmin(): Observable<Tournoi[]> {
+    const userId = JSON.parse(this.authService.getUser()).idUtilisateur;
+    return this.http.get(environment.urls.secureApi + 'createdby/' +  urlTournois  +  '/' + userId,
+      {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+      }).pipe(
       map(
-        (data: any) => {
-          return Tournoi.mapToTournoi(data);
+        (data: any[]) => {
+          const tournois = [];
+          data.forEach((tournoi) => {
+            tournois.push(Tournoi.mapToTournoi(tournoi));
+          });
+          return tournois;
         }
       )
     );
   }
-
 
   /**
    * Add a tournoi into DB
@@ -69,12 +74,15 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   addTournoi(tournoi: Tournoi): Observable<Tournoi> {
+    const userId = JSON.parse(this.authService.getUser()).idUtilisateur;
+
     const dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : ' ';
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateDebut
+        dateDebut,
+        user: userId
       };
 
       return this.http.post(environment.urls.secureApi + urlTournois, body,

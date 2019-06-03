@@ -43,7 +43,8 @@ export class JoueurAdminDetailsComponent implements OnInit {
       nom: ['', Validators.required ],
       poste: ['', Validators.required ],
       nationalite: ['', Validators.required ],
-      equipe: ['', Validators.required ]
+      equipe: ['', Validators.required ],
+      age:  ['', Validators.required ]
     });
   }
 

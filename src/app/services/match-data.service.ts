@@ -57,6 +57,28 @@ export class MatchDataService {
   }
 
 
+  /**
+   * Return all matchs from DB
+   * @returns {Observable<Match[]>}
+   */
+  getMatchsAdmin(): Observable<Match[]> {
+    const userId = JSON.parse(this.authService.getUser()).idUtilisateur;
+    return this.http.get(environment.urls.secureApi + 'createdby/' +  urlMatchs  +  '/' + userId,
+      {
+        headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
+      }).pipe(
+      map(
+        (data: any[]) => {
+          const matchs = [];
+          data.forEach((match) => {
+            matchs.push(Match.mapToMatch(match));
+          });
+          return matchs;
+        }
+      )
+    );
+  }
+
 
   /**
    * Return a matchs from DB with its id
@@ -126,6 +148,8 @@ export class MatchDataService {
    * @returns {Observable<Match>}
    */
   addMatch(match: Match): Observable<Match> {
+    const userId = JSON.parse(this.authService.getUser()).idUtilisateur;
+
     try {
       const body = {
         idMatch: match.idMatch,
@@ -136,7 +160,8 @@ export class MatchDataService {
         terrain: match.terrain.idTerrain,
         premiereEquipe: match.premiereEquipe.idEquipe,
         deuxiemeEquipe: match.deuxiemeEquipe.idEquipe,
-        tournoi: match.tournoi.idTournoi
+        tournoi: match.tournoi.idTournoi,
+        user: userId
       };
       return this.http.post(environment.urls.secureApi + urlMatchs, body,
         {
