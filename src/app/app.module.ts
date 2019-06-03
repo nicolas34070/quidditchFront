@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material';
 import {PusherService} from './services/pusher.service';
 import {ServicesModule} from './services/service.module';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import {ServicesModule} from './services/service.module';
     AppRoutingModule
 
   ],
-  providers: [PusherService, ServicesModule],
+  providers: [PusherService, ServicesModule, NgbActiveModal],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

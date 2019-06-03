@@ -3,10 +3,8 @@ import {Tournoi} from '../../models/Tournoi';
 import {TournoiDataService} from '../../services/tournoi-date.service';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ModalScoreComponent} from '../../arbitrage/modal-score/modal-score.component';
 import {TournoiAdminAddComponent} from './tournoi-admin-add/tournoi-admin-add.component';
-import {ToasterService} from '../../core/services/toaster.service';
-import {ColorPaletteTypes} from '../../enums/color-palette';
+
 
 @Component({
   selector: 'app-tournoi-admin',
@@ -23,8 +21,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
   tournoisList: Tournoi[];
   errorMessage = 'une erreur est survenue';
 
-  // tslint:disable-next-line:variable-name
-  constructor(public tournoiDataService: TournoiDataService, private _modalService: NgbModal) { }
+  constructor(private tournoiDataService: TournoiDataService, private modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom', 'dateDebut', 'dateFin', 'pays'];
   dataSource: MatTableDataSource<Tournoi>  = null;
@@ -78,7 +75,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
    * @param {Tournoi} element - The project id.
    */
   handleBtnKeyUp(tournoi): void {
-    const modalRef =  this._modalService.open(TournoiAdminAddComponent);
+    const modalRef =  this.modalService.open(TournoiAdminAddComponent);
     modalRef.componentInstance.oldTournoi = tournoi ;
     modalRef. result.then(() => {
        this.onChange(); },
@@ -89,7 +86,7 @@ export class TournoiAdminComponent implements OnInit, OnChanges {
   }
 
   addNewProject() {
-    const modalRef =  this._modalService.open(TournoiAdminAddComponent);
+    const modalRef =  this.modalService.open(TournoiAdminAddComponent);
     modalRef. result.then(() => {
         this.onChange(); },
       () => {

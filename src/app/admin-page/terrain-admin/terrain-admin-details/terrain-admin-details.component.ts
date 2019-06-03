@@ -49,7 +49,6 @@ export class TerrainAdminDetailsComponent implements OnInit {
     terrain.lieu.idPays = this.angForm.value.lieu;
 
     if (this.oldTerrain != null) {
-      console.log(terrain);
       terrain.idTerrain = this.oldTerrain.idTerrain;
       this.terrainDataService.updateTerrain(terrain).subscribe(() => {
         this.activeModal.close();

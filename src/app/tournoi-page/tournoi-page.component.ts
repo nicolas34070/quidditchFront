@@ -21,7 +21,6 @@ export class TournoiPageComponent implements OnInit {
         if (tournoi.dateFin == null) {
           this.tournoisListEnCours.push(tournoi);
         } else {
-          console.log(tournoi);
           this.tournoisListFinis.push(tournoi);
         }
       } );

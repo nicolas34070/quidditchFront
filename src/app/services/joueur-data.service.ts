@@ -69,7 +69,6 @@ export class JoueurDataService {
    * @returns {Observable<Joueur>}
    */
   addJoueur(joueur: Joueur): Observable<Joueur> {
-    try {
       const body = {
         nom: joueur.nom || '',
         nationalite: joueur.nationalite.idPays,
@@ -86,9 +85,6 @@ export class JoueurDataService {
           }
         )
       );
-    } catch (err) {
-      console.log('%c Error adding joueur ', 'font-weight: bold; color: red', err);
-    }
   }
 
 

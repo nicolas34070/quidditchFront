@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Pays} from '../../../models/Pays';
 import {PaysDataService} from '../../../services/pays-data.service';
 import {DateAdapter} from '@angular/material';
+import {RouteConfigLoadEnd, Router} from '@angular/router';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class TournoiAdminAddComponent implements OnInit {
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, private activeModal: NgbActiveModal, private paysDataService: PaysDataService,
-              private tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
+              private tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>, private router: Router) {
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }

@@ -66,8 +66,7 @@ export class AuthService {
         username:  data.username,
       };
 
-      let sendToken = 'Bearer ' + token;
-      console.log(sendToken);
+      const sendToken = 'Bearer ' + token;
 
       return this.http.post(environment.urls.baseApiUrl + 'secure/login', body,
         {

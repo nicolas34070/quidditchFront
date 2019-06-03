@@ -13,6 +13,8 @@ import { catchError } from 'rxjs/operators';
 import { ColorPaletteTypes } from 'src/app/enums/color-palette';
 import { ToasterService } from '../services/toaster.service';
 import {ActivatedRoute, Route, Router} from '@angular/router';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../services/auth.service';
 
 
 @Injectable()
@@ -24,7 +26,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     // --------------------------------------------------
 
 
-    constructor(private toasterService: ToasterService, private router: Router) { }
+    constructor(private toasterService: ToasterService, private authService: AuthService) { }
 
 
 
@@ -47,32 +49,34 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
                     switch (error.status) {
                         case 400:
-                            message = 'Bad Request.';
+                            message = 'Erreur dans la rêquete.';
                             this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
                             break;
 
-                        case 401:
-                            // Redirect to login.
-                           this.router.navigate(['/login']);
-                           break;
+                      case 401:
+                            message = 'Vous n\'êtes pas autorisé à voir cette page!';
+                            this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
+                            this.authService.logout();
+
+                            break;
 
                         case 403:
-                            message = 'Access Denied.';
+                            message = 'Accès refusé.';
                             this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
                             break;
 
                         case 404:
-                            message = 'Not Found.';
+                            message = 'Introuvable';
                             this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
                             break;
 
                         case 500:
-                            message = 'Internal Server Error.';
+                            message = 'Erreur interne du server';
                             this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
                             break;
 
                         default:
-                            message = 'An error occured.';
+                            message = 'Une erreur est survenue';
                             this.toasterService.displayToast(message, ColorPaletteTypes.warn, 3000);
                     }
                 }

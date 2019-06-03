@@ -11,6 +11,7 @@ import {ErrorPageComponent} from './error-page/error-page.component';
 import {MaterialModule} from '../material-app.module';
 import {MAT_SNACK_BAR_DATA, MatSnackBarRef} from '@angular/material';
 import {InterceptorsModule} from './interceptors/interceptors.module';
+import {ModalModule} from '../ui-component/modal/modal.module';
 
 
 
@@ -28,7 +29,6 @@ import {InterceptorsModule} from './interceptors/interceptors.module';
     CoreServicesModule,
     MaterialModule,
     InterceptorsModule,
-
   ],
   exports: [
     NavbarreComponent,
@@ -39,7 +39,7 @@ import {InterceptorsModule} from './interceptors/interceptors.module';
     CUSTOM_ELEMENTS_SCHEMA
   ],
   providers: [
-    AuthService,{
+    AuthService, {
     provide: MatSnackBarRef,
     useValue: {}
   }, {

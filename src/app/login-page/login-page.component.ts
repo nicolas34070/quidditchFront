@@ -6,6 +6,7 @@ import {Role} from '../enums/Role';
 import {AuthService} from '../core/services/auth.service';
 import {User} from '../models/User';
 
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -16,7 +17,8 @@ export class LoginPageComponent implements OnInit {
   angForm: FormGroup;
   errorMessage: string;
 
-  constructor(private userDataService: UserDataService, private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private userDataService: UserDataService, private fb: FormBuilder, private router: Router, private authService: AuthService,
+  ) {
     this.createForm();
   }
 
@@ -52,7 +54,6 @@ export class LoginPageComponent implements OnInit {
         (token) => {
           this.authService.getUsername(this.angForm.value, token.access_token).subscribe(
             (user) => {
-
               this.changeRoute(user);
             }
           );

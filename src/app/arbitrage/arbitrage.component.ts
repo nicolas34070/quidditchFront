@@ -27,8 +27,6 @@ export class ArbitrageComponent implements OnInit {
       this.id = params['id']
 
       this.matchDataService.getMatchsByArbitre(this.id).subscribe((matches: Match[]) => {
-
-        console.log(matches);
         matches.map(match => {
           if (match.dateFin == null ) {
             if (match.dateDebut<= (moment())) {

@@ -109,9 +109,6 @@ export class TournoiDataService {
         dateDebut,
         dateFin,
       };
-
-      console.log(body);
-
       return this.http.put(environment.urls.secureApi + urlTournois + '/' + tournoi.idTournoi, body,
         {
           headers: new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getUserToken()),
