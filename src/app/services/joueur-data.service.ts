@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Joueur} from "../models/Joueur";
-import {AuthService} from "../core/services/auth.service";
+import {Joueur} from '../models/Joueur';
+import {AuthService} from '../core/services/auth.service';
 
 const urlJoueurs = 'joueurs';
 

@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {EquipeDataService} from "../../services/equipe-data.service";
-import {Equipe} from "../../models/Equipe";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EquipeAdminDetailsComponent} from "./equipe-admin-details/equipe-admin-details.component";
-import {ToasterService} from "../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../enums/color-palette";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {EquipeDataService} from '../../services/equipe-data.service';
+import {Equipe} from '../../models/Equipe';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {EquipeAdminDetailsComponent} from './equipe-admin-details/equipe-admin-details.component';
+import {ToasterService} from '../../core/services/toaster.service';
+import {ColorPaletteTypes} from '../../enums/color-palette';
 
 @Component({
   selector: 'app-equipe-admin',
@@ -18,9 +18,9 @@ export class EquipeAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   equipesList: Equipe[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public equipeDataService: EquipeDataService, public _modalService: NgbModal, private toasterService: ToasterService) { }
+  constructor(private equipeDataService: EquipeDataService, private modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Equipe>  = null;
@@ -30,8 +30,7 @@ export class EquipeAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.equipeDataService.getEquipes().subscribe((equipes: Equipe[]) =>
-    {
+    this.equipeDataService.getEquipes().subscribe((equipes: Equipe[]) => {
       this.equipesList = equipes;
       this.dataSource = new MatTableDataSource(this.equipesList);
       this.dataSource.paginator = this.paginator;
@@ -57,26 +56,25 @@ export class EquipeAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Pays}
    */
   handleBtnKeyUp(equipe): void {
-    var modalRef =  this._modalService.open(EquipeAdminDetailsComponent);
+    const modalRef =  this.modalService.open(EquipeAdminDetailsComponent);
     modalRef.componentInstance.oldEquipe = equipe;
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 
   newEquipe() {
-    var modalRef =  this._modalService.open(EquipeAdminDetailsComponent);
+    const modalRef =  this.modalService.open(EquipeAdminDetailsComponent);
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 

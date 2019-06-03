@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../../models/User";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {UserDataService} from "../../../services/user-data.service";
-import {ColorPaletteTypes} from "../../../enums/color-palette";
-import {ToasterService} from "../../../core/services/toaster.service";
+import {User} from '../../../models/User';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserDataService} from '../../../services/user-data.service';
 
 @Component({
   selector: 'app-arbitre-admin-details',
@@ -17,9 +15,9 @@ export class ArbitreAdminDetailsComponent implements OnInit {
   @Input() oldArbitre?: User;
 
   angForm: FormGroup;
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, public arbitreDataService: UserDataService, private toasterService: ToasterService) {
+  constructor(private fb: FormBuilder, private activeModal: NgbActiveModal, private arbitreDataService: UserDataService) {
     this.createForm();
   }
 
@@ -36,7 +34,7 @@ export class ArbitreAdminDetailsComponent implements OnInit {
 
 
   save() {
-    let arbitre = new User();
+    const arbitre = new User();
     arbitre.username = this.angForm.value.nom;
     arbitre.email = this.angForm.value.email;
 
@@ -44,36 +42,22 @@ export class ArbitreAdminDetailsComponent implements OnInit {
     if (this.oldArbitre != null) {
       arbitre.idUtilisateur = this.oldArbitre.idUtilisateur;
       this.arbitreDataService.updateUser(arbitre).subscribe(
-        (arbitre: User) => {
+        () => {
         this.activeModal.close();
-      },
-        error => {
-          this.errorMessage = error.error;
-          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-        }
-      );
+      });
     } else {
       this.arbitreDataService.addUser(arbitre).subscribe(
-        (arbitre: User) => {
+        () => {
         this.activeModal.close();
-       },
-        error => {
-          this.errorMessage = error.error;
-          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-        }
+       }
       );
     }
   }
 
   delete() {
     this.arbitreDataService.deleteUser(this.oldArbitre).subscribe((arbitre: User) => {
-      this.activeModal.close()
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      }
-      );
+      this.activeModal.close();
+    });
   }
 
 }

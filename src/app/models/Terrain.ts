@@ -1,4 +1,4 @@
-import {Pays} from "./Pays";
+import {Pays} from './Pays';
 
 export class Terrain {
 
@@ -25,7 +25,7 @@ export class Terrain {
    * @returns {Terrain} - The user object created from data values
    */
   static mapToTerrain(data: any): Terrain {
-    let lieu = Pays.mapToPays(data.lieu);
+    const lieu = Pays.mapToPays(data.lieu);
     return new Terrain(data.idTerrain, data.nom, lieu);
   }
 

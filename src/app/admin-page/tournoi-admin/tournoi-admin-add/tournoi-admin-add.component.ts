@@ -1,13 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Tournoi} from "../../../models/Tournoi";
-import {TournoiDataService} from "../../../services/tournoi-date.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Pays} from "../../../models/Pays";
-import {PaysDataService} from "../../../services/pays-data.service";
-import {DateAdapter} from "@angular/material";
-import {ToasterService} from "../../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../../enums/color-palette";
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {Tournoi} from '../../../models/Tournoi';
+import {TournoiDataService} from '../../../services/tournoi-date.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Pays} from '../../../models/Pays';
+import {PaysDataService} from '../../../services/pays-data.service';
+import {DateAdapter} from '@angular/material';
+
 
 @Component({
   selector: 'app-tournoi-admin-details',
@@ -19,15 +18,16 @@ export class TournoiAdminAddComponent implements OnInit {
   @Input() oldTournoi?: Tournoi;
 
   paysList: Pays[] = [];
-  default : number;
-  defaultOldDateDebut = " ";
+  default: number;
+  defaultOldDateDebut = ' ';
   defaultOldDateFin;
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
 
   angForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toasterService: ToasterService, public activeModal: NgbActiveModal, public paysDataService: PaysDataService, public tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
+  constructor(private fb: FormBuilder, private activeModal: NgbActiveModal, private paysDataService: PaysDataService,
+              private tournoiDataService: TournoiDataService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('fr');
     this.createForm();
   }
@@ -61,37 +61,25 @@ export class TournoiAdminAddComponent implements OnInit {
 
 
   save() {
-     let tournoi = Tournoi.mapToTournoi(this.angForm.value);
+     const tournoi = Tournoi.mapToTournoi(this.angForm.value);
      tournoi.pays.idPays = this.angForm.value.pays;
 
-      if (this.oldTournoi != null) {
+     if (this.oldTournoi != null) {
         tournoi.idTournoi = this.oldTournoi.idTournoi;
 
-          this.tournoiDataService.updateTournoi(tournoi).subscribe((tournoi: Tournoi) => {
+        this.tournoiDataService.updateTournoi(tournoi).subscribe(() => {
             this.activeModal.close();
-          },
-            error => {
-              this.errorMessage = error.error;
-              this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-            });
-      } else {
-        this.tournoiDataService.addTournoi(tournoi).subscribe((tournoi: Tournoi) => {
-          this.activeModal.close();
-        },
-          error => {
-            this.errorMessage = error.error;
-            this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
           });
+      } else {
+        this.tournoiDataService.addTournoi(tournoi).subscribe(() => {
+          this.activeModal.close();
+        });
       }
   }
 
   delete() {
-    this.tournoiDataService.deleteTournoi(this.oldTournoi).subscribe((tournoi: Tournoi) => {
-      this.activeModal.close()
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      });
+    this.tournoiDataService.deleteTournoi(this.oldTournoi).subscribe(() => {
+      this.activeModal.close();
+    });
   }
 }

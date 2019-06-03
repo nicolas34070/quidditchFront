@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPageComponent implements OnInit {
 
-  active: string = "tournois";
+  active = 'tournois';
 
   onActive(event) {
     this.active = event;

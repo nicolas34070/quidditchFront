@@ -1,0 +1,19 @@
+<div class="color-picker-component"
+     *ngIf="selectedColor && colors && colors.length > 0"
+     [class.open-left]="openSide === 'left'"
+     [class.open-right]="openSide === 'right'"
+     [class.open-top]="openSide === 'top'"
+     [class.open-bottom]="openSide === 'bottom'">
+    <div class="choose-color-button open-picker" (click)="openPicker($event)">
+        <div class="color-background" [ngStyle]="{'background-color': selectedColor.code}"></div>
+    </div>
+    <div class="picker-modal" *ngIf="isOpen" (appClickOutside)="closePicker()">
+        <div class="choose-color-button"
+             [ngStyle]="{'background-color': color.borderCode}"
+             *ngFor="let color of colors" [class.selected]="selectedColor.id === color.id">
+            <div class="color-background" [ngStyle]="{'background-color': color.code}" (click)="selectColor(color)">
+                <i *ngIf="selectedColor.id === color.id" class="icon ion-md-checkmark"></i>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Pays} from "../models/Pays";
-import {AuthService} from "../core/services/auth.service";
+import {Pays} from '../models/Pays';
+import {AuthService} from '../core/services/auth.service';
 
 const urlPays = 'pays';
 
@@ -31,7 +31,7 @@ export class PaysDataService {
    * @returns {Observable<Pays[]>}
    */
   getAllPays(): Observable<Pays[]> {
-    return this.http.get(environment.urls.baseApiUrl + "all" + urlPays).pipe(
+    return this.http.get(environment.urls.baseApiUrl + 'all' + urlPays).pipe(
       map(
         (data: any[]) => {
           const paysLisr = [];
@@ -67,7 +67,7 @@ export class PaysDataService {
    * @param {pays} Pays - The Pays to add
    * @returns {Observable<Pays>}
    */
-  addPays(pays: Pays): Observable<Pays>{
+  addPays(pays: Pays): Observable<Pays> {
     try {
       const body = {
         nom: pays.nom,
@@ -106,7 +106,7 @@ export class PaysDataService {
         }).pipe(
         map(
           (data: any) => {
-            return Pays.mapToPays(data)
+            return Pays.mapToPays(data);
           }
         )
       );
@@ -133,7 +133,7 @@ export class PaysDataService {
         }).pipe(
         map(
           (data: any) => {
-            return Pays.mapToPays(data)
+            return Pays.mapToPays(data);
           }
         )
       );

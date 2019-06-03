@@ -1,13 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Pays} from "../../models/Pays";
-import {PaysDataService} from "../../services/pays-data.service";
-import {TournoiAdminAddComponent} from "../tournoi-admin/tournoi-admin-add/tournoi-admin-add.component";
-import {TournoiDataService} from "../../services/tournoi-date.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {PaysAdminDetailsComponent} from "./pays-admin-details/pays-admin-details.component";
-import {ToasterService} from "../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../enums/color-palette";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Pays} from '../../models/Pays';
+import {PaysDataService} from '../../services/pays-data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PaysAdminDetailsComponent} from './pays-admin-details/pays-admin-details.component';
+
 
 @Component({
   selector: 'app-pays-admin',
@@ -21,9 +18,9 @@ export class PaysAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   paysList: Pays[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public paysDataService: PaysDataService, private _modalService: NgbModal, private toasterService: ToasterService) { }
+  constructor(private paysDataService: PaysDataService, private modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom'];
   dataSource: MatTableDataSource<Pays>  = null;
@@ -33,17 +30,12 @@ export class PaysAdminComponent implements OnInit {
   }
 
   loadData() {
-    this.paysDataService.getAllPays().subscribe((pays: Pays[]) =>
-    {
+    this.paysDataService.getAllPays().subscribe((pays: Pays[]) => {
       this.paysList = pays;
       this.dataSource = new MatTableDataSource(this.paysList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      });
+    });
   }
 
   onChange() {
@@ -60,26 +52,25 @@ export class PaysAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Pays}
    */
   handleBtnKeyUp(pays): void {
-    var modalRef =  this._modalService.open(PaysAdminDetailsComponent);
+    const modalRef =  this.modalService.open(PaysAdminDetailsComponent);
     modalRef.componentInstance.oldPays = pays;
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 
   newPays() {
-    var modalRef =  this._modalService.open(PaysAdminDetailsComponent);
+    const modalRef =  this.modalService.open(PaysAdminDetailsComponent);
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 

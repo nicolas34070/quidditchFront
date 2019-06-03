@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   urls: {
-    baseApiUrl: 'http://quidditchback.test/index.php/api/', //put the name of the back here.
-    rootApi: "http://quidditchback.test/index.php/",
+    baseApiUrl: 'http://quidditchback.test/index.php/api/', // put the name of the back here.
+    rootApi: 'http://quidditchback.test/index.php/',
     secureApi: 'http://quidditchback.test/index.php/api/secure/' ,
   },
     pusher: {

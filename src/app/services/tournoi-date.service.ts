@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Tournoi} from "../models/Tournoi";
-import {AuthService} from "../core/services/auth.service";
+import {Tournoi} from '../models/Tournoi';
+import {AuthService} from '../core/services/auth.service';
 
 const urlTournois = 'tournois';
 
@@ -69,12 +69,12 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   addTournoi(tournoi: Tournoi): Observable<Tournoi> {
-    let dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : " ";
+    const dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : ' ';
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateDebut: dateDebut
+        dateDebut
       };
 
       return this.http.post(environment.urls.secureApi + urlTournois, body,
@@ -100,14 +100,14 @@ export class TournoiDataService {
    * @returns {Observable<Tournoi>}
    */
   updateTournoi(tournoi: Tournoi): Observable<Tournoi> {
-    let dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : " ";
-    let dateFin = tournoi.dateFin != null ? tournoi.dateFin.format() : "none";
+    const dateDebut = tournoi.dateDebut != null ? tournoi.dateDebut.format() : ' ';
+    const dateFin = tournoi.dateFin != null ? tournoi.dateFin.format() : 'none';
     try {
       const body = {
         nom: tournoi.nom,
         pays: tournoi.pays.idPays,
-        dateDebut: dateDebut,
-        dateFin:  dateFin,
+        dateDebut,
+        dateFin,
       };
 
       console.log(body);

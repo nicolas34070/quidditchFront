@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Poste} from "../models/Poste";
+import {Poste} from '../models/Poste';
 
 const urlPostes = 'postes';
 

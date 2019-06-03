@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Terrain} from "../models/Terrain";
-import {AuthService} from "../core/services/auth.service";
+import {Terrain} from '../models/Terrain';
+import {AuthService} from '../core/services/auth.service';
 
 const urlTerrains = 'terrains';
 
@@ -67,7 +67,7 @@ export class TerrainDataService {
    * @param {terrain} Terrain - The Terrain to add
    * @returns {Observable<Terrain>}
    */
-  addTerrain(terrain: Terrain): Observable<Terrain>{
+  addTerrain(terrain: Terrain): Observable<Terrain> {
     try {
       const body = {
         nom: terrain.nom || '',
@@ -108,7 +108,7 @@ export class TerrainDataService {
         }).pipe(
         map(
           (data: any) => {
-            return Terrain.mapToTerrain(data)
+            return Terrain.mapToTerrain(data);
           }
         )
       );
@@ -131,7 +131,7 @@ export class TerrainDataService {
         }).pipe(
         map(
           (data: any) => {
-            return Terrain.mapToTerrain(data)
+            return Terrain.mapToTerrain(data);
           }
         )
       );

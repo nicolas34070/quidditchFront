@@ -3,9 +3,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {User} from "../models/User";
-import {Role} from "../enums/Role";
-import {AuthService} from "../core/services/auth.service";
+import {User} from '../models/User';
+import {Role} from '../enums/Role';
+import {AuthService} from '../core/services/auth.service';
 
 const urlUsers = 'utilisateurs';
 
@@ -20,7 +20,7 @@ export class UserDataService {
 
 
 
-  constructor(private http: HttpClient, private authService : AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
 
@@ -54,7 +54,7 @@ export class UserDataService {
    * @returns {Observable<User[]>}
    */
   getArbitres(): Observable<User[]> {
-    return this.http.get(environment.urls.baseApiUrl + "arbitres").pipe(
+    return this.http.get(environment.urls.baseApiUrl + 'arbitres').pipe(
       map(
         (data: any[]) => {
           const users = [];
@@ -94,7 +94,7 @@ export class UserDataService {
    * @returns {Observable<User>}
    */
   addUser(user: User): Observable<User> {
-    var randomstring = Math.random().toString(20).slice(-8);
+    let randomstring = Math.random().toString(20).slice(-8);
     try {
       const body = {
         nom: user.username || '',

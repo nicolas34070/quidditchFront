@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {Match} from "../../models/Match";
-import {ModalScoreComponent} from "../../arbitrage/modal-score/modal-score.component";
-import {TournoiAdminAddComponent} from "../../admin-page/tournoi-admin/tournoi-admin-add/tournoi-admin-add.component";
+import {Component,  Input} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {ModalScoreComponent} from '../../arbitrage/modal-score/modal-score.component';
+import {TournoiAdminAddComponent} from '../../admin-page/tournoi-admin/tournoi-admin-add/tournoi-admin-add.component';
 
 
 
@@ -18,27 +17,27 @@ export class NgbdModalFocus {
   //           INPUTS
   // --------------------------------------------
 
-  @Input() placeholder: String = "Hello";
-  @Input() content: Object;
+  @Input() placeholder: string = 'Hello';
+  @Input() content: object;
 
-  @Input() active = "score";
+  @Input() active = 'score';
 
-  constructor(private _modalService: NgbModal) {
+  constructor(private modalService: NgbModal) {
   }
 
 
   open(name: string) {
     switch (name) {
       case 'score':
-        var modalRef =  this._modalService.open(ModalScoreComponent);
+        var modalRef =  this.modalService.open(ModalScoreComponent);
         modalRef.componentInstance.match = this.content ;
-        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click')})
+        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click'); });
 
         break;
       case 'tournois':
-        var modalRef =  this._modalService.open(TournoiAdminAddComponent);
+        var modalRef =  this.modalService.open(TournoiAdminAddComponent);
         modalRef.componentInstance.oldTournoi = this.content ;
-        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click')})
+        modalRef. result.then(() => { console.log('When user closes'); }, () => { console.log('Backdrop click'); });
 
         break;
 

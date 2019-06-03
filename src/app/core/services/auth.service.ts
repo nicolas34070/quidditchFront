@@ -3,9 +3,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import {User} from "../../models/User";
-import {map} from "rxjs/operators";
-import {send} from "q";
+import {User} from '../../models/User';
+import {map} from 'rxjs/operators';
 
 
 @Injectable()
@@ -20,7 +19,7 @@ export class AuthService {
   // --------------------------------------------------
 
 
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
 
 
 
@@ -44,10 +43,10 @@ export class AuthService {
   /**
    * Returns if the user is authentificated and check if it is Administrator.
    * Otherwise, the user is redirect to the login page
-   * @returns {boolean}
+   * returns {boolean}
    */
   public isAuthenticated(): void {
-    if (this.getUserToken()) {
+    if (this.getUserToken() && this.getUser()) {
       this.isLoggedIn = true;
     } else {
       this.router.navigate(['/login']);
@@ -59,8 +58,7 @@ export class AuthService {
 
   /**
    * Login a user
-   * @param {User} user - The user to login
-   * @returns {Observable<User>}
+   * returns {Observable<User>}
    */
   getUsername(data: { username: string, password: string }, token): Observable<User> {
     try {
@@ -68,17 +66,17 @@ export class AuthService {
         username:  data.username,
       };
 
-      var sendToken = 'Bearer ' + token;
+      let sendToken = 'Bearer ' + token;
       console.log(sendToken);
 
-      return this.http.post(environment.urls.baseApiUrl + "secure/login", body,
+      return this.http.post(environment.urls.baseApiUrl + 'secure/login', body,
         {
           headers: new HttpHeaders().set('Authorization', sendToken),
         }
       ).pipe(
         map(
           (data: any) => {
-            var user = User.mapToUser(data);
+            const user = User.mapToUser(data);
             localStorage.setItem('user', JSON.stringify(user));
             this.isLoggedIn = true;
             this.getLoggedInName.emit(user);
@@ -97,29 +95,21 @@ export class AuthService {
    * Function to log in an user.
    * Otherwise, returns an authentication error.
    * @param {Object} data - The user's data.
-   * @param {string} data.email - The email.
-   * @param {string} data.password - The user's password.
-   * @returns {Observable}
+   * returns {Observable}
    */
   login(data: { username: string, password: string }): Observable<any> {
     try {
-      const body = {
-        username:  data.username,
-      };
-
       const bodyToken = {
         username:  data.username,
         password: data.password,
-        grant_type: "password",
+        grant_type: 'password',
         client_id : environment.client_id ,
         client_secret: environment.client_secret,
       };
-        return this.http.post(environment.urls.rootApi + "oauth/v2/token ", bodyToken).pipe(
+      return this.http.post(environment.urls.rootApi + 'oauth/v2/token ', bodyToken).pipe(
                map(
                  (data: any) => {
-
-                   var token = JSON.stringify(data);
-                   localStorage.setItem('token', data["access_token"]);
+                   localStorage.setItem('token', data.access_token);
                    return data;
                  }
                )

@@ -1,11 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Terrain} from "../../models/Terrain";
-import {TerrainDataService} from "../../services/terrain-data.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {TerrainAdminDetailsComponent} from "./terrain-admin-details/terrain-admin-details.component";
-import {ToasterService} from "../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../enums/color-palette";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Terrain} from '../../models/Terrain';
+import {TerrainDataService} from '../../services/terrain-data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TerrainAdminDetailsComponent} from './terrain-admin-details/terrain-admin-details.component';
 
 @Component({
   selector: 'app-terrain-admin',
@@ -18,9 +16,9 @@ export class TerrainAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   terrainsList: Terrain[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public terrainDataService: TerrainDataService, public _modalService: NgbModal, private toasterService: ToasterService) { }
+  constructor(private terrainDataService: TerrainDataService, private modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom', 'lieu'];
   dataSource: MatTableDataSource<Terrain>  = null;
@@ -30,8 +28,7 @@ export class TerrainAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.terrainDataService.getTerrains().subscribe((terrains: Terrain[]) =>
-    {
+    this.terrainDataService.getTerrains().subscribe((terrains: Terrain[]) => {
       this.terrainsList = terrains;
       this.dataSource = new MatTableDataSource(this.terrainsList);
       this.dataSource.paginator = this.paginator;
@@ -40,13 +37,9 @@ export class TerrainAdminComponent implements OnInit {
       this.dataSource.filterPredicate = (data, filter) => {
         const dataStr = data.nom + data.lieu.nom  ;
 
-        return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
-      }
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      });
+        return dataStr.trim().toLocaleLowerCase().indexOf(filter) !== -1;
+      };
+    });
   }
 
   /**
@@ -61,25 +54,24 @@ export class TerrainAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Terrain}
    */
   handleBtnKeyUp(terrain): void {
-    var modalRef =  this._modalService.open(TerrainAdminDetailsComponent);
+    const modalRef =  this.modalService.open(TerrainAdminDetailsComponent);
     modalRef.componentInstance.oldTerrain = terrain;
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 
   newTerrain() {
-    var modalRef =  this._modalService.open(TerrainAdminDetailsComponent);
+    const modalRef =  this.modalService.open(TerrainAdminDetailsComponent);
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 }

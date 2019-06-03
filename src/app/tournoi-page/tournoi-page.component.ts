@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Match} from "../models/Match";
-import {MatchDataService} from "../services/match-data.service";
-import {TournoiDataService} from "../services/tournoi-date.service";
-import {Tournoi} from "../models/Tournoi";
+import {TournoiDataService} from '../services/tournoi-date.service';
+import {Tournoi} from '../models/Tournoi';
 
 @Component({
   selector: 'app-tournoi-page',
@@ -18,13 +16,12 @@ export class TournoiPageComponent implements OnInit {
   constructor(public tournoiDataService: TournoiDataService) { }
 
   async ngOnInit() {
-    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) =>
-    {
+    this.tournoiDataService.getTournois().subscribe((tournois: Tournoi[]) => {
       tournois.map(tournoi => {
         if (tournoi.dateFin == null) {
           this.tournoisListEnCours.push(tournoi);
         } else {
-          console.log(tournoi)
+          console.log(tournoi);
           this.tournoisListFinis.push(tournoi);
         }
       } );

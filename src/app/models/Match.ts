@@ -1,10 +1,10 @@
 import DateTimeFormat = Intl.DateTimeFormat;
-import {User} from "./User";
-import {Equipe} from "./Equipe";
-import {Terrain} from "./Terrain";
+import {User} from './User';
+import {Equipe} from './Equipe';
+import {Terrain} from './Terrain';
 import * as moment from 'moment';
-import {Moment} from "moment";
-import {Tournoi} from "./Tournoi";
+import {Moment} from 'moment';
+import {Tournoi} from './Tournoi';
 
 
 export class Match {
@@ -56,20 +56,20 @@ export class Match {
    */
   static mapToMatch(data: any): Match {
 
-    let arbitre = User.mapToUser(data.arbitre);
-    let terrain = Terrain.mapToTerrain(data.terrain);
-    let premiereEquipe = Equipe.mapToEquipe(data.premiereEquipe);
-    let secondEquipe = Equipe.mapToEquipe(data.deuxiemeEquipe);
-    let date_debut =  data.dateDebut == null ? null : moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
-    let date_fin = data.dateFin == null ? null : moment(data.dateFin, 'YYYY-MM-DD HH:mm:ss');
-    let tournoi = Tournoi.mapToTournoi(data.tournoi);
+    const arbitre = User.mapToUser(data.arbitre);
+    const terrain = Terrain.mapToTerrain(data.terrain);
+    const premiereEquipe = Equipe.mapToEquipe(data.premiereEquipe);
+    const secondEquipe = Equipe.mapToEquipe(data.deuxiemeEquipe);
+    const date_debut =  data.dateDebut == null ? null : moment(data.dateDebut, 'YYYY-MM-DD HH:mm:ss');
+    const date_fin = data.dateFin == null ? null : moment(data.dateFin, 'YYYY-MM-DD HH:mm:ss');
+    const tournoi = Tournoi.mapToTournoi(data.tournoi);
     return new Match(data.idMatch, data.scorePremiereEquipe, data.scoreDeuxiemeEquipe, data.temps, date_debut, date_fin, arbitre, terrain,
       tournoi, premiereEquipe, secondEquipe);
   }
 
   static mapToMatchWithForm(angForm: any): Match {
 
-    let match = new Match();
+    const match = new Match();
 
     match.dateDebut = angForm.dateDebut;
     match.terrain = new Terrain();

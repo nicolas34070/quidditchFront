@@ -1,0 +1,71 @@
+.color-picker-component {
+    display: flex;
+
+    &.open-right {
+        flex-direction: row;
+    }
+    &.open-left {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+    &.open-bottom {
+        flex-direction: column;
+    }
+    &.open-top {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    .choose-color-button {
+        width: 50px;
+        height: 50px;
+        padding: 4px;
+        border-radius: 5px;
+        background-color: #ffffff;
+        border: solid 2px #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &.open-picker {
+            width: 54px;
+            height: 54px;
+            background-color: #eeeeee;
+        }
+
+        .color-background {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            i {
+                color: #ffffff;
+                text-shadow: 0 0 2px #000;
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+
+        &.selected {
+            border: solid 2px #a6c8ff;
+        }
+    }
+
+    .picker-modal {
+        position: relative;
+        width: 248px;
+        padding: 10px;
+        background-color: #ffffff;
+        display: grid;
+        grid-template-columns: repeat(4, 62px);
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+    }
+
+    .color-element {
+        border-radius: 2%;
+    }
+}

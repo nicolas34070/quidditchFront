@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Match} from "../../models/Match";
-import {MatchDataService} from "../../services/match-data.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MatchAdminDetailsComponent} from "./match-admin-details/match-admin-details.component";
-import {ToasterService} from "../../core/services/toaster.service";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Match} from '../../models/Match';
+import {MatchDataService} from '../../services/match-data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatchAdminDetailsComponent} from './match-admin-details/match-admin-details.component';
+import {ToasterService} from '../../core/services/toaster.service';
 
 @Component({
   selector: 'app-match-admin',
@@ -16,9 +16,9 @@ export class MatchAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   matchsList: Match[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public matchDataService: MatchDataService, public _modalService : NgbModal, private toasterService: ToasterService) { }
+  constructor(public matchDataService: MatchDataService, public modalService: NgbModal, private toasterService: ToasterService) { }
 
   displayedColumns: string[] = [ 'tournoi', 'premiereEquipe', 'deuxiemeEquipe',  'arbitre', 'terrain', 'dateDebut', 'dateFin'];
   dataSource: MatTableDataSource<Match>  = null;
@@ -28,19 +28,19 @@ export class MatchAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.matchDataService.getMatchs().subscribe((matchs: Match[]) =>
-    {
+    this.matchDataService.getMatchs().subscribe((matchs: Match[]) => {
       this.matchsList = matchs;
       this.dataSource = new MatTableDataSource(this.matchsList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
       this.dataSource.filterPredicate = (data, filter) => {
-        let dataFinfilter = data.dateFin == null ? "Tournoi en cours" : data.dateFin.locale("FR").format("L");
-        const dataStr = data.tournoi.nom + data.premiereEquipe.nom + data.deuxiemeEquipe.nom + data.terrain.nom + data.dateDebut.locale("FR").format("L") + dataFinfilter;
+        const dataFinfilter = data.dateFin == null ? 'Tournoi en cours' : data.dateFin.locale('FR').format('L');
+        const dataStr = data.tournoi.nom + data.premiereEquipe.nom + data.deuxiemeEquipe.nom + data.terrain.nom +
+          data.dateDebut.locale('FR').format('L') + dataFinfilter;
 
-        return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
-      }
+        return dataStr.trim().toLocaleLowerCase().indexOf(filter) !== -1;
+      };
     });
   }
 
@@ -57,25 +57,24 @@ export class MatchAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Match}
    */
   handleBtnKeyUp(match): void {
-    var modalRef =  this._modalService.open(MatchAdminDetailsComponent);
+    const modalRef =  this.modalService.open(MatchAdminDetailsComponent);
     modalRef.componentInstance.oldMatch = match;
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 
   newMatch() {
-    var modalRef =  this._modalService.open(MatchAdminDetailsComponent);
+    const modalRef =  this.modalService.open(MatchAdminDetailsComponent);
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 }

@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Terrain} from "../../../models/Terrain";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {TerrainDataService} from "../../../services/terrain-data.service";
-import {Pays} from "../../../models/Pays";
-import {PaysDataService} from "../../../services/pays-data.service";
-import {ToasterService} from "../../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../../enums/color-palette";
+import {Terrain} from '../../../models/Terrain';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TerrainDataService} from '../../../services/terrain-data.service';
+import {Pays} from '../../../models/Pays';
+import {PaysDataService} from '../../../services/pays-data.service';
+import {ToasterService} from '../../../core/services/toaster.service';
+import {ColorPaletteTypes} from '../../../enums/color-palette';
 
 @Component({
   selector: 'app-terrain-admin-details',
@@ -18,11 +18,13 @@ export class TerrainAdminDetailsComponent implements OnInit {
 
   @Input() oldTerrain?: Terrain;
   lieuList: Pays[] = [];
-  default : number;
+  default: number;
   angForm: FormGroup;
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(private fb: FormBuilder, private toasterService: ToasterService, public activeModal: NgbActiveModal, public terrainDataService: TerrainDataService, public paysDataService: PaysDataService) {
+  constructor(private fb: FormBuilder, private activeModal: NgbActiveModal,
+              private terrainDataService: TerrainDataService,
+              private paysDataService: PaysDataService) {
     this.createForm();
   }
 
@@ -43,37 +45,25 @@ export class TerrainAdminDetailsComponent implements OnInit {
 
 
   save() {
-    let terrain = Terrain.mapToTerrain(this.angForm.value);
+    const terrain = Terrain.mapToTerrain(this.angForm.value);
     terrain.lieu.idPays = this.angForm.value.lieu;
 
     if (this.oldTerrain != null) {
       console.log(terrain);
       terrain.idTerrain = this.oldTerrain.idTerrain;
-      this.terrainDataService.updateTerrain(terrain).subscribe((terrain: Terrain) => {
+      this.terrainDataService.updateTerrain(terrain).subscribe(() => {
         this.activeModal.close();
-      },
-        error => {
-          this.errorMessage = error.error;
-          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-        });
+      });
     } else {
-      this.terrainDataService.addTerrain(terrain).subscribe((terrain: Terrain) => {
+      this.terrainDataService.addTerrain(terrain).subscribe(() => {
         this.activeModal.close();
-      },
-        error => {
-          this.errorMessage = error.error;
-          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-        });
+      });
     }
   }
 
   delete() {
     this.terrainDataService.deleteTerrain(this.oldTerrain).subscribe((terrain: Terrain) => {
-      this.activeModal.close()
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      });
+      this.activeModal.close();
+    });
   }
 }

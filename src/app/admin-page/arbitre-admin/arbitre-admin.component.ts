@@ -1,12 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {User} from "../../models/User";
-import {UserDataService} from "../../services/user-data.service";
-import {PaysAdminDetailsComponent} from "../pays-admin/pays-admin-details/pays-admin-details.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ArbitreAdminDetailsComponent} from "./arbitre-admin-details/arbitre-admin-details.component";
-import {ColorPaletteTypes} from "../../enums/color-palette";
-import {ToasterService} from "../../core/services/toaster.service";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {User} from '../../models/User';
+import {UserDataService} from '../../services/user-data.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ArbitreAdminDetailsComponent} from './arbitre-admin-details/arbitre-admin-details.component';
+import {ColorPaletteTypes} from '../../enums/color-palette';
+import {ToasterService} from '../../core/services/toaster.service';
 
 @Component({
   selector: 'app-arbitre-admin',
@@ -19,9 +18,9 @@ export class ArbitreAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   usersList: User[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public userDataService: UserDataService, public _modalService: NgbModal, private toasterService: ToasterService) {
+  constructor(private userDataService: UserDataService, private modalService: NgbModal) {
   }
 
   displayedColumns: string[] = ['nom', 'email'];
@@ -38,11 +37,7 @@ export class ArbitreAdminComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.usersList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-       },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      }
+       }
     );
   }
 
@@ -57,27 +52,26 @@ export class ArbitreAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Utilisateur}
    */
   handleBtnKeyUp(arbitre): void {
-    var modalRef = this._modalService.open(ArbitreAdminDetailsComponent);
+    const modalRef = this.modalService.open(ArbitreAdminDetailsComponent);
     modalRef.componentInstance.user.username = arbitre;
     modalRef.result.then(() => {
-        this.onChange()
+        this.onChange();
       },
       () => {
 
-      })
+      });
   }
 
 
   newArbitre() {
-    var modalRef = this._modalService.open(ArbitreAdminDetailsComponent);
+    const modalRef = this.modalService.open(ArbitreAdminDetailsComponent);
     modalRef.result.then(() => {
-        this.onChange()
+        this.onChange();
       },
       () => {
 
-      })
+      });
   }
 }

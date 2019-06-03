@@ -3,5 +3,5 @@
  * @enum {string}
  */
 export enum Niveau {
-  "debutant" = "DEBUTANT"
+  'debutant' = 'DEBUTANT'
 }

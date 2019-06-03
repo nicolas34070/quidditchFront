@@ -3,10 +3,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { environment } from '../../environments/environment';
-import {Match} from "../models/Match";
+import {Match} from '../models/Match';
 import * as moment from 'moment';
-import {PusherService} from "./pusher.service";
-import {AuthService} from "../core/services/auth.service";
+import {PusherService} from './pusher.service';
+import {AuthService} from '../core/services/auth.service';
 
 const urlMatchs = 'matchs';
 
@@ -21,8 +21,8 @@ export class MatchDataService {
   // --------------------------------------------------
 
 
-  constructor(private http: HttpClient, private _pusherService: PusherService, private authService: AuthService) {
-    this._channel = this._pusherService.getPusher().subscribe('matchs');
+  constructor(private http: HttpClient, private pusherService: PusherService, private authService: AuthService) {
+    this._channel = this.pusherService.getPusher().subscribe('matchs');
   }
 
 
@@ -34,7 +34,7 @@ export class MatchDataService {
   /**
    * @return employee's channel for the different event available under employee
    */
-  getChannel () {
+  getChannel() {
     return this._channel;
   }
 
@@ -79,7 +79,7 @@ export class MatchDataService {
    * @param {String} id - The match's id
    * @returns {Observable<Match>}
    */
-  getMatchsByArbitre(idArbitre: string): Observable<Match[]>{
+  getMatchsByArbitre(idArbitre: string): Observable<Match[]> {
     // @ts-ignore
     return this.http.get(environment.urls.secureApi + urlMatchs + '/arbitre/' + idArbitre,
       {
@@ -102,7 +102,7 @@ export class MatchDataService {
    * @param {String} id - The match's id
    * @returns {Observable<Match>}
    */
-  getMatchsByTournoi(idTournoi: string): Observable<Match[]>{
+  getMatchsByTournoi(idTournoi: string): Observable<Match[]> {
     // @ts-ignore
     return this.http.get(environment.urls.baseApiUrl + urlMatchs + '/tournoi/' + idTournoi).pipe(
       map(

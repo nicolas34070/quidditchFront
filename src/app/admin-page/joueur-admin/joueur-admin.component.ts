@@ -1,11 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
-import {Joueur} from "../../models/Joueur";
-import {JoueurDataService} from "../../services/joueur-data.service";
-import {JoueurAdminDetailsComponent} from "../joueur-admin/joueur-admin-details/joueur-admin-details.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ToasterService} from "../../core/services/toaster.service";
-import {ColorPaletteTypes} from "../../enums/color-palette";
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {Joueur} from '../../models/Joueur';
+import {JoueurDataService} from '../../services/joueur-data.service';
+import {JoueurAdminDetailsComponent} from '../joueur-admin/joueur-admin-details/joueur-admin-details.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-joueur-admin',
@@ -18,9 +17,9 @@ export class JoueurAdminComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   joueursList: Joueur[];
-  errorMessage = "une erreur est survenue";
+  errorMessage = 'une erreur est survenue';
 
-  constructor(public joueurDataService: JoueurDataService, public _modalService : NgbModal, private toasterService: ToasterService) { }
+  constructor(private joueurDataService: JoueurDataService, private modalService: NgbModal) { }
 
   displayedColumns: string[] = ['nom', 'nationalite', 'poste', 'equipe'];
   dataSource: MatTableDataSource<Joueur>  = null;
@@ -30,8 +29,7 @@ export class JoueurAdminComponent implements OnInit {
   }
 
   onChange() {
-    this.joueurDataService.getJoueurs().subscribe((joueurs: Joueur[]) =>
-    {
+    this.joueurDataService.getJoueurs().subscribe((joueurs: Joueur[]) => {
       this.joueursList = joueurs;
       this.dataSource = new MatTableDataSource(this.joueursList);
       this.dataSource.paginator = this.paginator;
@@ -40,13 +38,9 @@ export class JoueurAdminComponent implements OnInit {
       this.dataSource.filterPredicate = (data, filter) => {
         const dataStr = data.nom + data.nationalite.nom + data.poste.nom + data.equipe.nom ;
 
-        return dataStr.trim().toLocaleLowerCase().indexOf(filter) != -1;
-      }
-    },
-      error => {
-        this.errorMessage = error.error;
-        this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-      });
+        return dataStr.trim().toLocaleLowerCase().indexOf(filter) !== -1;
+      };
+    });
   }
 
   /**
@@ -63,26 +57,25 @@ export class JoueurAdminComponent implements OnInit {
 
   /**
    * editing
-   * @param {Joueur}
    */
   handleBtnKeyUp(joueur): void {
-    var modalRef =  this._modalService.open(JoueurAdminDetailsComponent);
+    const modalRef =  this.modalService.open(JoueurAdminDetailsComponent);
     modalRef.componentInstance.oldJoueur = joueur;
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 
   newJoueur() {
-    var modalRef =  this._modalService.open(JoueurAdminDetailsComponent);
+    const modalRef =  this.modalService.open(JoueurAdminDetailsComponent);
     modalRef. result.then(() => {
-        this.onChange() },
+        this.onChange(); },
       () => {
 
-      })
+      });
   }
 
 }

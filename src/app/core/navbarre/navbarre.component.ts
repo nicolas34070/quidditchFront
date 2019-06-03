@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {User} from "../../models/User";
-import {AuthService} from "../services/auth.service";
-import {Role} from "../../enums/Role";
+import {User} from '../../models/User';
+import {AuthService} from '../services/auth.service';
+import {Role} from '../../enums/Role';
 
 @Component({
   selector: 'app-navbarre',

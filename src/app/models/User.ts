@@ -1,4 +1,4 @@
-import {Role} from "./Role";
+import {Role} from './Role';
 
 
 export class User {
@@ -30,7 +30,7 @@ export class User {
    * @returns {User} - The user object created from data values
    */
   static mapToUser(data: any): User {
-    var id = data.idUtilisateur == undefined ? data.id : data.idUtilisateur;
+    let id = data.idUtilisateur == undefined ? data.id : data.idUtilisateur;
     return new User(id, data.username, data.roles, data.email);
   }
 
