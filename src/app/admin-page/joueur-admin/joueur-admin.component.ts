@@ -21,7 +21,7 @@ export class JoueurAdminComponent implements OnInit {
 
   constructor(private joueurDataService: JoueurDataService, private modalService: NgbModal) { }
 
-  displayedColumns: string[] = ['nom', 'nationalite', 'poste', 'age', 'equipe'];
+  displayedColumns: string[] = ['nom', 'nationalite', 'poste', 'age', 'equipe', 'league'];
   dataSource: MatTableDataSource<Joueur>  = null;
 
   async ngOnInit() {
@@ -36,7 +36,7 @@ export class JoueurAdminComponent implements OnInit {
       this.dataSource.sort = this.sort;
 
       this.dataSource.filterPredicate = (data, filter) => {
-        const dataStr = data.nom + data.nationalite.nom + data.poste.nom + data.equipe.nom + data.age ;
+        const dataStr = data.nom + data.nationalite.nom + data.poste.nom + data.equipe.nom + data.age + data.league.nom ;
 
         return dataStr.trim().toLocaleLowerCase().indexOf(filter) !== -1;
       };

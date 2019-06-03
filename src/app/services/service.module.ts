@@ -8,6 +8,7 @@ import {TerrainDataService} from './terrain-data.service';
 import {PaysDataService} from './pays-data.service';
 import {PosteDataService} from './poste-date.service';
 import {PusherService} from './pusher.service';
+import {NiveauDataService} from './niveau-data.service';
 
 
 
@@ -23,7 +24,8 @@ import {PusherService} from './pusher.service';
     TerrainDataService,
     PaysDataService,
     PosteDataService,
-    PusherService
+    PusherService,
+    NiveauDataService
   ]
 })
 

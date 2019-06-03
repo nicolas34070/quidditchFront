@@ -9,6 +9,8 @@ import {EquipeDataService} from '../../../services/equipe-data.service';
 import {Equipe} from '../../../models/Equipe';
 import {PosteDataService} from '../../../services/poste-date.service';
 import {Poste} from '../../../models/Poste';
+import {Niveau} from '../../../models/Niveau';
+import {NiveauDataService} from '../../../services/niveau-data.service';
 
 
 @Component({
@@ -30,13 +32,18 @@ export class JoueurAdminDetailsComponent implements OnInit {
 
   defaultposte: number;
   posteList: Poste[] = [];
+
+  defaultNiveau: number;
+  niveauList: Niveau[] = [];
+
   errorMessage = 'une erreur est survenue';
 
   constructor(private fb: FormBuilder, public activeModal: NgbActiveModal, private joueurDataService: JoueurDataService,
               private paysDataService: PaysDataService,
-              private equipeDataService: EquipeDataService, private posteDataService: PosteDataService) {
-    this.createForm();
-  }
+              private equipeDataService: EquipeDataService, private posteDataService: PosteDataService,
+              private niveauDataService: NiveauDataService) {
+                this.createForm();
+              }
 
   createForm() {
     this.angForm = this.fb.group({
@@ -44,7 +51,8 @@ export class JoueurAdminDetailsComponent implements OnInit {
       poste: ['', Validators.required ],
       nationalite: ['', Validators.required ],
       equipe: ['', Validators.required ],
-      age:  ['', Validators.required ]
+      age:  ['', Validators.required ],
+      league: ['', Validators.required ]
     });
   }
 
@@ -64,6 +72,11 @@ export class JoueurAdminDetailsComponent implements OnInit {
       this.posteList = equipes;
       this.defaultposte =  this.oldJoueur != null ? this.oldJoueur.poste.idPoste : this.posteList[0].idPoste;
     });
+
+    this.niveauDataService.getNiveaux().subscribe((niveaux: Niveau[]) => {
+      this.niveauList = niveaux;
+      this.defaultNiveau =  this.oldJoueur != null ? this.oldJoueur.league.idNiveau : this.niveauList[0].idNiveau;
+    });
   }
 
 
@@ -76,6 +89,7 @@ export class JoueurAdminDetailsComponent implements OnInit {
     joueur.nationalite.idPays = this.angForm.value.nationalite;
     joueur.poste.idPoste = this.angForm.value.poste;
     joueur.equipe.idEquipe = this.angForm.value.equipe;
+    joueur.league.idNiveau = this.angForm.value.league;
 
     if (this.oldJoueur != null) {
       joueur.idJoueur = this.oldJoueur.idJoueur;

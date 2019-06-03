@@ -72,12 +72,30 @@
     </div>
 
     <div class="form-group">
+      <p>
+        <mat-form-field>
+          <mat-label>League</mat-label>
+          <select matNativeControl formControlName="league" [(ngModel)]="this.defaultNiveau" name="league">
+            <option *ngFor="let niveau of niveauList" [value]="niveau.idNiveau">
+              {{niveau.nom}}
+            </option>
+          </select>
+        </mat-form-field>
+      </p>
+    </div>
+    <div *ngIf="angForm.controls['league'].invalid && (angForm.controls['league'].dirty || angForm.controls['league'].touched)" class="alert alert-danger">
+      <div *ngIf="angForm.controls['league'].errors.required">
+        L'équipe est requis.
+      </div>
+    </div>
+
+    <div class="form-group">
       <label>Age:</label>
       <input class="form-control" formControlName="age" type="number"  ngModel="{{oldJoueur?.age}}">
     </div>
     <div *ngIf="angForm.controls['age'].invalid && (angForm.controls['age'].dirty || angForm.controls['age'].touched)" class="alert alert-danger">
       <div *ngIf="angForm.controls['age'].errors.required">
-        Le nom est requis.
+        L'age est requis.
       </div>
     </div>
 

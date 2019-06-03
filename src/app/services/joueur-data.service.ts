@@ -73,7 +73,9 @@ export class JoueurDataService {
         nom: joueur.nom || '',
         nationalite: joueur.nationalite.idPays,
         poste: joueur.poste.idPoste,
-        equipe: joueur.equipe.idEquipe
+        equipe: joueur.equipe.idEquipe,
+        age: joueur.age,
+        league: joueur.league.idNiveau
       };
       return this.http.post(environment.urls.secureApi + urlJoueurs, body,
         {
@@ -100,7 +102,9 @@ export class JoueurDataService {
         nom: joueur.nom,
         nationalite: joueur.nationalite.idPays,
         poste: joueur.poste.idPoste,
-        equipe: joueur.equipe.idEquipe
+        equipe: joueur.equipe.idEquipe,
+        age: joueur.age,
+        league: joueur.league.idNiveau
       };
 
       return this.http.put(environment.urls.secureApi + urlJoueurs + '/' + joueur.idJoueur, body,
