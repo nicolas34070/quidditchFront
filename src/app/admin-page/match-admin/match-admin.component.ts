@@ -5,6 +5,7 @@ import {MatchDataService} from '../../services/match-data.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatchAdminDetailsComponent} from './match-admin-details/match-admin-details.component';
 import {ToasterService} from '../../core/services/toaster.service';
+import * as moment from '../../match-page/match-page.component';
 
 @Component({
   selector: 'app-match-admin',
@@ -24,8 +25,28 @@ export class MatchAdminComponent implements OnInit {
   dataSource: MatTableDataSource<Match>  = null;
 
   async ngOnInit() {
+
+    // subscribe to pusher's event
+    this.matchDataService.getChannel().bind('update', (data) => {
+      const matchs = JSON.parse(data);
+      this.onChangeData(matchs);
+    });
+
     this.onChange();
   }
+
+  onChangeData($data) {
+    const matchs = [];
+
+    $data.map(data => {
+      matchs.push(Match.mapToMatch(data));
+    });
+
+    this.matchsList = matchs;
+    this.dataSource = new MatTableDataSource(this.matchsList);
+
+  }
+
 
   onChange() {
     this.matchDataService.getMatchsAdmin().subscribe((matchs: Match[]) => {

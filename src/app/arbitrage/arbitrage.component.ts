@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {Match} from "../models/Match";
-import {MatchDataService} from "../services/match-data.service";
+import {Match} from '../models/Match';
+import {MatchDataService} from '../services/match-data.service';
 import * as moment from 'moment';
-import {ActivatedRoute} from "@angular/router";
-import {ColorPaletteTypes} from "../enums/color-palette";
-import {ToasterService} from "../core/services/toaster.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ColorPaletteTypes} from '../enums/color-palette';
+import {ToasterService} from '../core/services/toaster.service';
+import {Role} from '../enums/Role';
+import {AuthService} from '../core/services/auth.service';
 
 @Component({
   selector: 'app-arbitrage',
@@ -15,30 +17,36 @@ export class ArbitrageComponent implements OnInit {
 
 
   public matchesList: Match[] = [];
-  public id : string = "1";
-  errorMessage = "une erreur est survenue";
+  public id = '1';
+  errorMessage = 'une erreur est survenue';
 
-  constructor(private route: ActivatedRoute, private matchDataService: MatchDataService, private toasterService: ToasterService) { }
+  constructor(private route: ActivatedRoute, private matchDataService: MatchDataService, private authService: AuthService,
+              private router: Router) {
+    const user = JSON.parse(this.authService.getUser());
+
+    const userRole = user.roles[0];
+
+    if (userRole !== Role.arbitre) {
+      this.router.navigate(['/admin']);
+    }
+
+  }
 
   async ngOnInit() {
 
 
     this.route.params.subscribe(params => {
-      this.id = params['id']
+      this.id = params.id;
 
       this.matchDataService.getMatchsByArbitre(this.id).subscribe((matches: Match[]) => {
         matches.map(match => {
           if (match.dateFin == null ) {
-            if (match.dateDebut<= (moment())) {
-              this.matchesList.push(match)
+            if (match.dateDebut <= (moment())) {
+              this.matchesList.push(match);
             }
           }
         } );
-      },
-        error => {
-          this.errorMessage = error.error;
-          this.toasterService.displayToast(this.errorMessage, ColorPaletteTypes.warn, 3000);
-        });
+      });
     });
   }
 

@@ -25,7 +25,7 @@ export class MatchPageComponent implements OnInit {
 
     // subscribe to pusher's event
     this.matchDataService.getChannel().bind('update', (data) => {
-      let matchs = JSON.parse(data);
+      const matchs = JSON.parse(data);
       this.onChangeData(matchs);
     });
 
